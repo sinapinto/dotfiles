@@ -1,0 +1,56 @@
+"urxvt"
+    Mod1 + Return
+
+"$HOME/bin/youtube "$(xclip -o)" &> /dev/null"
+    Mod1 + y
+
+"scrot"
+    Mod1 + bracketleft
+
+"pomf >/dev/null"
+    Mod1 + bracketright
+
+"urxvt -e vim $HOME/.todo"
+    Mod1 + apostrophe
+
+"firefox &>/dev/null"
+    Mod1 + w
+"dwb &>/dev/null"
+    Mod1 + e
+
+# Music
+"mpc toggle"
+    Mod1 + p
+
+"mpc seek +30"
+    Mod1 + s
+
+"mpc prev"
+    Mod1 + i
+
+"mpc next"
+    Mod1 + o
+
+"mpc random"
+    Mod1 + z
+
+# Volume
+"amixer set Master 3%+ unmute"
+    F2
+
+"amixer set Master 3%- unmute"
+    F1
+
+"amixer set Master toggle"
+    F4
+
+"amixer set Master 3%+ unmute"
+    XF86AudioRaiseVolume
+
+"amixer set Master 3%- unmute"
+    XF86AudioLowerVolume
+
+"amixer set Master toggle"
+    XF86AudioMute
+
+# vi:syntax=sh
