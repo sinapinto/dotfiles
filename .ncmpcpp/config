@@ -1,0 +1,34 @@
+################# 
+#.ncmpcpp/config
+#################
+header_visibility               = "no"
+statusbar_visibility            = "no"
+titles_visibility               = "no"
+playlist_disable_highlight_delay = "2"
+message_delay_time              = "1"
+# playlist_display_mode         = "columns"
+ask_before_clearing_playlists   = no
+song_list_format                = "{$2%a$9 - $7%t $R$1(%l)$9}|{$2%a$9 - $7%f $R$1(%l)$9}|{$9$7 %f $R$1(%l)$9}"
+song_columns_list_format        = "(7f)[green]{l} (20)[red]{a} (45)[cyan]{t|f} (25)[magenta]{b}"
+progressbar_color               = "black"
+locked_screen_width_part        = "50"
+screen_switcher_mode            = "playlist,playlist_editor"
+playlist_shorten_total_times    = "yes"
+centered_cursor                 = "yes"
+display_remaining_time          = "no"
+display_bitrate                 = "yes"
+#allow_physical_files_deletion  = "yes"
+main_window_color               = "cyan"
+main_window_highlight_color     = "cyan"
+active_column_color             = "green"
+user_interface                  = "alternative"
+
+## 1 - black
+## 2 - red
+## 3 - green
+## 4 - yellow
+## 5 - blue
+## 6 - magenta
+## 7 - cyan
+## 8 - white
+## 9 - end
