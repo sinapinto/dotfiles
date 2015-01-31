@@ -4,7 +4,6 @@ export PATH=$PATH:$HOME/bin
 autoload -U colors && colors
 
 eval `dircolors -b ~/.dir_colors`
-
 R=$fg_bold[red]
 G=$fg_bold[green]
 M=$fg_no_bold[green]
@@ -12,9 +11,10 @@ Y=$fg_no_bold[yellow]
 B=$fg_no_bold[blue]
 C=$fg_no_bold[cyan]
 RE=$reset_color
+#❯
 setopt prompt_subst
-PROMPT='`[ $? -eq 0 ] && echo "%{$G%}%n in%{$RE%}%{$fg[green]%} %~ %{$Y%}❯%{$R%}❯%{$M%}❯ %{$RE%}" ||\
-                         echo "%{$G%}%n in%{$RE%}%{$R%} %~ ❯❯❯ %{$RE%}"`'
+PROMPT='`[ $? -eq 0 ] && echo "%{$G%}%n in%{$RE%}%{$fg[green]%} %~ %{$Y%}>%{$R%}>%{$M%}> %{$RE%}" ||\
+                         echo "%{$G%}%n in%{$RE%}%{$R%} %~ >>> %{$RE%}"`'
 source $HOME/.zsh_git_prompt
 
 HISTSIZE=1000
@@ -92,13 +92,18 @@ sub(){
     fi
 }
 
+bindkey "^J" backward-word
+bindkey "^H" backward-kill-word
+bindkey "^K" forward-word
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[00;33m'
 export LESS_TERMCAP_us=$'\E[01;31m'
 export LESS_TERMCAP_me=$'\E[0m'
 export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_ue=$'\E[0m'
-
-bindkey "^J" backward-word
-bindkey "^H" backward-kill-word
-bindkey "^K" forward-word
+export EDITOR=vim

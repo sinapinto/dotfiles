@@ -31,9 +31,6 @@
 "mpc next"
     Mod1 + o
 
-"mpc random"
-    Mod1 + z
-
 # Volume
 "amixer set Master 3%+ unmute"
     F2
