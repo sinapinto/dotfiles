@@ -13,6 +13,8 @@
 "urxvt -e vim $HOME/.todo"
     Mod1 + apostrophe
 
+"jumanji &>/dev/null"
+    Mod1 + r
 "firefox &>/dev/null"
     Mod1 + w
 "dwb &>/dev/null"

@@ -1,32 +1,46 @@
-source $HOME/.bash_aliases
 export PATH=$PATH:$HOME/bin
-
+export EDITOR=vim
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[00;33m'
+export LESS_TERMCAP_us=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_ue=$'\E[0m'
 autoload -U colors && colors
-
 eval `dircolors -b ~/.dir_colors`
-R=$fg_bold[red]
-G=$fg_bold[green]
-M=$fg_no_bold[green]
-Y=$fg_no_bold[yellow]
-B=$fg_no_bold[blue]
-C=$fg_no_bold[cyan]
-RE=$reset_color
-#❯
+
 setopt prompt_subst
-PROMPT='`[ $? -eq 0 ] && echo "%{$G%}%n in%{$RE%}%{$fg[green]%} %~ %{$Y%}>%{$R%}>%{$M%}> %{$RE%}" ||\
-                         echo "%{$G%}%n in%{$RE%}%{$R%} %~ >>> %{$RE%}"`'
-source $HOME/.zsh_git_prompt
+#R=$fg_bold[red]
+#G=$fg_bold[green]
+#M=$fg_no_bold[green]
+#Y=$fg_no_bold[yellow]
+#B=$fg_no_bold[blue]
+#C=$fg_no_bold[cyan]
+#RE=$reset_color
+#PROMPT='`[ $? -eq 0 ] && echo "%{$G%}%n in%{$RE%}%{$fg[green]%} %~ %{$Y%}>%{$R%}>%{$M%}> %{$RE%}" ||\
+                         #echo "%{$G%}%n in%{$RE%}%{$R%} %~ >>> %{$RE%}"`'
+#source $HOME/.zsh_git_prompt
+
+source $HOME/agnoster.zsh-theme
+#source $HOME/powerline.zsh-theme
 
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
-
 autoload -Uz compinit
 compinit
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-
+bindkey "^J" backward-word
+bindkey "^H" backward-kill-word
+bindkey "^K" forward-word
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+################################ ALIASES ##############################
+source $HOME/.bash_aliases
 extract () {
     if [ -f $1 ] ; then
         case $1 in
@@ -46,6 +60,7 @@ extract () {
     fi
 }
 
+mkdir(){ /usr/bin/mkdir $1 && cd $1 }
 cd(){ builtin cd $1 && ls --color=auto}
 mu () { mupdf $1 & disown }
 mp() { mpv $1 &>/dev/null & disown }
@@ -91,19 +106,3 @@ sub(){
         sublime -n $@ &>/dev/null & disown
     fi
 }
-
-bindkey "^J" backward-word
-bindkey "^H" backward-kill-word
-bindkey "^K" forward-word
-bindkey "^P" up-line-or-search
-bindkey "^N" down-line-or-search
-bindkey "^A" beginning-of-line
-bindkey "^E" end-of-line
-
-export LESS_TERMCAP_mb=$'\E[01;31m'
-export LESS_TERMCAP_md=$'\E[00;33m'
-export LESS_TERMCAP_us=$'\E[01;31m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export EDITOR=vim
