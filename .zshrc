@@ -60,7 +60,7 @@ extract () {
     fi
 }
 
-mkdir(){ /usr/bin/mkdir $1 && cd $1 }
+mkdir(){ /usr/bin/mkdir -p "$@" && cd "$1" }
 cd(){ builtin cd $1 && ls --color=auto}
 mu () { mupdf $1 & disown }
 mp() { mpv $1 &>/dev/null & disown }

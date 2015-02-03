@@ -17,8 +17,8 @@ URxvt.keysym.M-u:           perl:url-select:select_next
 #define S_cyan          #2aa198
 #define S_green         #859900
 
-#define S_base03        #002b36
-#define S_base02        #073642
+#define S_base03        #1c1c1c
+#define S_base02        #232729
 #define S_base01        #586e75
 #define S_base00        #657b83
 #define S_base0         #839496
