@@ -1,0 +1,31 @@
+#!/bin/sh
+
+alias wm='exec bwm'
+alias gitc='git checkout -b new_branch'
+alias p='pwd'
+alias xd='xrdb -load $HOME/.Xresources'
+alias keys='killall xbindkeys; xbindkeys'
+alias lab='ssh -X spinto@linux.csc.uvic.ca'
+alias m='ncmpcpp'
+alias gp='la | grep -i'
+alias -g S='| curl -F "sprunge=<-" http://sprunge.us'
+
+alias ls='ls -F --color=auto'
+alias la='ls -FA'
+alias l='ls -lFh'
+alias lf='ls -Ft |head -n6'
+alias ll='ls -alF'
+alias grep='grep --color=auto'
+alias la='ls -A'
+alias v='vim'
+alias ..='cd ..'
+
+alias -- +='sudo'
+
+alias q='pacman -Q|grep -i '
+alias r='sudo pacman -Rsn'
+alias i='sudo pacman -S'
+alias s='pacman -Ss'
+alias u='sudo pacman -Syu'
+
+alias al='vim $HOME/shell/aliases'

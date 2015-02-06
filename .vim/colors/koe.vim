@@ -59,7 +59,7 @@ hi Special term=bold ctermfg=5
 hi Identifier term=underline ctermfg=6
 hi Statement term=bold ctermfg=3
 hi PreProc term=underline ctermfg=5
-hi Type term=underline ctermfg=2
+hi Type term=underline ctermfg=10
 hi Ignore cterm=bold ctermfg=7
 hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1
 hi Todo term=standout ctermfg=0 ctermbg=3

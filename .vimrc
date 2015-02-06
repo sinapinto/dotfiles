@@ -1,5 +1,6 @@
 let mapleader = ","
 
+nnoremap Q <nop> " disable stupid ex-mode
 nnoremap <C-h> <C-w><C-h>
 nnoremap <C-l> <C-w><C-l>
 nnoremap <C-k> <C-b>
@@ -83,9 +84,25 @@ set nu
 set cc=80
 "colorscheme koe
 set background=dark
-colorscheme solarized
+"colorscheme solarized
+colorscheme koe
 
 filetype plugin on
 
 autocmd FileType make setlocal noexpandtab  " makefile tabbing
-set t_Co=256
+
+if $TERM != "linux"
+   set t_Co=256
+endif
+
+let g:syntastic_error_symbol = '✘'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_style_error_symbol = '✘'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_enable_highlighting = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_full_redraws = 0

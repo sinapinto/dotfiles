@@ -1,11 +1,6 @@
+# Apps
 "urxvt"
     Mod1 + Return
-
-"$HOME/bin/youtube "$(xclip -o)" &> /dev/null"
-    Mod1 + y
-
-"scrot"
-    Mod1 + bracketleft
 
 "pomf >/dev/null"
     Mod1 + bracketright
@@ -15,8 +10,10 @@
 
 "jumanji &>/dev/null"
     Mod1 + r
+
 "firefox &>/dev/null"
     Mod1 + w
+
 "dwb &>/dev/null"
     Mod1 + e
 

@@ -14,8 +14,9 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
     unset f
 fi
 
-if [[ -z "$1" ]]; then
-    xsetroot -solid \#1c1c1c
+if [ -z "$1" ]; then
+    ~/.fehbg
+    #xsetroot -solid \#00161c
     exec dwm
 fi
 
