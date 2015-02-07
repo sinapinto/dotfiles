@@ -27,7 +27,7 @@ set pastetoggle=<F8>
 
 filetype indent on " enable indentation per language
 
-set scrolloff=10 " Define the offset with the cursor when moving vertically
+set scrolloff=7 " Define the offset with the cursor when moving vertically
 
 " create a backup of existing files, delete afterwards
 set noswapfile
@@ -49,6 +49,7 @@ set lbr                 " enable line break
 set sbr=>               " line break indicator
 
 set splitright          " Open vsplits on the right
+set splitbelow          " Open hsplits below
 set nofoldenable    " disable folding
 
 nnoremap j gj
@@ -95,14 +96,20 @@ if $TERM != "linux"
    set t_Co=256
 endif
 
+cmap w!! w !sudo tee > /dev/null %
+
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_style_error_symbol = '✘'
 let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_enable_highlighting = 0
 let g:syntastic_check_on_wq = 0
-let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_open = 1
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_python_checkers = ['pylint']
+"let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_full_redraws = 0
+
+
+autocmd FileType c nnoremap <F6> :!./%:r<CR>
+autocmd FileType c nnoremap <F5> :!clear; make CFLAGS="-Wall -Wextra -pedantic -std=c99" CC=gcc %:r 2>&1 \|less<CR>

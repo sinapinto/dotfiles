@@ -1,31 +1,42 @@
 #!/bin/sh
 
+# random stuff
 alias wm='exec bwm'
-alias gitc='git checkout -b new_branch'
-alias p='pwd'
 alias xd='xrdb -load $HOME/.Xresources'
-alias keys='killall xbindkeys; xbindkeys'
+alias keys='killall xbindkeys && xbindkeys'
 alias lab='ssh -X spinto@linux.csc.uvic.ca'
-alias m='ncmpcpp'
-alias gp='la | grep -i'
+alias al='vim $HOME/shell/aliases'
 alias -g S='| curl -F "sprunge=<-" http://sprunge.us'
+alias v='vim'
+alias m='ncmpcpp'
 
+# utils
 alias ls='ls -F --color=auto'
 alias la='ls -FA'
 alias l='ls -lFh'
 alias lf='ls -Ft |head -n6'
 alias ll='ls -alF'
-alias grep='grep --color=auto'
 alias la='ls -A'
-alias v='vim'
+alias g='ls -A | grep -i'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias du='du -sh'
+alias df='df -h'
+alias p='pwd'
 alias ..='cd ..'
 
-alias -- +='sudo'
+# git
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit -m'
+alias gp='git push origin master'
+alias gb='git checkout -b new_branch'
+alias gl='git log --decorate --pretty=oneline --abbrev-commit --graph'
 
-alias q='pacman -Q|grep -i '
+# pacman
+alias q='pacman -Q|grep -i'
 alias r='sudo pacman -Rsn'
 alias i='sudo pacman -S'
 alias s='pacman -Ss'
 alias u='sudo pacman -Syu'
-
-alias al='vim $HOME/shell/aliases'
