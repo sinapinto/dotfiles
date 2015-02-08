@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # random stuff
+alias webm='ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y screen_record.webm'
 alias wm='exec bwm'
 alias xd='xrdb -load $HOME/.Xresources'
 alias keys='killall xbindkeys && xbindkeys'
@@ -13,9 +14,8 @@ alias m='ncmpcpp'
 # utils
 alias ls='ls -F --color=auto'
 alias la='ls -FA'
-alias l='ls -lFh'
 alias lf='ls -Ft |head -n6'
-alias ll='ls -alF'
+alias ll='ls -ahlF'
 alias la='ls -A'
 alias g='ls -A | grep -i'
 alias grep='grep --color=auto'
