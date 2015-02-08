@@ -1,5 +1,5 @@
 # exit if we were called form an interactive shell
-[[ $- != *i* ]] && return
+[[ $- != *i* ]] && return 1
 
 {
    # compile the completion dump to increase startup speed.

@@ -5,7 +5,7 @@
 "pomf >/dev/null"
     Mod1 + bracketright
 
-"urxvt -e vim $HOME/.todo"
+"urxvt -e vim $HOME/scripts/.todo"
     Mod1 + apostrophe
 
 "jumanji &>/dev/null"

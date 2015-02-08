@@ -33,6 +33,7 @@ alias gc='git commit -m'
 alias gp='git push origin master'
 alias gb='git checkout -b new_branch'
 alias gl='git log --decorate --pretty=oneline --abbrev-commit --graph'
+alias gd='git diff'
 
 # pacman
 alias q='pacman -Q|grep -i'
