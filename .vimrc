@@ -86,8 +86,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_full_redraws = 0
 filetype plugin on
 autocmd FileType make setlocal noexpandtab  " makefile tabbing
-autocmd FileType c nnoremap <F6> :!./%:r<CR>
-autocmd FileType c nnoremap <F5> :!clear; make CFLAGS="-Wall -Wextra -pedantic -std=c99" CC=gcc %:r 2>&1 \|less<CR>
+"autocmd FileType c nnoremap <F6> :!./%:r<CR>
+"autocmd FileType c nnoremap <F5> :!clear; make CFLAGS="-Wall -Wextra -pedantic -std=c99" CC=gcc %:r 2>&1 \|less<CR>
 
 
 """ Colors

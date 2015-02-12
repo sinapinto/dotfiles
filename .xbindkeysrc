@@ -6,7 +6,7 @@
     Mod1 + bracketright
 
 "urxvt -e vim $HOME/scripts/.todo"
-    Mod1 + apostrophe
+    Menu
 
 "jumanji &>/dev/null"
     Mod1 + r
@@ -22,7 +22,9 @@
     Mod1 + p
 
 "mpc seek +30"
-    Mod1 + s
+    Pause
+"mpc seek -30"
+    Print
 
 "mpc prev"
     Mod1 + i

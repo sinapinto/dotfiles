@@ -13,9 +13,10 @@
 export PATH=$PATH:$HOME/bin
 export VISUAL=vim
 export EDITOR=$VISUAL
-export BROWSER=firefox
+export BROWSER=dwb
 export PAGER=less
 export TERMINAL=rxvt-256color
+export CC=clang
 
 export HISTSIZE=1024
 export SAVEHIST=1024

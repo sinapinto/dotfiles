@@ -27,7 +27,7 @@ highlight CursorLineNR term=NONE cterm=NONE ctermfg=NONE ctermbg=0
 highlight DiffAdd      term=NONE cterm=bold ctermfg=2    ctermbg=NONE
 highlight DiffChange   term=NONE cterm=bold ctermfg=NONE ctermbg=NONE
 highlight DiffDelete   term=NONE cterm=bold ctermfg=7    ctermbg=1
-highlight DiffText     term=NONE cterm=bold ctermfg=7    ctermbg=4
+highlight DiffText     term=NONE cterm=bold ctermfg=NONE    ctermbg=0
 highlight Directory    term=NONE cterm=bold ctermfg=4    ctermbg=0
 highlight ErrorMsg     term=NONE cterm=bold ctermfg=1    ctermbg=0
 highlight FoldColumn   term=NONE cterm=bold ctermfg=0    ctermbg=NONE

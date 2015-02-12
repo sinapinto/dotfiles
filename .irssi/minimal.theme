@@ -233,10 +233,10 @@ formats = {
 line_start = "{line_start}";
 line_start_irssi = "{line_start}";
 
-join = "%g {channick $0} {chanhost %G$1}";
-part = "%r {channick $0} {reason $2}";
-kick = "%r {channick $0} kick {reason $2}";
-quit = "%r {channick $0} {reason $2}";
+join = "%g {channick $0} {chanhost %K$1}";
+part = "%r {channick $0} {reason %K$2}";
+kick = "%r {channick $0} kicked by {reason %K$2}";
+quit = "%r {channick $0} {reason %K$2}";
 quit_once = "{channel $3} {channick $0} {chanhost $1} %kquit %G{reason $2}";
 
 nick_changed = "%g{channick $0} %r {channick $1}";

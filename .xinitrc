@@ -1,7 +1,7 @@
 xset +fp $HOME/.fonts && xset fp rehash
 xset -b
 xset r rate 200 50
-xsetroot -cursor_name left_ptr
+xsetroot -cursor_name left_ptr -bg black -fg white
 setxkbmap -option caps:swapescape
 xrdb -merge $HOME/.Xresources
 xbindkeys &
