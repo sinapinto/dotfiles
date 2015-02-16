@@ -15,7 +15,7 @@ fi
 
 if [ -z "$1" ]; then
     [ -s "$HOME/.fehbg" ] && ~/.fehbg || xsetroot -solid \#00161c
-    exec bwm
+    exec bwm #&> ~/.bwm.log
 fi
 
 # vi:syntax=sh

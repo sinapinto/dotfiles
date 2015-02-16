@@ -16,7 +16,6 @@ playlist_display_mode           = "classic" #(classic/columns)
 ask_before_clearing_playlists   = "no"
 song_list_format                = "{$7%a$9 - $7%t}|{$7%a$9 - $7%f}|{$7 %f}"
 song_columns_list_format        = "(7f)[green]{l} (20)[red]{a} (45)[cyan]{t|f} (25)[magenta]{b}"
-progressbar_color               = "black"
 screen_switcher_mode            = "playlist,playlist_editor"
 playlist_shorten_total_times    = "yes"
 #centered_cursor                 = "yes"
@@ -26,6 +25,10 @@ main_window_color               = "cyan"
 main_window_highlight_color     = "cyan"
 active_column_color             = "green"
 user_interface                  = "classic" #(classic/alternative)
+
+progressbar_look                = "―――"
+progressbar_color               = "black"
+progressbar_elapsed_color       = "white"
 
 #### visualizer
 visualizer_fifo_path            = "/tmp/mpd.fifo"

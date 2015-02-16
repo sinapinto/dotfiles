@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # random stuff
-alias webm='ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y screen_record.webm'
+alias ac'=/usr/share/wicd/daemon/autoconnect.py'
 alias wm='exec bwm'
 alias xd='xrdb -load $HOME/.Xresources'
 alias keys='killall xbindkeys && xbindkeys'
 alias lab='ssh -X spinto@linux.csc.uvic.ca'
-alias al='vim $HOME/shell/aliases'
+alias al='vim $HOME/shell_aliases'
 alias -g S='| curl -F "sprunge=<-" http://sprunge.us'
 alias v='vim'
 alias m='ncmpcpp'
@@ -25,6 +25,7 @@ alias du='du -sh'
 alias df='df -h'
 alias p='pwd'
 alias ..='cd ..'
+alias ...='cd ../..'
 
 # git
 alias gs='git status'

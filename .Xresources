@@ -9,73 +9,48 @@ URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 
 !URxvt*transparent: true
-URxvt*fading: 25
+URxvt*fading: 20
+!dark
+*background: #1d2021
+!*background: #282828
+*foreground: #ebdbb2
+! Black + DarkGrey
+*color0:  #282828
+*color8:  #928374
+! DarkRed + Red
+*color1:  #cc241d
+*color9:  #fb4934
+! DarkGreen + Green
+*color2:  #98971a
+*color10: #b8bb26
+! DarkYellow + Yellow
+*color3:  #d79921
+*color11: #fabd2f
+! DarkBlue + Blue
+*color4:  #458588
+*color12: #83a598
+! DarkMagenta + Magenta
+*color5:  #b16286
+*color13: #d3869b
+! DarkCyan + Cyan
+*color6:  #689d6a
+*color14: #8ec07c
+! LightGrey + White
+*color7:  #a89984
+*color15: #ebdbb2
 
-*background: #191919
-*foreground: #bcbcaf
-!
-! --- standard colors ---
-!
-! black
-*color0:    #262524
-!
-! bright_black
-*color8:    #46423b
-!
-! red
-*color1:    #a04363
-!
-! bright_red
-*color9:    #ae837a
-!
-! green
-*color2:    #9b9329
-!
-! bright_green
-*color10:   #b4aa30
-!
-! yellow
-*color3:    #bf7a29
-!
-! bright_yellow
-*color11:   #c7a551
-!
-! blue
-*color4:    #6a8c8c
-!
-! bright_blue
-*color12:   #74999e
-!
-! magenta
-*color5:    #856774
-!
-! bright_magenta
-*color13:   #9c818e
-!
-! cyan
-*color6:    #757978
-!
-! bright_cyan
-*color14:   #9fa590
-!
-! white
-*color7:    #bcbcaf
-!
-! bright_white
-*color15:   #bcbcaf
-
-URxvt*colorUL:                 #96A8B7
-URxvt*underlineColor:          #96A8B7
+URxvt*colorUL:#96A8B7
+URxvt*underlineColor: #96A8B7
 
 !URxvt*font:-nil-profont-medium-r-normal--12-120-72-72-c-60-iso8859-1
 !URxvt*boldFont:-nil-profont-medium-r-normal--12-120-72-72-c-60-iso8859-1
 
-URxvt*font:xft:Terminess Powerline:size=8
-URxvt*boldFont:xft:Terminess Powerline:size=8:style=bold
+!URxvt*font:xft:Terminess Powerline:size=8
+!URxvt*boldFont:xft:Terminess Powerline:size=8:style=bold
 !
-!URxvt*font:xft:DejaVu Sans Mono for Powerline:size=8:style=Bold
-!URxvt*boldFont:xft:DejaVu Sans Mono for Powerline:size=8:style=Bold
-!URxvt*letterSpace:-1.9
+URxvt*font:xft:Anonymice Powerline:size=10:style=Bold
+URxvt*boldFont:xft:Anonymice Powerline:size=10:style=Bold
+URxvt*letterSpace:-1.0
 
 Xft.antialias: 1
 Xft.autohint: 0

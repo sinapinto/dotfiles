@@ -68,7 +68,7 @@ ban = "$*";
 ########### messages #################################
 
 # the basic styling of how to print message, $0 = nick mode, $1 = nick
-msgnick = "%N $1%K %|%N";
+msgnick = "%N$1%K %|%N";
 
 # $0 = nick mode, $1 = nick
 ownmsgnick = "{msgnick $0 $1}";
@@ -104,11 +104,11 @@ ownprivmsgnick = "%r>%N %|";
 ########## Actions (/ME stuff) #########################
 
 # generic one that's used by most actions
-action = " %y$* %y* %y%|";
+action = "%y$* %y* %y%|";
 
 # own action, both private/public
 # ownaction = "{action $*}";
-ownaction = " %y$* %y*%y%y";
+ownaction = "%y$* %y*%y%y";
 
 # own action with target, both private/public
 ownaction_target = "{action $*}";
@@ -196,7 +196,7 @@ sbend = "";
 topicsbstart = "%BChannel: %b\"$*";
 topicsbend = "$*%b\"";
 
-prompt = "  >%Y ";
+prompt = " >%Y ";
 
 sb = "[$*]";
 sbmode = " %K[%g%g+%n$*%K]";
@@ -233,14 +233,14 @@ formats = {
 line_start = "{line_start}";
 line_start_irssi = "{line_start}";
 
-join = "%g {channick $0} {chanhost %K$1}";
-part = "%r {channick $0} {reason %K$2}";
-kick = "%r {channick $0} kicked by {reason %K$2}";
-quit = "%r {channick $0} {reason %K$2}";
+join = "%G{channick $0} {chanhost %K$1}";
+part = "%R{channick $0} {reason %K$2}";
+kick = "%R{channick $0} kicked by {reason %K$2}";
+quit = "%R{channick $0} {reason %K$2}";
 quit_once = "{channel $3} {channick $0} {chanhost $1} %kquit %G{reason $2}";
 
-nick_changed = "%g{channick $0} %r {channick $1}";
-your_nick_changed = "%g you %r {channick $1}";
+nick_changed = "%G{channick $0} %K->%R {channick $1}";
+your_nick_changed = "%G you %R {channick $1}";
 
 pubmsg = "{pubmsgnick $2 {pubnick \00310$0}}$1";
 

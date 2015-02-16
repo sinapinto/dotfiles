@@ -4,6 +4,10 @@ t(){ test -z "$1" && tmux new || tmux attach }
 mu () { mupdf "$@" & disown }
 mpv() { /usr/bin/mpv "$1" &>/dev/null & disown }
 
+rec() {
+    ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y "$@" 
+}
+
 man() {
     env \
         LESS_TERMCAP_mb=$(printf "\e[01;31m")  \
