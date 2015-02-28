@@ -1,43 +1,14 @@
 URxvt*termName:             rxvt-256color
 URxvt*geometry:             80x20
 URxvt.scrollBar:            false
-!
+
 URxvt*perl-ext-common:      default,matcher,url-select
 URxvt*url-select.launcher:  /home/veggie/bin/launch
 URxvt*matcher.button:       1
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 
-!URxvt*transparent: true
 URxvt*fading: 20
-!dark
-*background: #1d2021
-!*background: #282828
-*foreground: #ebdbb2
-! Black + DarkGrey
-*color0:  #282828
-*color8:  #928374
-! DarkRed + Red
-*color1:  #cc241d
-*color9:  #fb4934
-! DarkGreen + Green
-*color2:  #98971a
-*color10: #b8bb26
-! DarkYellow + Yellow
-*color3:  #d79921
-*color11: #fabd2f
-! DarkBlue + Blue
-*color4:  #458588
-*color12: #83a598
-! DarkMagenta + Magenta
-*color5:  #b16286
-*color13: #d3869b
-! DarkCyan + Cyan
-*color6:  #689d6a
-*color14: #8ec07c
-! LightGrey + White
-*color7:  #a89984
-*color15: #ebdbb2
 
 URxvt*colorUL:#96A8B7
 URxvt*underlineColor: #96A8B7
@@ -47,7 +18,7 @@ URxvt*underlineColor: #96A8B7
 
 !URxvt*font:xft:Terminess Powerline:size=8
 !URxvt*boldFont:xft:Terminess Powerline:size=8:style=bold
-!
+
 URxvt*font:xft:Anonymice Powerline:size=10:style=Bold
 URxvt*boldFont:xft:Anonymice Powerline:size=10:style=Bold
 URxvt*letterSpace:-1.0

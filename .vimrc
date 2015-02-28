@@ -18,14 +18,13 @@ nnoremap <leader>E :set expandtab!<cr>
 vmap <leader>R :!sort<cr>
 nnoremap <silent> <leader>C :set cursorline!<cr>
 nnoremap <silent> <F7> :set number!<cr>
-nnoremap <silent> <F8> :set hlsearch!<cr>
 nnoremap <silent> <F12> :make<cr>
 nnoremap <leader>r :source ~/.vimrc<cr>
 nnoremap <leader>e :e ~/.vimrc<cr>
 
 nnoremap Q <nop>
-nnoremap <C-o> 5j
-nnoremap <C-p> 5k
+nnoremap <C-n> 4j
+nnoremap <C-p> 4k
 nnoremap <C-h> <C-w><C-h>
 nnoremap <C-l> <C-w><C-l>
 nnoremap <C-k> <C-b>
@@ -79,18 +78,14 @@ set cc=80
 
 filetype plugin on
 autocmd FileType make setlocal noexpandtab
-autocmd FileType c nnoremap <F5> :!clear; make CFLAGS="-Wall -Wextra -pedantic -std=c99" CC?=gcc %:r 2>&1 \|less<CR>
+autocmd FileType c nnoremap <F5> :!clear; make %:r 2>&1 \|less<CR>
 autocmd FileType c nnoremap <F6> :!./%:r<CR>
 
 syntax on
 filetype indent on
 
-
 execute pathogen#infect()
 
-nnoremap <C-n> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let Tlist_Exit_OnlyWindow = 1
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_style_error_symbol = '✘'
@@ -102,6 +97,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_full_redraws = 0
 
 let g:gruvbox_italic=0
+
+let g:Imap_UsePlaceHolders = 0
 
 if $TERM != "linux"
    set t_Co=256

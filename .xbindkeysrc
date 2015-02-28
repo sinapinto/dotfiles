@@ -11,9 +11,6 @@
 "jumanji &>/dev/null"
     Mod1 + r
 
-"firefox &>/dev/null"
-    Mod1 + w
-
 "dwb &>/dev/null"
     Mod1 + e
 
@@ -50,5 +47,11 @@
 
 "amixer set Master toggle"
     XF86AudioMute
+
+# Backlight
+"xbacklight -inc 10"
+   Mod1 + F10
+"xbacklight -dec 10"
+   Mod1 + F9
 
 # vi:syntax=sh

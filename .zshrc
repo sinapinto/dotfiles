@@ -3,19 +3,10 @@
 
 ZDOTDIR=${ZDOTDIR:-$HOME}
 
-
-# compile the completion dump to increase startup speed.
-{
-   dump_file="$HOME/.zcompdump"
-   if [[ "$dump_file" -nt "${dump_file}.zwc" || ! -s "${dump_file}.zwc" ]]; then
-      zcompile "$dump_file"
-   fi
-} &!
-
 # shell colors
 autoload -U colors && colors
 eval `dircolors -b ~/.dir_colors`
-. "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
 # prompt
 case $TERM in

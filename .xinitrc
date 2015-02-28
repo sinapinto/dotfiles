@@ -4,6 +4,7 @@ xset r rate 200 50
 xsetroot -cursor_name left_ptr -bg black -fg white
 setxkbmap -option caps:swapescape
 xrdb -merge $HOME/.Xresources
+xrdb -merge $HOME/gruvbox.xres
 xbindkeys &
 
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
@@ -15,7 +16,7 @@ fi
 
 if [ -z "$1" ]; then
     [ -s "$HOME/.fehbg" ] && ~/.fehbg || xsetroot -solid \#00161c
-    exec bwm #&> ~/.bwm.log
+    exec bwm
 fi
 
 # vi:syntax=sh
