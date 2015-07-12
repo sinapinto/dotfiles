@@ -1,8 +1,8 @@
-# Apps
+######### Apps
 "urxvt"
     Mod1 + Return
 
-"pomf >/dev/null"
+"pomf"
     Mod1 + bracketright
 
 "urxvt -e vim $HOME/scripts/.todo"
@@ -11,16 +11,19 @@
 "jumanji &>/dev/null"
     Mod1 + r
 
+"chromium &>/dev/null"
+    Mod1 + c
+
 "dwb &>/dev/null"
     Mod1 + e
 
-# Music
+######## Music
 "mpc toggle"
     Mod1 + p
 
-"mpc seek +30"
+"mpc seek +5"
     Pause
-"mpc seek -30"
+"mpc seek -5"
     Print
 
 "mpc prev"
@@ -29,15 +32,15 @@
 "mpc next"
     Mod1 + o
 
-# Volume
+###### Volume
 "amixer set Master 3%+ unmute"
     F2
 
 "amixer set Master 3%- unmute"
     F1
 
-"amixer set Master toggle"
-    F4
+#"amixer set Master toggle"
+    #F4
 
 "amixer set Master 3%+ unmute"
     XF86AudioRaiseVolume

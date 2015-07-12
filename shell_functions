@@ -1,6 +1,7 @@
 #!/bin/bash
 
-t(){ test -z "$1" && tmux new || tmux attach }
+largepkgs() { pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n }
+t(){ tmux attach || tmux new }
 mu () { mupdf "$@" & disown }
 mpv() { /usr/bin/mpv "$1" &>/dev/null & disown }
 
@@ -51,8 +52,8 @@ touchpad(){
     local deviceid=$(xinput | grep TouchPad | cut -d "=" -f2| cut -f1)
     [ -z $deviceid ] && return 1
     val=$(xinput list-props $deviceid | grep able | tail -c 2)
-    [ $(( ( $val + 1 ) % 2 )) -eq 0 ] && xinput --disable $deviceid \
-                                      || xinput --enable $deviceid
+    [ $val -eq 1 ] && xinput --disable $deviceid \
+                   || xinput --enable $deviceid
 }
 asdf(){
     local file="$HOME/.playlist"
@@ -66,14 +67,6 @@ swap(){
     mv $2 $1
     mv tmp.$1 $2
 }
-sub(){
-    if [[ -z "$1" ]]; then
-        sublime & disown
-    else
-        sublime -n $@ &>/dev/null & disown
-    fi
-}
-
 extract () {
     if [ -f $1 ] ; then
         case $1 in

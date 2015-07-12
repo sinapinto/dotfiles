@@ -14,7 +14,10 @@
 # /Torrents/Downloading/rtorrent.session - for storing rtorrent session information
 #
 
-# system.method.set_key = event.download.finished,notify_me,"execute=/home/veggie/bin/rtorrent_notify,$d.get_name="
+# system.method.set_key = event.download.finished,notify_me,"execute=/home/veggie/scripts/rtorrent_notify,$d.get_name="
+
+system.method.set_key = event.download.finished, move_complete, "execute=move_mp3.sh, $d.get_base_path="
+
  
 # Maximum and minimum number of peers to connect to per torrent.
 min_peers = 40
@@ -69,9 +72,9 @@ ip = 127.0.0.1
 #bind = rakshasa.no
  
 # Port range to use for listening.
-port_range = 55990-56000
+port_range = 45990-46000
  
-scgi_port = 127.0.0.1:5000
+scgi_port = 127.0.0.1:6000
  
 # Start opening ports at a random position within the port range.
 port_random = no
@@ -83,7 +86,7 @@ port_random = no
 # Set whetever the client should try to connect to UDP trackers.
 use_udp_trackers = yes 
 dht = auto
-dht_port = 6881
+dht_port = 6882
 peer_exchange = yes
  
 # Alternative calls to bind and ip that should handle dynamic ip's.

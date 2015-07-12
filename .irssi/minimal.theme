@@ -196,7 +196,7 @@ sbend = "";
 topicsbstart = "%BChannel: %b\"$*";
 topicsbend = "$*%b\"";
 
-prompt = " >%Y ";
+prompt = "[$*] ";
 
 sb = "[$*]";
 sbmode = " %K[%g%g+%n$*%K]";
