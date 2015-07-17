@@ -2,8 +2,8 @@ let mapleader = " "
 
 nnoremap j gj
 nnoremap k gk
-vmap <leader>s ;s/
-vmap <leader>R ;!sort<cr>
+vnoremap <leader>s :s/
+vnoremap <leader>R :!sort<cr>
 nnoremap <leader>s :%s/
 nnoremap <leader>j :bn<cr>
 nnoremap <leader>k :bp<cr>
@@ -12,6 +12,11 @@ nnoremap <leader>h gT
 nnoremap <leader>d :bdelete<cr>
 nnoremap <leader>t :tab sball<cr>
 nnoremap <leader>u :tabnew#<cr>
+
+vnoremap <leader>c :w !curl -F "sprunge=<-" http://sprunge.us
+
+nnoremap <leader>= :tabm +1<cr>
+nnoremap <leader>- :tabm -1<cr>
 
 nnoremap <leader>E :set expandtab!<cr>
 "nnoremap <silent> <F12> :make<cr>

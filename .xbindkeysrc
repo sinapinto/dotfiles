@@ -5,8 +5,8 @@
 "pomf"
     Mod1 + bracketright
 
-"urxvt -e vim $HOME/scripts/.todo"
-    Menu
+# "urxvt -e vim $HOME/scripts/.todo"
+#     Menu
 
 "jumanji &>/dev/null"
     Mod1 + r
@@ -25,6 +25,10 @@
     Pause
 "mpc seek -5"
     Print
+"mpc seek +30"
+    Mod1 + Pause
+"mpc seek -30"
+    Mod1 + Print
 
 "mpc prev"
     Mod1 + i

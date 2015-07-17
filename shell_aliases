@@ -1,14 +1,17 @@
 #!/bin/sh
 
 # random stuff
+alias smi='sudo make install'
+alias rand='feh --bg-scale -z ~/pictures/walls'
+alias s='sudo'
+alias n='nano'
+alias vi='vim'
 alias wg='wicd-gtk'
 alias record='ffmpeg -f x11grab -video_size 1066x550 -i :0.0+240,170 -f alsa -i default -c:v ffvhuff -c:a flac test.mkv'
 alias webcam='mpv /dev/video0'
 alias xd='xrdb -I$HOME -merge $HOME/.Xresources'
 alias xm='xrdb -merge'
 alias keys='killall xbindkeys && xbindkeys'
-alias lab='ssh -X spinto@linux.csc.uvic.ca'
-alias warp='ssh warp@104.131.170.123'
 alias al='vim $HOME/shell_aliases'
 alias v='vim'
 alias m='ncmpcpp'
@@ -32,7 +35,7 @@ alias p='pwd'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
-alias f='find -iname'
+#alias f='find -iname'
 
 # git
 alias gs='git status'
@@ -48,8 +51,10 @@ alias gdl='git diff HEAD~1 HEAD'
 alias gr='git remote -v'
 
 # pacman
-alias q='pacman -Q|grep -i'
-alias r='sudo pacman -Rssn'
-alias i='sudo pacman -S'
-alias s='pacman -Ss'
+alias pacq='pacman -Q|grep -i'
+alias pacr='sudo pacman -Rssn'
+alias paci='sudo pacman -S'
+alias pacs='pacman -Ss'
 alias u='sudo pacman -Syu'
+
+# alias internet='sudo ip link set wlp8s0 up'

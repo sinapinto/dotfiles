@@ -15,7 +15,8 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 [ `pgrep mpd` ] || mpd &>/dev/null
-redshift -l 37.3860517:-122.0838511 &> /dev/null &
-#[ -s "$HOME/.fehbg" ] && ~/.fehbg || xsetroot -solid \#00161c
+redshift -l 37:-122 > /dev/null &
+#redshift -O 3500K > /dev/null &
+# [ -s "$HOME/.fehbg" ] && ~/.fehbg || xsetroot -solid \#00161c
 feh --bg-scale -z ~/pictures/walls
 exec bwm 2> $HOME/bwm.log
