@@ -1,24 +1,5 @@
-# This is an example resource file for rTorrent. Copy to
-# ~/.rtorrent.rc and enable/modify the options as needed. Remember to
-# uncomment the options you wish to enable.
-#
-# Based on original .rtorrent.rc file from http://libtorrent.rakshasa.no/
-# Modified by Lemonberry for rtGui http://rtgui.googlecode.com/
-#
-# This assumes the following directory structure:
-#
-# /Torrents/Downloading - temporaray location for torrents while downloading (see "directory")
-# /Torrents/Complete - Torrents are moved here when complete (see "on_finished")
-# /Torrents/TorrentFiles/Auto - The 'autoload' directory for rtorrent to use.  Place a file
-#           in here, and rtorrent loads it #automatically.  (see "schedule = watch_directory")
-# /Torrents/Downloading/rtorrent.session - for storing rtorrent session information
-#
+system.method.set_key = event.download.finished, move_complete, "execute=rtorrent_done.sh, $d.get_base_path=,$d.get_name="
 
-# system.method.set_key = event.download.finished,notify_me,"execute=/home/veggie/scripts/rtorrent_notify,$d.get_name="
-
-system.method.set_key = event.download.finished, move_complete, "execute=move_mp3.sh, $d.get_base_path="
-
- 
 # Maximum and minimum number of peers to connect to per torrent.
 min_peers = 40
 max_peers = 200

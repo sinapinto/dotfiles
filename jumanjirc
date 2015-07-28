@@ -7,7 +7,7 @@ set auto_save 60
 set default_session_name start
 set session_restored true
 
-#set proxy localhost:8118
+set proxy localhost:8118
 set close-window-with-last-tab false
 
 script ~/.config/jumanji/scripts/hints.js

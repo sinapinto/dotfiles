@@ -1,8 +1,12 @@
 !#define FONT xft:Droid Sans Mono for Powerline
 !#define FONT xft:DejaVu Sans Mono for Powerline
-#define FONT xft:Anonymous Pro for Powerline
+!#define FONT xft:Anonymous Pro for Powerline
+!#define FONT xft:Monaco for Powerline
+!#define FONT xft:Inconsolata for Powerline
+#define FONT xft:DejaVu Sans Mono for Powerline
 URxvt*termName:             rxvt-256color
 URxvt*geometry:             80x20
+URxvt.internalBorder:       0
 URxvt.scrollBar:            false
 URxvt*perl-ext-common:      default,matcher,url-select
 URxvt*url-select.launcher:  /home/veggie/bin/launch
@@ -13,14 +17,23 @@ URxvt*fading:               20
 URxvt*colorUL:              #96A8B7
 URxvt*underlineColor:       #96A8B7
 URxvt*letterSpace:          -1
+URxvt*lineSpace:            0
 URxvt*keysym.C-1:           command:\033]710;FONT:size=8\007
 URxvt*keysym.C-2:           command:\033]710;FONT:size=9\007
-URxvt*keysym.C-3:           command:\033]710;FONT:size=10:style=Bold\007
-URxvt*keysym.C-4:           command:\033]710;FONT:size=11:style=Bold\007
-URxvt*keysym.C-5:           command:\033]710;FONT:size=12:style=Bold\007
-URxvt*keysym.C-6:           command:\033]710;FONT:size=13:style=Bold\007
-URxvt*keysym.C-7:           command:\033]710;FONT:size=14:style=Bold\007
-URxvt*keysym.C-8:           command:\033]710;FONT:size=16:style=Bold\007
+URxvt*keysym.C-3:           command:\033]710;FONT:size=10\007
+URxvt*keysym.C-4:           command:\033]710;FONT:size=11\007
+URxvt*keysym.C-5:           command:\033]710;FONT:size=12\007
+URxvt*keysym.C-6:           command:\033]710;FONT:size=13\007
+URxvt*keysym.C-7:           command:\033]710;FONT:size=15\007
+URxvt*keysym.C-8:           command:\033]710;FONT:size=16\007
 URxvt*keysym.C-9:           command:\033]720;12\007
 URxvt*keysym.C-0:           command:\033]721;12\007
-URxvt.font:                 FONT:size=10:style=Bold
+URxvt.font:                 FONT:size=10
+
+Xft.antialias:  1
+Xft.autohint:   0
+Xft.dpi:        96
+Xft.hinting:    1
+Xft.hintstyle:  hintfull
+Xft.lcdfilter:  lcddefault
+Xft.rgba:       rgb

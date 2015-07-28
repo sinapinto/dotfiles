@@ -3,10 +3,16 @@
 largepkgs() { pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n }
 t(){ tmux attach || tmux new }
 mu () { mupdf "$@" & disown }
-mpv() { /usr/bin/mpv "$1" &>/dev/null & disown }
+mpv() {
+    if [ $1 = '-s' ]; then
+        /usr/bin/mpv --shuffle "$2" &>/dev/null & disown
+    else
+        /usr/bin/mpv "$1" &>/dev/null & disown
+    fi
+}
 
 rec() {
-    ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y "$@" 
+    ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y "$@"
 }
 
 man() {
@@ -40,14 +46,16 @@ mkdirf() {
    mkdir -p "$@" && cd "$_";
 }
 
-d(){ 
+d(){
     case $1 in
         i) dtach -A /tmp/irssi.dtach irssi ;;
         r) dtach -A /tmp/rtorrent.dtach rtorrent ;;
+        z) dtach -A /tmp/zsh.dtach zsh ;;
         *) dtach -A /tmp/$1.dtach $1 ;;
     esac
 
 }
+
 touchpad(){
     local deviceid=$(xinput | grep TouchPad | cut -d "=" -f2| cut -f1)
     [ -z $deviceid ] && return 1
@@ -55,18 +63,21 @@ touchpad(){
     [ $val -eq 1 ] && xinput --disable $deviceid \
                    || xinput --enable $deviceid
 }
-asdf(){
-    local file="$HOME/.playlist"
-    [ -f $file ] || return 1
-    [ -f "${file}.tmp" ] && rm -f "${file}.tmp" || echo "no temp file found"
-    shuf -n $(wc -l $file | cut -d " " -f1) $file > "${file}.tmp"
-    mpv --playlist="${file}.tmp"
-}
+
+# asdf(){
+#     local file="$HOME/.playlist"
+#     [ -f $file ] || return 1
+#     [ -f "${file}.tmp" ] && rm -f "${file}.tmp" || echo "no temp file found"
+#     shuf -n $(wc -l $file | cut -d " " -f1) $file > "${file}.tmp"
+#     mpv --playlist="${file}.tmp"
+# }
+
 swap(){
     mv $1 tmp.$1
     mv $2 $1
     mv tmp.$1 $2
 }
+
 extract () {
     if [ -f $1 ] ; then
         case $1 in
@@ -109,4 +120,3 @@ elfcompress() {
    rm /tmp/compress.gz
    rm /tmp/unpack.header
 }
-# vi:syntax=sh
