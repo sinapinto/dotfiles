@@ -5,9 +5,9 @@ t(){ tmux attach || tmux new }
 mu () { mupdf "$@" & disown }
 mpv() {
     if [ $1 = '-s' ]; then
-        /usr/bin/mpv --shuffle "$2" &>/dev/null & disown
+        /usr/bin/mpv --fs --shuffle "$2" &>/dev/null & disown
     else
-        /usr/bin/mpv "$1" &>/dev/null & disown
+        /usr/bin/mpv --fs "$1" &>/dev/null & disown
     fi
 }
 
@@ -32,6 +32,18 @@ cd() {
     else
         cd ~
     fi
+}
+
+up() {
+    if [ -z $1 ]; then
+        cd ..
+        return 0
+    fi
+    local cmd='../'
+    for (( i=1; i<$1; i++)); do
+       cmd=${cmd}../
+    done
+    cd $cmd
 }
 
 cpf() {
@@ -120,3 +132,5 @@ elfcompress() {
    rm /tmp/compress.gz
    rm /tmp/unpack.header
 }
+
+c() { noglob echo $(( $* )) }

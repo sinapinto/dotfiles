@@ -9,10 +9,10 @@ xbindkeys &
 xrdb -load $HOME/.Xresources
 xrdb -merge $HOME/gruvbox.xres
 
-pgrep dunst >/dev/null     || dunst -key q &
+pgrep dunst >/dev/null     || dunst -key q -to 3 &
 pgrep mpd >/dev/null       || mpd &>/dev/null
-pgrep redshift >/dev/null  || redshift -l 37:-122 > /dev/null &
+pgrep redshift >/dev/null  || redshift -t 4500K:3500K &> /dev/null &
 
-feh --bg-scale -z ~/pictures/skeeto
+feh --bg-scale -z ~/pictures/walls
 
-exec bwm 2> $HOME/bwm.log
+bwm 2> $HOME/bwm.log

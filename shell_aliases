@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # random stuff
+alias ag='ag --nogroup --color-path "0;35" --color-match "1;31" --nonumbers -U'
+alias irb='irb --simple-prompt'
 alias mb='xmodmap -e "pointer = 3 2 1'
 alias define='sdcv'
 alias flib='find /usr/include -name '

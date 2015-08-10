@@ -1,5 +1,15 @@
 let mapleader = " "
 
+" hard to press
+noremap ( ^
+noremap ) $
+noremap ( ^
+noremap ) $
+noremap <tab> %
+
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
 nnoremap j gj
 nnoremap k gk
 vnoremap <leader>s :s/
@@ -37,7 +47,7 @@ nnoremap <leader>r :source ~/.vimrc<cr>
 nnoremap <leader>e :e ~/.vimrc<cr>
 nnoremap <leader>! :w ! sudo tee %<cr>
 
-nnoremap <leader>a :tabe<CR>:Ag ""<Left>
+nnoremap <leader>a :tabe<CR>:Ag 
 
 " fugitive git bindings
 nnoremap <leader>ga :Git add %:p<CR><CR>
@@ -112,9 +122,6 @@ autocmd FileType make setlocal noexpandtab
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
 autocmd Filetype json setlocal ts=2 sts=2 sw=2
-autocmd FileType c nnoremap <F5> :!clear; make %:r 2>&1 \|less<CR>
-autocmd FileType c nnoremap <F6> :!./%:r<CR>
-autocmd FileType xinitrc setlocal ft=sh
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o " disable auto commenting
 
 syntax on

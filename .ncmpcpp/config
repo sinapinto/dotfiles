@@ -1,7 +1,7 @@
 mpd_host                        = "127.0.0.1"
 mpd_port                        = "6600"
 
-#header_visibility               = "no"
+header_visibility               = "no"
 #statusbar_visibility            = "no"
 #titles_visibility               = "no"
 #playlist_disable_highlight_delay= "2"
@@ -18,7 +18,7 @@ display_bitrate                 = "yes"
 #main_window_color               = "cyan"
 #main_window_highlight_color     = "cyan"
 #active_column_color             = "green"
-#user_interface                  = "classic" #(classic/alternative)
+user_interface                  = "alternative" #(classic/alternative)
 #
 #progressbar_look                = "―――"
 #progressbar_color               = "black"
