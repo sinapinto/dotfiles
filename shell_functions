@@ -1,5 +1,26 @@
 #!/bin/bash
 
+xd() {
+    if [ $# -eq 0 ]; then
+        xrdb -I$HOME -merge $HOME/.Xresources
+    else
+        xrdb -override $HOME/$1
+    fi
+
+}
+
+lf() {
+   if [ $# -gt 0 ]; then
+      ls -t $1 | head -n6 
+   else
+      ls -t  | head -n6
+   fi
+}
+
+node(){
+    [ -e .env ] && env $(cat .env) /usr/bin/node "$@" || /usr/bin/node "$@"
+}
+
 largepkgs() { pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n }
 t(){ tmux attach || tmux new }
 mu () { mupdf "$@" & disown }

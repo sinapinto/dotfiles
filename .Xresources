@@ -1,7 +1,8 @@
 !#define FONT xft:Droid Sans Mono for Powerline
 !#define FONT xft:DejaVu Sans Mono for Powerline
 !#define FONT xft:Anonymous Pro for Powerline
-#define FONT xft:Monaco for Powerline
+!#define FONT xft:Monaco for Powerline
+#define FONT xft:Menlo for Powerline
 !#define FONT xft:Inconsolata for Powerline
 !#define FONT xft:DejaVu Sans Mono for Powerline
 !#define FONT xft:Ubuntu Mono derivative Powerline
@@ -27,18 +28,21 @@ URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt*fading:               20
 URxvt*colorUL:              #96A8B7
 URxvt*underlineColor:       #96A8B7
+URxvt*highlightColor:       #373b41
 URxvt*letterSpace:          -1
 URxvt*lineSpace:            0
-URxvt*keysym.C-F1:          command:\033]710;FONT:size=8\007
-URxvt*keysym.C-F2:          command:\033]710;FONT:size=9\007
-URxvt*keysym.C-F3:          command:\033]710;FONT:size=10\007
-URxvt*keysym.C-F4:          command:\033]710;FONT:size=11\007
-URxvt*keysym.C-F5:          command:\033]710;FONT:size=12\007
-URxvt*keysym.C-F6:          command:\033]710;FONT:size=13\007
-URxvt*keysym.C-F7:          command:\033]710;FONT:size=15\007
-URxvt*keysym.C-F8:          command:\033]710;FONT:size=16\007
+URxvt*keysym.C-F1:          command:\033]710;FONT:size=8\007\033]711;FONT:size=8:Bold\007\033]712;FONT:size=8:Italic\007
+URxvt*keysym.C-F2:          command:\033]710;FONT:size=9\007\033]711;FONT:size=9:Bold\007\033]712;FONT:size=9:Italic\007
+URxvt*keysym.C-F3:          command:\033]710;FONT:size=10\007\033]711;FONT:size=10:Bold\007\033]712;FONT:size=10:Italic\007
+URxvt*keysym.C-F4:          command:\033]710;FONT:size=11\007\033]711;FONT:size=11:Bold\007\033]712;FONT:size=11:Italic\007
+URxvt*keysym.C-F5:          command:\033]710;FONT:size=12\007\033]711;FONT:size=12:Bold\007\033]712;FONT:size=12:Italic\007
+URxvt*keysym.C-F6:          command:\033]710;FONT:size=13\007\033]711;FONT:size=13:Bold\007\033]712;FONT:size=13:Italic\007
+URxvt*keysym.C-F7:          command:\033]710;FONT:size=15\007\033]711;FONT:size=15:Bold\007\033]712;FONT:size=15:Italic\007
+URxvt*keysym.C-F8:          command:\033]710;FONT:size=16\007\033]711;FONT:size=16:Bold\007\033]712;FONT:size=16:Italic\007
 URxvt*keysym.C-9:           command:\033]720;12\007
 URxvt*keysym.C-0:           command:\033]721;12\007
-URxvt.boldFont:             FONT:size=8:style=Bold
+URxvt.boldFont:             FONT:size=8:Bold
+URxvt.italicFont:           FONT:size=8:Italic
+URxvt.boldItalicFont:       FONT:size=8:Bold:Italic
 URxvt.font:                 FONT:size=8,\
-                            xft:Liberation Mono for Powerline
+                                      xft:Liberation Mono for Powerline

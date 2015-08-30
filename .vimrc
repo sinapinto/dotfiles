@@ -1,10 +1,21 @@
-let mapleader = " "
+set nocompatible
 
-" hard to press
-noremap ( ^
-noremap ) $
-noremap ( ^
-noremap ) $
+let mapleader = " "
+nnoremap dl dd
+inoremap f<tab> function() {<cr>},<esc>O
+
+inoremap <C-j> <down>
+inoremap <C-k> <up>
+inoremap <C-h> <left>
+inoremap <C-l> <right>
+
+command! M w | Make
+
+" hmmm
+noremap ( H
+noremap ) L
+noremap H ^
+noremap L $
 noremap <tab> %
 
 nnoremap n nzzzv
@@ -25,8 +36,9 @@ nnoremap <leader>u :tabnew#<cr>
 
 vnoremap <leader>c :w !curl -F "sprunge=<-" http://sprunge.us
 
-nnoremap <leader>= :tabm +1<cr>
-nnoremap <leader>- :tabm -1<cr>
+" nnoremap <leader>= :tabm +1<cr>
+" nnoremap <leader>- :tabm -1<cr>
+nnoremap <leader>= me=ap`e
 
 nnoremap Q <nop>
 
@@ -60,8 +72,10 @@ nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
 nnoremap <leader>gm :Gmove<Space>
 nnoremap <leader>gb :Git branch<Space>
 nnoremap <leader>go :Git checkout<Space>
-" nnoremap <leader>gps :Dispatch! git push<CR>
-" nnoremap <leader>gpl :Dispatch! git pull<CR>
+nnoremap <leader>gps :Dispatch! git push<CR>
+nnoremap <leader>gpl :Dispatch! git pull<CR>
+
+nnoremap <leader>gt :Dispatch grunt test<CR>
 
 inoremap <C-U> <C-G>u<C-U>
 
@@ -69,6 +83,20 @@ noremap ' ;
 
 noremap ; :
 noremap : ;
+
+nnoremap <leader>* :%s/\<<C-r><C-w>\>//<Left>
+
+function! StripWhitespace ()
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
+endfunction
+noremap <leader>S :call StripWhitespace ()<CR>
+
+nnoremap <leader>bs :CtrlPBuffer<CR>
+
 
 set mouse=a
 if &term =~ '^screen'
@@ -93,7 +121,6 @@ set splitright
 set incsearch
 set splitbelow
 set nofoldenable
-set nocompatible
 set hidden
 set hlsearch
 set ignorecase
@@ -102,9 +129,12 @@ set nostartofline
 set confirm
 set visualbell
 set t_vb=
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+" set shiftwidth=4
+" set tabstop=4
+" set softtabstop=4
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
 set autoindent
 set expandtab
 set nu
@@ -115,13 +145,14 @@ set ls=2
 set timeout ttm=0 "fix ESC + Shift-O lag
 set noruler
 " set list
-" set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:¬
 
 filetype plugin on
 autocmd FileType make setlocal noexpandtab
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
-autocmd Filetype json setlocal ts=2 sts=2 sw=2
+autocmd FileType c,sh,rb,py setlocal shiftwidth=4 tabstop=4 softtabstop=4
+" autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+" autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+" autocmd Filetype json setlocal ts=2 sts=2 sw=2
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o " disable auto commenting
 
 syntax on
@@ -130,18 +161,30 @@ filetype indent on
 execute pathogen#infect()
 
 let g:syntastic_error_symbol = '✘'
-let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_warning_symbol = '●'
 let g:syntastic_style_error_symbol = '✘'
-let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_style_warning_symbol = '●'
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_full_redraws = 0
 
-let g:gruvbox_italic=0
+let g:syntastic_ignore_files = ['.jsx$']
+
+if &term =~ '^rxvt'
+    let g:gruvbox_italic=1
+endif
+if &term =~ '^screen'
+    let g:gruvbox_italic=0
+endif
+
+" italics termcap
+set t_ZH=[3m
+set t_ZR=[23m
 
 let g:Imap_UsePlaceHolders = 0
+set runtimepath^=~/.vim/bundle/ag
 
 let g:syntastic_javascript_checkers = ['jshint']
 
@@ -157,22 +200,27 @@ let g:surround_{char2nr('s')} = " \r"
 let g:surround_{char2nr('^')} = "/^\r$/"
 let g:surround_indent = 1
 
-
+set commentstring=//\ %s
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 " let g:airline_left_sep='>'
 " let g:airline_right_sep='<'
 let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#buffer_nr_format = '%s '
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#fnamecollapse = 0
+let g:airline#extensions#tabline#fnamemod = ':t'
 
-setglobal commentstring=#\ %s
+if executable("ag")
+  set grepprg=ag\ --nogroup\ --nocolor\ --column
+  set grepformat=%f:%l:%c%m
+endif
+
 
 if $TERM != "linux"
    set t_Co=256
 endif
 set background=dark
-"colorscheme koe
 colorscheme gruvbox
-set runtimepath^=~/.vim/bundle/ag
 
-let base16colorspace=256

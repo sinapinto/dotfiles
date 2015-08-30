@@ -1,3 +1,5 @@
+! vim: ft=xdefaults
+
 *background: #191919
 *foreground: #bcbcaf
 *color0:    #262524

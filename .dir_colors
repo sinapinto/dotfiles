@@ -159,7 +159,7 @@ NORMAL 00
 # normal file
 FILE 00
 # directory
-DIR 34
+DIR 1;34
 # 777 directory
 OTHER_WRITABLE 34;40
 # symbolic link
@@ -238,6 +238,7 @@ EXEC 01;31  # Unix
 .scss 32
 .less 32
 .js 32
+.jsx 32
 .coffee 32
 .man 32
 .0 32
@@ -352,33 +353,33 @@ EXEC 01;31  # Unix
 .psd 31
 
 # Archives, compressed
-.7z   1;35
-.apk  1;35
-.arj  1;35
-.bin  1;35
-.bz   1;35
-.bz2  1;35
-.cab  1;35  # Win
-.deb  1;35
-.dmg  1;35  # OSX
-.gem  1;35
-.gz   1;35
-.iso  1;35
-.jar  1;35
-.msi  1;35  # Win
-.rar  1;35
-.rpm  1;35
-.tar  1;35
-.tbz  1;35
-.tbz2 1;35
-.tgz  1;35
-.tx   1;35
-.war  1;35
-.xpi  1;35
-.xz   1;35
-.z    1;35
-.Z    1;35
-.zip  1;35
+.7z   35
+.apk  35
+.arj  35
+.bin  35
+.bz   35
+.bz2  35
+.cab  35  # Win
+.deb  35
+.dmg  35  # OSX
+.gem  35
+.gz   35
+.iso  35
+.jar  35
+.msi  35  # Win
+.rar  35
+.rpm  35
+.tar  35
+.tbz  35
+.tbz2 35
+.tgz  35
+.tx   35
+.war  35
+.xpi  35
+.xz   35
+.z    35
+.Z    35
+.zip  35
 
 # For testing
 .ANSI-30-black 30
