@@ -1,20 +1,13 @@
 #!/bin/sh
 
 # random stuff
-alias gimp='/usr/bin/gimp & disown'
-alias ag='ag --nogroup --color-path "0;35" --color-match "1;31" --nonumbers -U --hidden'
-alias irb='irb --simple-prompt'
-alias mb='xmodmap -e "pointer = 3 2 1'
 alias define='sdcv'
 alias flib='find /usr/include -name '
 # alias wifi='sudo ip link set wlp8s0 up'
+alias ag='ag --nogroup --color-path "0;35" --color-match "1;31" --nonumbers -U --hidden'
 alias smi='sudo make install'
-alias x='chmod +x'
 alias rand='feh --bg-scale -z ~/pictures/walls'
-alias s='sudo'
-alias vi='vim'
 alias wi='wicd-curses'
-alias record='ffmpeg -f x11grab -video_size 1066x550 -i :0.0+240,170 -f alsa -i default -c:v ffvhuff -c:a flac test.mkv'
 alias webcam='mpv /dev/video0'
 alias xm='xrdb -merge'
 alias keys='killall xbindkeys && xbindkeys'
@@ -22,7 +15,7 @@ alias al='vim $HOME/shell_aliases'
 alias v='vim'
 alias m='ncmpcpp'
 alias -g S='| curl -F "sprunge=<-" http://sprunge.us'
-alias -g G='| grep -i'
+alias startx='ssh-agent startx'
 
 # utils
 alias ls='ls -F --color=auto'
@@ -32,6 +25,9 @@ alias grep='grep --color=auto'
 alias du='du -sh'
 alias df='df -h'
 alias g='la | grep -i '
+# alias s='sudo'
+alias x='chmod +x'
+alias less='less -R'
 
 # git
 alias gs='git status'
@@ -43,7 +39,6 @@ alias gp='git push'
 alias gl='git log --decorate --name-only'
 alias gd='git diff'
 alias gdl='git diff HEAD~1 HEAD'
-# alias gr='git reset --soft HEAD~1'
 alias gr='git remote -v'
 
 # pacman
@@ -52,3 +47,11 @@ alias pacr='sudo pacman -Rssn'
 alias paci='sudo pacman -S'
 alias pacs='pacman -Ss'
 alias u='sudo pacman -Syu'
+
+# systemd
+alias -- s+='sudo systemctl start'
+alias -- s-='sudo systemctl stop'
+alias    se='sudo systemctl enable'
+alias    sd='sudo systemctl disable'
+alias    sr='sudo systemctl restart'
+alias    st='systemctl status'

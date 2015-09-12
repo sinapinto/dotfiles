@@ -1,0 +1,17 @@
+[user]
+  email = sina.pinto@gmail.com
+  name = Sina Pinto
+[push]
+  default = current
+; [http]
+; 	postBuffer = 52428800
+
+[color]
+  ui = true
+  branch = auto
+  diff = auto
+  status = auto
+[log]
+  date = relative
+[format]
+  pretty = format:%C(blue)%h %C(yellow)%>(12)%ad %Cgreen%<(7)%aN%C(auto)%d %Creset%s

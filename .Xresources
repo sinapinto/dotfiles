@@ -28,7 +28,7 @@ URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt*fading:               20
 URxvt*colorUL:              #96A8B7
 URxvt*underlineColor:       #96A8B7
-URxvt*highlightColor:       #373b41
+!URxvt*highlightColor:       #373b41
 URxvt*letterSpace:          -1
 URxvt*lineSpace:            0
 URxvt*keysym.C-F1:          command:\033]710;FONT:size=8\007\033]711;FONT:size=8:Bold\007\033]712;FONT:size=8:Italic\007

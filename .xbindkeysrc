@@ -2,33 +2,21 @@
 "urxvt"
     Mod1 + Return
 
-"pomf"
-    Mod1 + bracketright
-
-# "urxvt -e vim $HOME/scripts/.todo"
-#     Menu
-
 "jumanji &>/dev/null"
     Mod1 + r
 
 "chromium &>/dev/null"
     Mod1 + c
 
-"dwb &>/dev/null"
-    Mod1 + e
-
 ######## Music
 "mpc toggle"
     Mod1 + p
 
-"mpc seek +5"
+"mpc seek +15"
     Pause
-"mpc seek -5"
+
+"mpc seek -15"
     Print
-"mpc seek +30"
-    Mod1 + Pause
-"mpc seek -30"
-    Mod1 + Print
 
 "mpc prev"
     Mod1 + i
@@ -55,10 +43,11 @@
 "amixer set Master toggle"
     XF86AudioMute
 
-# Backlight
-"xbacklight -inc 10"
+####### Backlight
+"xbacklight -inc 5"
    Mod1 + F10
-"xbacklight -dec 10"
+
+"xbacklight -dec 5"
    Mod1 + F9
 
 # vi:syntax=sh

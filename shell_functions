@@ -17,9 +17,9 @@ lf() {
    fi
 }
 
-node(){
-    [ -e .env ] && env $(cat .env) /usr/bin/node "$@" || /usr/bin/node "$@"
-}
+# node(){
+#     [ -e .env ] && env $(cat .env) /usr/bin/node "$@" || /usr/bin/node "$@"
+# }
 
 largepkgs() { pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n }
 t(){ tmux attach || tmux new }
@@ -86,7 +86,6 @@ d(){
         z) dtach -A /tmp/zsh.dtach zsh ;;
         *) dtach -A /tmp/$1.dtach $1 ;;
     esac
-
 }
 
 touchpad(){
