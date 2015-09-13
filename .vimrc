@@ -204,15 +204,26 @@ let g:surround_{char2nr('s')} = " \r"
 let g:surround_{char2nr('^')} = "/^\r$/"
 let g:surround_indent = 1
 
-set commentstring=//\ %s
+let g:airline_powerline_fonts=1
+" powerline symbols
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+" tabline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_left_sep=''
-let g:airline_right_sep=''
 let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#buffer_nr_format = '%s '
-let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#show_tab_nr = 0
 let g:airline#extensions#tabline#fnamecollapse = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#show_tab_type = 0
 
 if executable("ag")
   set grepprg=ag\ --nogroup\ --nocolor\ --column

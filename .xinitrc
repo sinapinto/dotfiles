@@ -10,7 +10,7 @@ xbindkeys &
 xrdb -load ~/.Xresources
 xrdb -merge ~/gruvbox.xres
 
-pgrep dunst >/dev/null     || dunst -key q -to 3 &
+pgrep dunst >/dev/null     || dunst -key q &
 pgrep mpd >/dev/null       || mpd &>/dev/null
 pgrep redshift >/dev/null  || nohup redshift -t 4500K:3500K &> /dev/null &
 
