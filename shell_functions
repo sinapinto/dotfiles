@@ -22,7 +22,7 @@ lf() {
 # }
 
 largepkgs() { pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n }
-t(){ tmux attach || tmux new }
+t(){ env TERM=screen-256color-it tmux attach || env TERM=screen-256color-it tmux new }
 mu () { mupdf "$@" & disown }
 mpv() {
     if [ $1 = '-s' ]; then

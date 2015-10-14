@@ -1,5 +1,5 @@
 [global]
-    font = Menlo 13
+    font = Menlo 8
     
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -175,12 +175,12 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#83a598"
+    background = "#8ec07c"
     foreground = "#282828"
     timeout = 5
 
 [urgency_normal]
-    background = "#83a598"
+    background = "#8ec07c"
     foreground = "#282828"
     timeout = 5
 

@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # random stuff
+alias tree='tree -I node_modules'
 alias define='sdcv'
 alias flib='find /usr/include -name '
 # alias wifi='sudo ip link set wlp8s0 up'
@@ -20,6 +21,7 @@ alias startx='ssh-agent startx'
 # utils
 alias ls='ls -F --color=auto'
 alias la='ls -FA'
+alias a='la'
 alias ll='ls -ahlF'
 alias grep='grep --color=auto'
 alias du='du -sh'

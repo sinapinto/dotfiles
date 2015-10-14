@@ -6,13 +6,9 @@ inoremap f<tab> function() {<cr>}<esc>k$F)i
 cmap <c-p> <Up>
 cmap <c-n> <Down>
 
-
 """"""""""""" Learn """""""""""
 noremap ' ;
 " remember to use f and t
-
-nnoremap <C-m> <C-e>
-" <C-y> to scroll up
 """""""""""""""""""""""""""""""
 
 " rsi
@@ -35,8 +31,8 @@ nnoremap N Nzzzv
 
 nnoremap j gj
 nnoremap k gk
-vnoremap <leader>s :s/
 vnoremap <leader>R :!sort<cr>
+vnoremap <leader>s :s/
 nnoremap <leader>s :%s/
 nnoremap <leader>j :bn<cr>
 nnoremap <leader>k :bp<cr>
@@ -50,6 +46,7 @@ vnoremap <leader>c :w !curl -F "sprunge=<-" http://sprunge.us
 " nnoremap <leader>= :tabm +1<cr>
 " nnoremap <leader>- :tabm -1<cr>
 nnoremap <leader>= me=ap`e
+nnoremap ga `[v`]
 
 nnoremap Q <nop>
 
@@ -83,13 +80,16 @@ nnoremap <leader>go :Git checkout<Space>
 nnoremap <leader>gps :Dispatch git push<CR>
 nnoremap <leader>gpl :Dispatch git pull<CR>
 
-autocmd User Fugitive 
-  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-  \   nnoremap <buffer> .. :edit %:h<CR> |
-  \ endif
+augroup fugitive
+  au!
+  au User Fugitive 
+    \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+    \   nnoremap <buffer> .. :edit %:h<CR> |
+    \ endif
 
-" auto-clean fugitive buffers
-autocmd BufReadPost fugitive://* set bufhidden=delete
+  " auto-clean fugitive buffers
+  au BufReadPost fugitive://* set bufhidden=delete
+augroup END
 
 nnoremap <leader>w :Dispatch webpack -d<CR>
 
@@ -151,13 +151,18 @@ set laststatus=0
 set ls=2
 set timeout ttm=0 "fix ESC + Shift-O lag
 set noruler
-" set list
-set listchars=tab:▸\ ,eol:¬
+set list
+" set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ 
 
 filetype plugin on
-autocmd FileType make setlocal noexpandtab
-autocmd FileType c,sh,rb,py setlocal shiftwidth=4 tabstop=4 softtabstop=4
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o " disable auto commenting
+
+augroup ft
+  au!
+  au FileType make setlocal noexpandtab
+  au FileType c,sh,rb,py setlocal shiftwidth=4 tabstop=4 softtabstop=4
+  au FileType * setlocal formatoptions-=cro " disable auto commenting
+augroup END
 
 syntax on
 filetype indent on
@@ -174,28 +179,23 @@ let g:syntastic_auto_loc_list = 2
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_full_redraws = 0
 
-let g:syntastic_ignore_files = ['.jsx$']
+let g:syntastic_ignore_files = ['.jsx$', '.js$']
+let g:syntastic_javascript_checkers = ['eslint', 'jshint']
 
-if &term =~ '^rxvt'
-    let g:gruvbox_italic=1
-    set t_ZH=[3m
-    set t_ZR=[23m
-endif
-if &term =~ '^screen'
-    let g:gruvbox_italic=0
-endif
+let g:gruvbox_italic=1
+let g:gruvbox_italic=1
+set t_ZH=[3m
+set t_ZR=[23m
 
 let g:gruvbox_invert_selection = 0
 
 
-let g:syntastic_javascript_checkers = ['jshint']
-
-let g:ctrlp_map = '<C-t>'
-let g:ctrlp_custom_ignore = {
-\ 'dir':  '\v[\/](node_modules)$',
-\ }
-nnoremap <C-b> :CtrlPBuffer<CR>
-nnoremap <C-t> :CtrlP<CR>
+" let g:ctrlp_map = '<C-t>'
+" let g:ctrlp_custom_ignore = {
+" \ 'dir':  '\v[\/](node_modules)$',
+" \ }
+" nnoremap <C-b> :CtrlPBuffer<CR>
+" nnoremap <C-t> :CtrlP<CR>
 
 let g:surround_{char2nr('-')} = "<% \r %>"
 let g:surround_{char2nr('=')} = "<%= \r %>"
@@ -230,11 +230,23 @@ if executable("ag")
   set grepformat=%f:%l:%c%m
 endif
 
-let g:gist_executable_for_linux = "chromium"
+if executable("chromium")
+  let g:gist_executable_for_linux = "chromium"
+endif
 let g:gist_open_url = 0
 vnoremap <leader>G :Gist -a<CR>
 vnoremap <leader>g :Gist -a<CR>
 nnoremap <leader>G :Gist -a<CR>
+
+" this plugin messes with json files
+" let g:indentLine_faster = 1
+" let g:indentLine_enabled = 0
+" sets conceallevel=2
+
+let g:jsx_ext_required = 0
+
+" tree style
+" let g:netrw_liststyle = 3
 
 " if $TERM != "linux"
    set t_Co=256

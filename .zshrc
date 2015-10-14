@@ -30,7 +30,7 @@ case $TERM in
         setopt prompt_subst # parameter expansion in prompt
         # . $HOME/agnoster.zsh-theme # powerline prompt
         PROMPT='`[ $? -eq 0 ] || echo "%{$fg_bold[red]%}✘ "`'
-        PROMPT+="%{$fg_bold[magenta]%}%50<..<%~%<<\$(_git_prompt)%{$reset_color%}%# "
+        PROMPT+="%{$fg_bold[magenta]%}%50<..<%~%<<\$(_git_prompt)%{$reset_color%}$ "
         ;;
     linux) ;;
 esac

@@ -3,7 +3,7 @@ mpd_port                        = "6600"
 
 header_visibility               = "no"
 #statusbar_visibility            = "no"
-#titles_visibility               = "no"
+titles_visibility               = "no"
 #playlist_disable_highlight_delay= "2"
 message_delay_time              = "1"
 #playlist_display_mode           = "classic" #(classic/columns)

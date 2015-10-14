@@ -301,6 +301,7 @@ EXEC 01;31  # Unix
 .midi 33
 .mka 33
 .mp3 33
+.m4a 33
 .mpa 33
 .mpeg 33
 .mpg 33
