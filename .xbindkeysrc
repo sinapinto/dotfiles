@@ -2,20 +2,20 @@
 "urxvt"
     Mod1 + Return
 
-"jumanji &>/dev/null"
-    Mod1 + r
-
 "chromium &>/dev/null"
     Mod1 + c
+
+"dmenu_run"
+    Mod1 + d
 
 ######## Music
 "mpc toggle"
     Mod1 + p
 
-"mpc seek +15"
+"mpc seek +30"
     Pause
 
-"mpc seek -15"
+"mpc seek -30"
     Print
 
 "mpc prev"
@@ -31,8 +31,8 @@
 "amixer set Master 3%- unmute"
     F1
 
-#"amixer set Master toggle"
-    #F4
+"amixer set Master toggle"
+    F4
 
 "amixer set Master 3%+ unmute"
     XF86AudioRaiseVolume
@@ -42,12 +42,5 @@
 
 "amixer set Master toggle"
     XF86AudioMute
-
-####### Backlight
-"xbacklight -inc 5"
-   Mod1 + F10
-
-"xbacklight -dec 5"
-   Mod1 + F9
 
 # vi:syntax=sh

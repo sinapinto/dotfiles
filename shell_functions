@@ -1,13 +1,39 @@
 #!/bin/bash
 
-xd() {
-    if [ $# -eq 0 ]; then
-        xrdb -I$HOME -merge $HOME/.Xresources
-    else
-        xrdb -override $HOME/$1
-    fi
-
+# for testing wm
+x() {
+    [ `pgrep Xephyr` ] && exit 1
+    Xephyr -ac -screen 1200x700 :1 &
+    sleep 0.5
+    DISPLAY=:1
+    urxvt -display :1 -e sh -c "xbindkeys; xsetroot -solid \#333; tfwm 2>~/wm.log"
+    DISPLAY=:0
 }
+
+# Escape potential tarbombs
+etb() {
+  l=$(tar tf $1);
+  if [ $(echo "$l" | wc -l) -eq $(echo "$l" | grep $(echo "$l" | head -n1) | wc -l) ];
+  then tar xf $1;
+  else mkdir ${1%.t(ar.gz||ar.bz2||gz||bz||ar)} && tar xvf $1 -C ${1%.t(ar.gz||ar.bz2||gz||bz||ar)};
+  fi ;
+}
+
+# create a new script, automatically populating the shebang line, editing the
+# script, and making it executable.
+shebang() {
+  if i=$(which $1);
+  then
+    printf '#!/usr/bin/env %s\n\n' $1 > $2 && chmod 755 $2 && vim + $2 && chmod 755 $2;
+  else
+    echo "'which' could not find $1, is it in your \$PATH?";
+  fi;
+  # in case the new script is in path, this throw out the command hash table and
+  # start over  (man zshbuiltins)
+  rehash
+}
+
+xd() { xrdb -load ~/.Xresources }
 
 lf() {
    if [ $# -gt 0 ]; then
@@ -23,8 +49,8 @@ lf() {
 
 largepkgs() { pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n }
 t(){ env TERM=screen-256color-it tmux attach || env TERM=screen-256color-it tmux new }
-mu () { mupdf "$@" & disown }
-mpv() {
+mu () { mupdf "$@" &>/dev/null & disown }
+m() {
     if [ $1 = '-s' ]; then
         /usr/bin/mpv --fs --shuffle "$2" &>/dev/null & disown
     else
@@ -34,17 +60,6 @@ mpv() {
 
 rec() {
     ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y "$@"
-}
-
-man() {
-    env \
-        LESS_TERMCAP_mb=$(printf "\e[01;31m")  \
-        LESS_TERMCAP_md=$(printf "\e[00;33m")  \
-        LESS_TERMCAP_us=$(printf "\e[01;31m")  \
-        LESS_TERMCAP_me=$(printf "\e[0m")      \
-        LESS_TERMCAP_se=$(printf "\e[0m")      \
-        LESS_TERMCAP_ue=$(printf "\e[0m")      \
-        man "$@"
 }
 
 cd() {
@@ -82,6 +97,7 @@ mkdirf() {
 d(){
     case $1 in
         i) dtach -A /tmp/irssi.dtach irssi ;;
+        w) dtach -A /tmp/weechat.dtach weechat ;;
         r) dtach -A /tmp/rtorrent.dtach rtorrent ;;
         z) dtach -A /tmp/zsh.dtach zsh ;;
         *) dtach -A /tmp/$1.dtach $1 ;;
@@ -153,4 +169,4 @@ elfcompress() {
    rm /tmp/unpack.header
 }
 
-c() { noglob echo $(( $* )) }
+calc() { noglob echo $(( $* )) }

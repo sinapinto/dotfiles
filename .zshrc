@@ -1,6 +1,6 @@
 [[ $- != *i* ]] && return 1
 
-ZDOTDIR=${ZDOTDIR:-$HOME}
+export PATH=$PATH:$HOME/bin
 
 autoload -U colors && colors
 if ! [[ `tty` =~ ^/dev/tty.* ]]; then
@@ -60,15 +60,29 @@ change-first-word() {
 zle -N change-first-word
 bindkey -M viins "\ea" change-first-word
 
-bindkey -s "\em" '^Aman ^M'
-bindkey -s "\es" '^Asudo ^E'
+vim-instead() {
+    zle beginning-of-line
+    zle kill-word
+    LBUFFER="vim $LBUFFER"
+    zle accept-line
+}
+zle -N vim-instead
+bindkey -M viins "\ev" vim-instead
+
+man-instead() {
+    LBUFFER="man $LBUFFER"
+    zle accept-line
+}
+zle -N man-instead
+bindkey -M viins "\em" man-instead
+
 bindkey -s "\eu" '^Ucd ..^M'
 bindkey -s "\ef" '^J~/^E'
 bindkey '\e.' insert-last-word
 
 autoload edit-command-line
 zle -N edit-command-line
-bindkey '\ev' edit-command-line
+bindkey '\ee' edit-command-line
 
 backward-kill-to-slash() {
     local WORDCHARS="${WORDCHARS:s@/@}"
@@ -77,11 +91,18 @@ backward-kill-to-slash() {
 zle -N backward-kill-to-slash
 bindkey -M viins "^W" backward-kill-to-slash
 
-
 bindkey -M viins ' ' magic-space # expand stuff on spacebar
 bindkey '^[[Z' reverse-menu-complete # shift-tab
 
+tilde-questionmark() { # fix ~? to ~/
+  if [[ $LBUFFER[-1] == \~ ]]; then
+    zle -U '/'
+  else
+    zle self-insert
+  fi
+}
+bindkey \? tilde-questionmark
+zle -N tilde-questionmark
 
 [ ! -f "$HOME/shell_aliases" ]   || . $HOME/shell_aliases
 [ ! -f "$HOME/shell_functions" ] || . $HOME/shell_functions
-[ ! -f "$HOME/shell_local" ]     || . $HOME/shell_local

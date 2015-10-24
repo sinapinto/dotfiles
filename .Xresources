@@ -1,14 +1,13 @@
 !#define FONT xft:Droid Sans Mono for Powerline
 !#define FONT xft:DejaVu Sans Mono for Powerline
 !#define FONT xft:Anonymous Pro for Powerline
-!#define FONT xft:Monaco for Powerline
-#define FONT xft:Menlo for Powerline
+!#define FONT xft:Menlo for Powerline
 !#define FONT xft:Inconsolata for Powerline
-!#define FONT xft:DejaVu Sans Mono for Powerline
+#define FONT xft:DejaVu Sans Mono for Powerline
 !#define FONT xft:Ubuntu Mono derivative Powerline
+!#define FONT xft:Hack
 !#define FONT xft:Source Code Pro
 !#define FONT xft:Liberation Mono for Powerline
-!#define FONT xft:Terminus
 Xft.antialias:  1
 Xft.autohint:   0
 Xft.dpi:        96
@@ -26,11 +25,37 @@ URxvt*matcher.button:       1
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt*fading:               20
-URxvt*colorUL:              #96A8B7
-URxvt*underlineColor:       #96A8B7
+*background: #282828
+*foreground: #ebdbb2
+! Black + DarkGrey
+*color0:  #282828
+*color8:  #928374
+! DarkRed + Red
+*color1:  #cc241d
+*color9:  #fb4934
+! DarkGreen + Green
+*color2:  #98971a
+*color10: #b8bb26
+! DarkYellow + Yellow
+*color3:  #d79921
+*color11: #fabd2f
+! DarkBlue + Blue
+*color4:  #458588
+*color12: #83a598
+! DarkMagenta + Magenta
+*color5:  #b16286
+*color13: #d3869b
+! DarkCyan + Cyan
+*color6:  #689d6a
+*color14: #8ec07c
+! LightGrey + White
+*color7:  #a89984
+*color15: #ebdbb2
+URxvt*colorUL:              #458588
+URxvt*underlineColor:       #458588
 !URxvt*highlightColor:       #373b41
 URxvt*letterSpace:          -2
-URxvt*lineSpace:            1
+URxvt*lineSpace:            0
 URxvt*keysym.C-F1:          command:\033]710;FONT:size=8:Bold\007\033]711;FONT:size=8:Bold\007\033]712;FONT:size=8:Italic\007
 URxvt*keysym.C-F2:          command:\033]710;FONT:size=9:Bold\007\033]711;FONT:size=9:Bold\007\033]712;FONT:size=9:Italic\007
 URxvt*keysym.C-F3:          command:\033]710;FONT:size=10:Bold\007\033]711;FONT:size=10:Bold\007\033]712;FONT:size=10:Italic\007
@@ -43,6 +68,7 @@ URxvt*keysym.C-9:           command:\033]720;12\007
 URxvt*keysym.C-0:           command:\033]721;12\007
 URxvt.boldFont:             FONT:size=9:Bold
 URxvt.italicFont:           FONT:size=9:Italic
-URxvt.boldItalicFont:       FONT:size=9:Bold:Italic
+URxvt.boldItalicFont:       FONT:size=9:Italic
 URxvt.font:                 FONT:size=9:Bold,\
+                                      xft:Menlo for Powerline,\
                                       xft:Liberation Mono for Powerline

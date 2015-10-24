@@ -376,11 +376,11 @@ def_key ","
 #def_key "?"
 #  find_item_backward
 #
-#def_key "."
-#  next_found_item
-#
-#def_key ","
-#  previous_found_item
+def_key ">"
+  next_found_item
+
+def_key "<"
+  previous_found_item
 #
 #def_key "w"
 #  toggle_find_mode

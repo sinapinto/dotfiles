@@ -1,15 +1,18 @@
+""""""""""""" Learn """""""""""
+" :b  - buffer
+" :sb  - split buffer
+" C-w K - move split to top
+" C-w H - move split to left
+" remember to use f and t
+"""""""""""""""""""""""""""""""
 set nocompatible
+
 let mapleader = " "
 
-inoremap f<tab> function() {<cr>}<esc>k$F)i
+" inoremap f<tab> function() {<cr>}<esc>k$F)i
 
 cmap <c-p> <Up>
 cmap <c-n> <Down>
-
-""""""""""""" Learn """""""""""
-noremap ' ;
-" remember to use f and t
-"""""""""""""""""""""""""""""""
 
 " rsi
 inoremap <expr> <C-E> col('.')>strlen(getline('.'))<bar><bar>pumvisible()?"\<Lt>C-E>":"\<Lt>End>"
@@ -48,8 +51,10 @@ vnoremap <leader>c :w !curl -F "sprunge=<-" http://sprunge.us
 nnoremap <leader>= me=ap`e
 nnoremap ga `[v`]
 
+nnoremap <leader>v :vert sb 
 nnoremap Q <nop>
 
+noremap ' ;
 nnoremap <C-n> <C-f>
 nnoremap <C-p> <C-b>
 
@@ -65,8 +70,9 @@ nnoremap <leader><Return> :nohl<cr>:ccl<CR>
 nnoremap <leader>r :source ~/.vimrc<cr>
 nnoremap <leader>e :e ~/.vimrc<cr>
 nnoremap <leader>! :w ! sudo tee %<cr>
+nnoremap <F5> "=strftime("%c")<CR>P
 
-nnoremap <leader>a :tabe<CR>:Ag 
+nnoremap <leader>a :Ag! 
 
 " fugitive git bindings
 nnoremap <leader>gs :Gstatus<CR>
@@ -90,8 +96,6 @@ augroup fugitive
   " auto-clean fugitive buffers
   au BufReadPost fugitive://* set bufhidden=delete
 augroup END
-
-nnoremap <leader>w :Dispatch webpack -d<CR>
 
 
 noremap ; :
@@ -145,8 +149,7 @@ set softtabstop=2
 set autoindent
 set expandtab
 set nu
-" set cc=80
-set cc=
+set cc=80
 set laststatus=0
 set ls=2
 set timeout ttm=0 "fix ESC + Shift-O lag
@@ -159,7 +162,7 @@ filetype plugin on
 
 augroup ft
   au!
-  au FileType make setlocal noexpandtab
+  au FileType make setlocal noet noai ts=4
   au FileType c,sh,rb,py setlocal shiftwidth=4 tabstop=4 softtabstop=4
   au FileType * setlocal formatoptions-=cro " disable auto commenting
 augroup END
@@ -238,9 +241,9 @@ vnoremap <leader>G :Gist -a<CR>
 vnoremap <leader>g :Gist -a<CR>
 nnoremap <leader>G :Gist -a<CR>
 
-" this plugin messes with json files
 " let g:indentLine_faster = 1
 " let g:indentLine_enabled = 0
+" conceallevel hides json quotes. may want to also set concealcursor
 " sets conceallevel=2
 
 let g:jsx_ext_required = 0
