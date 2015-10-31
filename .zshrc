@@ -18,7 +18,7 @@ autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
 case $TERM in
-    rxvt*|screen*)
+    rxvt*|screen*|xterm*)
         source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
 
         # Base16 Shell
@@ -53,13 +53,16 @@ bindkey "^N" down-line-or-search
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
 
+#---------------------------------------------------------
 change-first-word() {
     zle beginning-of-line
     zle kill-word
 }
 zle -N change-first-word
 bindkey -M viins "\ea" change-first-word
+#---------------------------------------------------------
 
+#---------------------------------------------------------
 vim-instead() {
     zle beginning-of-line
     zle kill-word
@@ -68,32 +71,27 @@ vim-instead() {
 }
 zle -N vim-instead
 bindkey -M viins "\ev" vim-instead
+#---------------------------------------------------------
 
+#---------------------------------------------------------
 man-instead() {
     LBUFFER="man $LBUFFER"
     zle accept-line
 }
 zle -N man-instead
 bindkey -M viins "\em" man-instead
+#---------------------------------------------------------
 
-bindkey -s "\eu" '^Ucd ..^M'
-bindkey -s "\ef" '^J~/^E'
-bindkey '\e.' insert-last-word
-
-autoload edit-command-line
-zle -N edit-command-line
-bindkey '\ee' edit-command-line
-
+#---------------------------------------------------------
 backward-kill-to-slash() {
     local WORDCHARS="${WORDCHARS:s@/@}"
     zle backward-kill-word
 }
 zle -N backward-kill-to-slash
 bindkey -M viins "^W" backward-kill-to-slash
+#---------------------------------------------------------
 
-bindkey -M viins ' ' magic-space # expand stuff on spacebar
-bindkey '^[[Z' reverse-menu-complete # shift-tab
-
+#---------------------------------------------------------
 tilde-questionmark() { # fix ~? to ~/
   if [[ $LBUFFER[-1] == \~ ]]; then
     zle -U '/'
@@ -103,6 +101,27 @@ tilde-questionmark() { # fix ~? to ~/
 }
 bindkey \? tilde-questionmark
 zle -N tilde-questionmark
+#---------------------------------------------------------
+
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '\ee' edit-command-line
+
+bindkey -s "\eu" '^Ucd ..^M'
+bindkey -s "\ef" '^J~/^E'
+bindkey '\e.' insert-last-word
+
+bindkey -M viins ' ' magic-space # expand stuff on spacebar
+bindkey '^[[Z' reverse-menu-complete # shift-tab
 
 [ ! -f "$HOME/shell_aliases" ]   || . $HOME/shell_aliases
 [ ! -f "$HOME/shell_functions" ] || . $HOME/shell_functions
+
+if [ "$TERM" = "linux" ]; then
+  _SEDCMD='s/.*\*color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
+  for i in $(sed -n "$_SEDCMD" $HOME/.Xdefaults | \
+    awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}'); do
+    echo -en "$i"
+  done
+  clear
+fi

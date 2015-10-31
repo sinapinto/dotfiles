@@ -1,13 +1,5 @@
-!#define FONT xft:Droid Sans Mono for Powerline
-!#define FONT xft:DejaVu Sans Mono for Powerline
-!#define FONT xft:Anonymous Pro for Powerline
-!#define FONT xft:Menlo for Powerline
-!#define FONT xft:Inconsolata for Powerline
 #define FONT xft:DejaVu Sans Mono for Powerline
-!#define FONT xft:Ubuntu Mono derivative Powerline
-!#define FONT xft:Hack
-!#define FONT xft:Source Code Pro
-!#define FONT xft:Liberation Mono for Powerline
+! #define FONT xft:Liberation Mono for Powerline
 Xft.antialias:  1
 Xft.autohint:   0
 Xft.dpi:        96
@@ -26,6 +18,9 @@ URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt*fading:               20
 *background: #282828
+!*background: #1d1f21
+! Dark #1d2021
+! Light #32302f
 *foreground: #ebdbb2
 ! Black + DarkGrey
 *color0:  #282828
@@ -55,7 +50,7 @@ URxvt*colorUL:              #458588
 URxvt*underlineColor:       #458588
 !URxvt*highlightColor:       #373b41
 URxvt*letterSpace:          -2
-URxvt*lineSpace:            0
+URxvt*lineSpace:            1
 URxvt*keysym.C-F1:          command:\033]710;FONT:size=8:Bold\007\033]711;FONT:size=8:Bold\007\033]712;FONT:size=8:Italic\007
 URxvt*keysym.C-F2:          command:\033]710;FONT:size=9:Bold\007\033]711;FONT:size=9:Bold\007\033]712;FONT:size=9:Italic\007
 URxvt*keysym.C-F3:          command:\033]710;FONT:size=10:Bold\007\033]711;FONT:size=10:Bold\007\033]712;FONT:size=10:Italic\007
@@ -72,3 +67,4 @@ URxvt.boldItalicFont:       FONT:size=9:Italic
 URxvt.font:                 FONT:size=9:Bold,\
                                       xft:Menlo for Powerline,\
                                       xft:Liberation Mono for Powerline
+! vi: set cms=!%s :

@@ -65,7 +65,7 @@ nnoremap <C-j> <C-w><C-j>
 
 nnoremap <leader>f :echomsg expand('%:p')<cr>
 
-nnoremap <leader><Return> :nohl<cr>:ccl<CR>
+nnoremap <leader><Return> :nohl<cr>
 
 nnoremap <leader>r :source ~/.vimrc<cr>
 nnoremap <leader>e :e ~/.vimrc<cr>
@@ -148,7 +148,7 @@ set tabstop=2
 set softtabstop=2
 set autoindent
 set expandtab
-set nu
+" set number
 set cc=80
 set laststatus=0
 set ls=2
@@ -228,6 +228,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#show_tab_type = 0
 
+let g:airline_theme = "gruvbox"
+
 if executable("ag")
   set grepprg=ag\ --nogroup\ --nocolor\ --column
   set grepformat=%f:%l:%c%m
@@ -256,3 +258,6 @@ let g:jsx_ext_required = 0
 " endif
 set background=dark
 colorscheme gruvbox
+highlight Comment cterm=italic
+highlight SyntasticError cterm=underline ctermfg=9 ctermbg=52
+highlight SyntasticWarning cterm=bold ctermfg=11 ctermbg=58

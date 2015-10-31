@@ -3,11 +3,12 @@
 # for testing wm
 x() {
     [ `pgrep Xephyr` ] && exit 1
-    Xephyr -ac -screen 1200x700 :1 &
+    Xephyr -ac -br -noreset -screen 680x600 :1.0 &
     sleep 0.5
-    DISPLAY=:1
-    urxvt -display :1 -e sh -c "xbindkeys; xsetroot -solid \#333; tfwm 2>~/wm.log"
-    DISPLAY=:0
+    local _wm
+    [ -n "$1" ] && _wm=$1 || _wm=tfwm
+    DISPLAY=:1.0 $_wm
+    unset _wm
 }
 
 # Escape potential tarbombs
@@ -51,6 +52,7 @@ largepkgs() { pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep
 t(){ env TERM=screen-256color-it tmux attach || env TERM=screen-256color-it tmux new }
 mu () { mupdf "$@" &>/dev/null & disown }
 m() {
+    [ -z $1 ] && return 1
     if [ $1 = '-s' ]; then
         /usr/bin/mpv --fs --shuffle "$2" &>/dev/null & disown
     else

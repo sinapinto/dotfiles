@@ -1,11 +1,15 @@
 ######### Apps
-"urxvt"
-    Mod1 + Return
+"termite"
+    Mod1 + t
 
-"chromium &>/dev/null"
+"chromium"
     Mod1 + c
 
-"dmenu_run"
+"firefox"
+    Mod1 + w
+
+#"dmenu_run"
+"rofi -show run"
     Mod1 + d
 
 ######## Music
