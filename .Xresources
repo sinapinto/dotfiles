@@ -1,3 +1,4 @@
+! vi: set cms=!%s :
 #define FONT xft:DejaVu Sans Mono for Powerline
 ! #define FONT xft:Liberation Mono for Powerline
 Xft.antialias:  1
@@ -16,7 +17,7 @@ URxvt*url-select.launcher:  /home/veggie/bin/launch
 URxvt*matcher.button:       1
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
-URxvt*fading:               20
+! URxvt*fading:               20
 *background: #282828
 !*background: #1d1f21
 ! Dark #1d2021
@@ -48,7 +49,6 @@ URxvt*fading:               20
 *color15: #ebdbb2
 URxvt*colorUL:              #458588
 URxvt*underlineColor:       #458588
-!URxvt*highlightColor:       #373b41
 URxvt*letterSpace:          -2
 URxvt*lineSpace:            1
 URxvt*keysym.C-F1:          command:\033]710;FONT:size=8:Bold\007\033]711;FONT:size=8:Bold\007\033]712;FONT:size=8:Italic\007
@@ -65,6 +65,91 @@ URxvt.boldFont:             FONT:size=9:Bold
 URxvt.italicFont:           FONT:size=9:Italic
 URxvt.boldItalicFont:       FONT:size=9:Italic
 URxvt.font:                 FONT:size=9:Bold,\
-                                      xft:Menlo for Powerline,\
                                       xft:Liberation Mono for Powerline
-! vi: set cms=!%s :
+
+rofi.opacity:                        90
+rofi.width:                          50
+rofi.lines:                          15
+rofi.columns:                        1
+rofi.font:                           DejaVu Sans Mono for Powerline 12
+rofi.fg:                             #ebdbb2
+rofi.bg:                             #32302f
+rofi.fg-active:                      #268BD2
+rofi.fg-urgent:                      #DC322F
+rofi.hlfg-active:                    #FDF6E3
+rofi.hlfg-urgent:                    #FDF6E3
+rofi.bg-active:                      #FDF6E3
+rofi.bg-urgent:                      #FDF6E3
+rofi.hlbg-active:                    #268BD2
+rofi.hlbg-urgent:                    #DC322F
+rofi.bgalt:                          #32302f
+rofi.hlfg:                           #EEE8D5
+rofi.hlbg:                           #586E75
+rofi.bc:                             #002B36
+rofi.color-enabled:                  true
+rofi.color-normal:                   #fdf6e3,#002b36,#eee8d5,#586e75,#eee8d5
+rofi.color-urgent:                   #fdf6e3,#dc322f,#eee8d5,#dc322f,#fdf6e3
+rofi.color-active:                   #fdf6e3,#268bd2,#eee8d5,#268bd2,#fdf6e3
+rofi.color-window:                   #fdf6e3,#002b36
+rofi.bw:                             1
+rofi.location:                       0
+rofi.padding:                        5
+rofi.yoffset:                        0
+rofi.xoffset:                        0
+rofi.fixed-num-lines:                true
+rofi.terminal:                       rofi-sensible-terminal
+rofi.ssh-client:                     ssh
+rofi.ssh-command:                    {terminal} -e {ssh-client} {host}
+rofi.run-command:                    {cmd}
+rofi.run-list-command:               
+rofi.run-shell-command:              {terminal} -e {cmd}
+rofi.disable-history:                false
+rofi.levenshtein-sort:               false
+rofi.case-sensitive:                 false
+rofi.sidebar-mode:                   false
+rofi.lazy-filter-limit:              15000
+rofi.eh:                             1
+rofi.auto-select:                    false
+rofi.parse-hosts:                    false
+rofi.combi-modi:                     window,run
+rofi.fuzzy:                          false
+rofi.glob:                           false
+rofi.tokenize:                       true
+rofi.m:                              -1
+rofi.line-margin:                    2
+rofi.separator-style:                dash
+rofi.hide-scrollbar:                 true
+rofi.markup-rows:                    false
+rofi.fullscreen:                     false
+rofi.fake-transparency:              true
+rofi.kb-primary-paste:               Control+Shift+v,Shift+Insert
+rofi.kb-secondary-paste:             Control+v,Insert
+rofi.kb-clear-line:                  Control+u
+rofi.kb-move-front:                  Control+a
+rofi.kb-move-end:                    Control+e
+rofi.kb-move-word-back:              Alt+b
+rofi.kb-move-word-forward:           Alt+f
+rofi.kb-move-char-back:              Left,Control+b
+rofi.kb-move-char-forward:           Right,Control+f
+rofi.kb-remove-word-back:            Control+Alt+h
+rofi.kb-remove-word-forward:         Control+Alt+d
+rofi.kb-remove-char-forward:         Delete,Control+d
+rofi.kb-remove-char-back:            BackSpace,Control+h
+rofi.kb-accept-entry:                Control+j,Control+m,Return,KP_Enter
+rofi.kb-accept-custom:               Control+Return
+rofi.kb-accept-entry-continue:       Shift+Return
+rofi.kb-mode-next:                   Shift+Right,Control+Tab
+rofi.kb-mode-previous:               Shift+Left,Control+Shift+Tab
+rofi.kb-toggle-case-sensitivity:     grave,dead_grave
+rofi.kb-delete-entry:                Shift+Delete
+rofi.kb-row-left:                    Control+Page_Up
+rofi.kb-row-right:                   Control+Page_Down
+rofi.kb-row-up:                      Up,Control+p,Shift+Tab
+rofi.kb-row-down:                    Down,Control+n
+rofi.kb-row-tab:                     Tab
+rofi.kb-page-prev:                   Page_Up
+rofi.kb-page-next:                   Page_Down
+rofi.kb-row-first:                   Home,KP_Home
+rofi.kb-row-last:                    End,KP_End
+rofi.kb-row-select:                  Control+space
+rofi.kb-cancel:                      Escape

@@ -1,15 +1,45 @@
 #!/bin/sh
 
-xset +fp ~/.fonts -b r rate 200 50 m 1 4
-xset fp rehash
-xrdb -load ~/.Xresources
+xresources=$HOME/.Xresources
+fontdir=$HOME/.fonts
+bgdir=$HOME/pictures/anime
+bgfile=$HOME/pictures/GregMartin/011_2.jpg
+
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+    for f in /etc/X11/xinit/xinitrc.d/?* ; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
+fi
+
+if [ -f "$xresources" ]; then
+    xrdb -load "$xresources"
+fi
+
+if [ -d "$fontdir" ]; then
+    xset +fp "$fontdir"
+    xset fp rehash
+fi
+
+xset -b r rate 200 50 m 1 4
+
 setxkbmap -option caps:swapescape
+
 xsetroot -cursor_name left_ptr
-xbindkeys &
-feh --bg-scale -z ~/pictures/skeeto
-pgrep compton >/dev/null   || compton &
-pgrep ssh-agent >/dev/null || eval `/usr/bin/ssh-agent`
-pgrep redshift >/dev/null  || nohup redshift &
-pgrep dunst >/dev/null     || dunst &
-pgrep mpd >/dev/null       || mpd
-exec tfwm
+
+if [ -d "$bgdir" ]; then
+    feh -q --bg-scale -z "$bgdir"
+elif [ -f "$bgfile" ]; then
+    feh -q --bg-scale "$bgfile"
+else
+    xsetroot -solid \#333
+fi
+
+if [ x"$1" = x ]; then
+    xbindkeys &
+    compton >/dev/null 2>&1 &
+    exec tfwm
+fi
+
+sxhkd &
+exec "$1"

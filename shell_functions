@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # for testing wm
-x() {
+xep() {
     [ `pgrep Xephyr` ] && exit 1
     Xephyr -ac -br -noreset -screen 680x600 :1.0 &
     sleep 0.5
@@ -38,7 +38,7 @@ xd() { xrdb -load ~/.Xresources }
 
 lf() {
    if [ $# -gt 0 ]; then
-      ls -t $1 | head -n6 
+      ls -t $1 | head -n6
    else
       ls -t  | head -n6
    fi
@@ -72,18 +72,6 @@ cd() {
     fi
 }
 
-up() {
-    if [ -z $1 ]; then
-        cd ..
-        return 0
-    fi
-    local cmd='../'
-    for (( i=1; i<$1; i++)); do
-       cmd=${cmd}../
-    done
-    cd $cmd
-}
-
 cpf() {
    cp "$@" && cd "$_";
 }
@@ -92,7 +80,7 @@ mvf() {
    mv "$@" && cd "$_";
 }
 
-mkdirf() {
+mkf() {
    mkdir -p "$@" && cd "$_";
 }
 

@@ -1,10 +1,11 @@
-export ZDOTDIR=${ZDOTDIR:-$HOME}
-export _JAVA_AWT_WM_NONREPARENTING=1
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DESKTOP_DIR="$HOME"
+export GTK2_RC_FILES=/usr/share/themes/Vertex-Light/gtk-2.0/gtkrc
+export _JAVA_AWT_WM_NONREPARENTING=1
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
 export VISUAL=vim
 export EDITOR=$VISUAL
 export BROWSER=chromium
@@ -16,7 +17,6 @@ export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTFILE=~/.zsh_history
 export HISTIGNORE="&:cd:m:l[af]:fg"
-export GTK2_RC_FILES=/usr/share/themes/Numix/gtk-2.0/gtkrc
 export LESS_TERMCAP_so=$(tput setaf 0; tput setab 3)
 export LESS_TERMCAP_mb=$(printf "\e[01;31m")
 export LESS_TERMCAP_md=$(printf "\e[00;33m")

@@ -1,13 +1,21 @@
-""""""""""""" Learn """""""""""
+"""""""""""""""""""""" Learn """"""""""""""""""""
 " :b  - buffer
 " :sb  - split buffer
 " C-w K - move split to top
 " C-w H - move split to left
 " remember to use f and t
-"""""""""""""""""""""""""""""""
+" R for insert mode
+" <localleader>lv  vimtex-view
+" <localleader>ll  vimtex-compile-toggle
+" <localleader>le  vimtex-errors
+" <localleader>lo  vimtex-compile-output
+" <localleader>lg  vimtex-status
+" <localleader>lc  vimtex-clean
+"""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 
 let mapleader = " "
+let maplocalleader = ','
 
 " inoremap f<tab> function() {<cr>}<esc>k$F)i
 
@@ -44,7 +52,9 @@ nnoremap <leader>h gT
 nnoremap <leader>d :bdelete<cr>
 nnoremap <leader>t :tabe<cr>
 
-vnoremap <leader>c :w !curl -F "sprunge=<-" http://sprunge.us
+
+" vnoremap <leader>c :w !curl -F "sprunge=<-" http://sprunge.us
+nnoremap <leader>cd :cd %:p:h<CR>
 
 " nnoremap <leader>= :tabm +1<cr>
 " nnoremap <leader>- :tabm -1<cr>
@@ -73,18 +83,20 @@ nnoremap <leader>! :w ! sudo tee %<cr>
 nnoremap <F5> "=strftime("%c")<CR>P
 
 nnoremap <leader>a :Ag! 
+nnoremap <leader>A :Ag '\b<C-R>=expand("<cword>")<CR>\b'
+xnoremap <leader>a "sy:Ag '<C-R>s'
 
 " fugitive git bindings
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>ga :Git add .<CR>
 nnoremap <leader>gd :Gvdiff<CR>
-nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
-nnoremap <leader>gm :Gmove<Space>
-nnoremap <leader>gb :Git branch<Space>
-nnoremap <leader>go :Git checkout<Space>
-nnoremap <leader>gps :Dispatch git push<CR>
-nnoremap <leader>gpl :Dispatch git pull<CR>
+" nnoremap <leader>ge :Gedit<CR>
+" nnoremap <leader>gm :Gmove<Space>
+" nnoremap <leader>gb :Git branch<Space>
+" nnoremap <leader>go :Git checkout<Space>
+" nnoremap <leader>gps :Dispatch git push<CR>
+" nnoremap <leader>gpl :Dispatch git pull<CR>
 
 augroup fugitive
   au!
@@ -110,6 +122,16 @@ function! StripWhitespace ()
 endfunction
 noremap <leader>S :call StripWhitespace ()<CR>
 
+" http://vim.wikia.com/wiki/Making_a_list_of_numbers
+function! Incr()
+        let a = line('.') - line("'<")
+        let c = virtcol("'<")
+        if a > 0
+                execute 'normal! '.c.'|'.a."\<C-a>"
+        endif
+        normal `<
+endfunction
+vnoremap <C-a> :call Incr()<CR>
 
 
 set mouse=a
@@ -163,7 +185,8 @@ filetype plugin on
 augroup ft
   au!
   au FileType make setlocal noet noai ts=4
-  au FileType c,sh,rb,py setlocal shiftwidth=4 tabstop=4 softtabstop=4
+  au FileType c,h,sh,py setlocal shiftwidth=4 tabstop=4 softtabstop=4
+  au FileType js,tex setlocal shiftwidth=2 tabstop=2 softtabstop=2
   au FileType * setlocal formatoptions-=cro " disable auto commenting
 augroup END
 
@@ -212,13 +235,13 @@ let g:airline_powerline_fonts=1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+" let g:airline_symbols.branch = ''
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = ''
 " tabline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
@@ -227,8 +250,6 @@ let g:airline#extensions#tabline#fnamecollapse = 0
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#show_tab_type = 0
-
-let g:airline_theme = "gruvbox"
 
 if executable("ag")
   set grepprg=ag\ --nogroup\ --nocolor\ --column
@@ -253,11 +274,27 @@ let g:jsx_ext_required = 0
 " tree style
 " let g:netrw_liststyle = 3
 
+let g:vimtex_motion_matchparen = 0
+let g:vimtex_motion_enabled = 0
+let g:vimtex_fold_enabled = 0
+if executable("mupdf")
+  let g:vimtex_view_method = 'mupdf'
+endif
+" let g:vimtex_latexmk_continuous = 0
+" map <localleader>ll <plug>(vimtex-compile)
+
 " if $TERM != "linux"
    set t_Co=256
 " endif
 set background=dark
 colorscheme gruvbox
-highlight Comment cterm=italic
+" highlight Comment cterm=italic
 highlight SyntasticError cterm=underline ctermfg=9 ctermbg=52
 highlight SyntasticWarning cterm=bold ctermfg=11 ctermbg=58
+
+if has("gui_running")
+  set belloff=all
+  set guifont=Monaco\ for\ Powerline\ 10
+  set number
+  colorscheme badwolf
+endif
