@@ -3,12 +3,19 @@
 # for testing wm
 xep() {
     [ `pgrep Xephyr` ] && exit 1
-    Xephyr -ac -br -noreset -screen 680x600 :1.0 &
+    geom=680x600
+    while getopts ":fh" opt; do
+        case $opt in
+            f) geom=1366x768;;
+            h) echo "Usage: $0 [-f|-h] [window manager]"
+                return 0 ;;
+        esac
+    done
+    shift $(( OPTIND - 1 ))
+    Xephyr -ac -br -noreset -screen "$geom" :1.0 &
     sleep 0.5
-    local _wm
-    [ -n "$1" ] && _wm=$1 || _wm=tfwm
-    DISPLAY=:1.0 $_wm
-    unset _wm
+    [ -n "$1" ] && wm=$1 || wm=tfwm
+    DISPLAY=:1.0 $wm
 }
 
 # Escape potential tarbombs
@@ -90,6 +97,7 @@ d(){
         w) dtach -A /tmp/weechat.dtach weechat ;;
         r) dtach -A /tmp/rtorrent.dtach rtorrent ;;
         z) dtach -A /tmp/zsh.dtach zsh ;;
+        e) dtach -A /tmp/emacs.dtach emacs -nw ;;
         *) dtach -A /tmp/$1.dtach $1 ;;
     esac
 }

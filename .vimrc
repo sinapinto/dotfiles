@@ -171,7 +171,8 @@ set softtabstop=2
 set autoindent
 set expandtab
 " set number
-set cc=80
+" set cc=80
+set cc=
 set laststatus=0
 set ls=2
 set timeout ttm=0 "fix ESC + Shift-O lag
@@ -187,6 +188,8 @@ augroup ft
   au FileType make setlocal noet noai ts=4
   au FileType c,h,sh,py setlocal shiftwidth=4 tabstop=4 softtabstop=4
   au FileType js,tex setlocal shiftwidth=2 tabstop=2 softtabstop=2
+  au FileType xdefaults setlocal cms=!%s
+  au BufNewFile,BufRead *.xresources setf xdefaults
   au FileType * setlocal formatoptions-=cro " disable auto commenting
 augroup END
 
@@ -235,14 +238,6 @@ let g:airline_powerline_fonts=1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = ''
-" tabline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_tab_nr = 0
@@ -286,8 +281,8 @@ endif
 " if $TERM != "linux"
    set t_Co=256
 " endif
-set background=dark
-colorscheme gruvbox
+set background=light
+colorscheme solarized
 " highlight Comment cterm=italic
 highlight SyntasticError cterm=underline ctermfg=9 ctermbg=52
 highlight SyntasticWarning cterm=bold ctermfg=11 ctermbg=58

@@ -15,17 +15,16 @@ _git_prompt() {
 }
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
-case $TERM in
-  rxvt*|screen*|xterm*)
-    source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+if [ $TERM != "linux" ]; then
+    if [ $TERM != "eterm-color" ]; then
+      # source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
+    fi
     source "$HOME/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     # TODO: add a bg process indicator to the prompt
     setopt prompt_subst # parameter expansion in prompt
     PROMPT='`[ $? -eq 0 ] || echo "%{$fg_bold[red]%}✘ "`'
     PROMPT+="%{$fg_bold[magenta]%}%50<..<%~%<<\$(_git_prompt)%{$reset_color%}$ "
-    ;;
-  linux) ;;
-esac
+fi
 zmodload -i zsh/complist
 bindkey -M menuselect '^M' .accept-line
 autoload -Uz compinit && compinit

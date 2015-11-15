@@ -2,7 +2,7 @@
 
 xresources=$HOME/.Xresources
 fontdir=$HOME/.fonts
-bgdir=$HOME/pictures/anime
+bgdir=$HOME/pictures/GregMartin
 bgfile=$HOME/pictures/GregMartin/011_2.jpg
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
@@ -36,9 +36,10 @@ else
 fi
 
 if [ x"$1" = x ]; then
+    # TODO: make systemd services for these apps
     xbindkeys &
     compton >/dev/null 2>&1 &
-    exec tfwm
+    exec tfwm 2> ~/wm.log
 fi
 
 sxhkd &
