@@ -1,8 +1,9 @@
-! vi: set cms=!%s :
-#include "/home/veggie/solarized-light.xresources"
+! vim: ft=xdefaults cms=!%s
+#include "/home/veggie/gruvbox.xresources"
 #include "/home/veggie/rofi.xresources"
-#define FONT xft:DejaVu Sans Mono for Powerline
-! #define FONT xft:Liberation Mono for Powerline
+#define FONT                Terminess Powerline
+! #define FONT                Fantasque Sans Mono
+
 Xft.antialias:              1
 Xft.autohint:               0
 Xft.dpi:                    96
@@ -10,33 +11,29 @@ Xft.hinting:                1
 Xft.hintstyle:              hintfull
 Xft.lcdfilter:              lcddefault
 Xft.rgba:                   rgb
-URxvt*termName:             rxvt-256color
-URxvt*geometry:             80x20
-URxvt.internalBorder:       0
-URxvt.scrollBar:            false
-URxvt*perl-ext-common:      default,matcher,url-select
-URxvt*url-select.launcher:  /home/veggie/bin/launch
-URxvt*matcher.button:       1
+
+URxvt.perl-ext-common:      url-select,font-size
+
+URxvt.keysym.C-S-Up:        font-size:increase
+URxvt.keysym.C-S-Down:      font-size:decrease
+
+URxvt.url-select.launcher:  /home/veggie/bin/launch
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
-! URxvt*fading:               20
-! URxvt*colorUL:              #458588
-! URxvt*underlineColor:       #458588
-URxvt*letterSpace:          -2
+
+URxvt*termName:             rxvt-256color
+URxvt*geometry:             80x20
+URxvt*internalBorder:       0
+URxvt*iso14755:             false
+URxvt*scrollBar:            false
+URxvt*colorUL:              #458588
+URxvt*underlineColor:       #458588
+URxvt*letterSpace:          0
 URxvt*lineSpace:            1
-URxvt*keysym.C-F1:          command:\033]710;FONT:size=8:Bold\007\033]711;FONT:size=8:Bold\007\033]712;FONT:size=8:Italic\007
-URxvt*keysym.C-F2:          command:\033]710;FONT:size=9:Bold\007\033]711;FONT:size=9:Bold\007\033]712;FONT:size=9:Italic\007
-URxvt*keysym.C-F3:          command:\033]710;FONT:size=10:Bold\007\033]711;FONT:size=10:Bold\007\033]712;FONT:size=10:Italic\007
-URxvt*keysym.C-F4:          command:\033]710;FONT:size=11:Bold\007\033]711;FONT:size=11:Bold\007\033]712;FONT:size=11:Italic\007
-URxvt*keysym.C-F5:          command:\033]710;FONT:size=12:Bold\007\033]711;FONT:size=12:Bold\007\033]712;FONT:size=12:Italic\007
-URxvt*keysym.C-F6:          command:\033]710;FONT:size=13:Bold\007\033]711;FONT:size=13:Bold\007\033]712;FONT:size=13:Italic\007
-URxvt*keysym.C-F7:          command:\033]710;FONT:size=15:Bold\007\033]711;FONT:size=15:Bold\007\033]712;FONT:size=15:Italic\007
-URxvt*keysym.C-F8:          command:\033]710;FONT:size=16:Bold\007\033]711;FONT:size=16:Bold\007\033]712;FONT:size=16:Italic\007
 URxvt*keysym.C-9:           command:\033]720;12\007
 URxvt*keysym.C-0:           command:\033]721;12\007
-URxvt.boldFont:             FONT:size=9:Bold
-URxvt.italicFont:           FONT:size=9:Italic
-URxvt.boldItalicFont:       FONT:size=9:Italic
-URxvt.font:                 FONT:size=9,\
+URxvt*boldFont:             xft:FONT:size=10:Bold
+URxvt*italicFont:           xft:FONT:size=10:Italic
+URxvt*boldItalicFont:       xft:FONT:size=10:Italic:Bold
+URxvt*font:                 xft:FONT:size=10:Bold,\
                                       xft:Liberation Mono for Powerline
-emacs.font:                 DejaVu Sans Mono for Powerline-10

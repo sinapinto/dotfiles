@@ -1,16 +1,21 @@
 #!/bin/sh
 
+# common
+alias ns='npm start'
+alias smi='sudo make clean install'
+alias md='make clean debug'
+alias al='vim ~/shell_aliases'
+alias fu='vim ~/shell_functions'
+alias xd='xrdb -load ~/.Xresources'
+alias v='vim'
+alias e='emacs -nw'
+alias n='ncmpcpp'
+
 # random stuff
+alias wifi='netctl restart wlp8s0-NETGEAR21'
 alias flib='find /usr/include -name '
-alias smi='sudo make install'
 alias webcam='mpv /dev/video0'
 alias keys='killall xbindkeys && xbindkeys'
-alias al='vim $HOME/shell_aliases'
-alias v='vim'
-# alias e='env TERM=xterm-256color emacs -nw'
-alias e='emacs -nw'
-alias vs='vim --servername VIM'
-alias n='ncmpcpp'
 alias -g S='| curl -F "sprunge=<-" http://sprunge.us'
 alias g='la | grep -i '
 alias s='sudo !!'
@@ -27,7 +32,8 @@ alias df='df -h'
 alias less='less -R'
 alias tree='tree -I node_modules'
 alias define='sdcv'
-alias ag='ag --nogroup --color-path "0;35" --color-match "1;31" --nonumbers -U --hidden'
+# alias ag='ag --nogroup --color-path "0;35" --color-match "1;31" --nonumbers -U --hidden'
+alias feh='feh -q'
 
 # git
 alias gs='git status'

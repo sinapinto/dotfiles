@@ -1,21 +1,8 @@
 #!/bin/bash
 
-# for testing wm
-xep() {
-    [ `pgrep Xephyr` ] && exit 1
-    geom=680x600
-    while getopts ":fh" opt; do
-        case $opt in
-            f) geom=1366x768;;
-            h) echo "Usage: $0 [-f|-h] [window manager]"
-                return 0 ;;
-        esac
-    done
-    shift $(( OPTIND - 1 ))
-    Xephyr -ac -br -noreset -screen "$geom" :1.0 &
-    sleep 0.5
-    [ -n "$1" ] && wm=$1 || wm=tfwm
-    DISPLAY=:1.0 $wm
+kb () {
+    xset -b r rate 200 50 m 1 4
+    setxkbmap -option caps:swapescape
 }
 
 # Escape potential tarbombs
@@ -27,22 +14,6 @@ etb() {
   fi ;
 }
 
-# create a new script, automatically populating the shebang line, editing the
-# script, and making it executable.
-shebang() {
-  if i=$(which $1);
-  then
-    printf '#!/usr/bin/env %s\n\n' $1 > $2 && chmod 755 $2 && vim + $2 && chmod 755 $2;
-  else
-    echo "'which' could not find $1, is it in your \$PATH?";
-  fi;
-  # in case the new script is in path, this throw out the command hash table and
-  # start over  (man zshbuiltins)
-  rehash
-}
-
-xd() { xrdb -load ~/.Xresources }
-
 lf() {
    if [ $# -gt 0 ]; then
       ls -t $1 | head -n6
@@ -51,13 +22,12 @@ lf() {
    fi
 }
 
-# node(){
-#     [ -e .env ] && env $(cat .env) /usr/bin/node "$@" || /usr/bin/node "$@"
-# }
+largepkgs() { pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n ;}
 
-largepkgs() { pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n }
-t(){ env TERM=screen-256color-it tmux attach || env TERM=screen-256color-it tmux new }
-mu () { mupdf "$@" &>/dev/null & disown }
+t(){ env TERM=screen-256color-it tmux attach || env TERM=screen-256color-it tmux new ;}
+
+mu () { mupdf "$@" &>/dev/null & disown ;}
+
 m() {
     [ -z $1 ] && return 1
     if [ $1 = '-s' ]; then
@@ -79,14 +49,6 @@ cd() {
     fi
 }
 
-cpf() {
-   cp "$@" && cd "$_";
-}
-
-mvf() {
-   mv "$@" && cd "$_";
-}
-
 mkf() {
    mkdir -p "$@" && cd "$_";
 }
@@ -94,10 +56,8 @@ mkf() {
 d(){
     case $1 in
         i) dtach -A /tmp/irssi.dtach irssi ;;
-        w) dtach -A /tmp/weechat.dtach weechat ;;
         r) dtach -A /tmp/rtorrent.dtach rtorrent ;;
         z) dtach -A /tmp/zsh.dtach zsh ;;
-        e) dtach -A /tmp/emacs.dtach emacs -nw ;;
         *) dtach -A /tmp/$1.dtach $1 ;;
     esac
 }
@@ -108,20 +68,6 @@ touchpad(){
     val=$(xinput list-props $deviceid | grep able | tail -c 2)
     [ $val -eq 1 ] && xinput --disable $deviceid \
                    || xinput --enable $deviceid
-}
-
-# asdf(){
-#     local file="$HOME/.playlist"
-#     [ -f $file ] || return 1
-#     [ -f "${file}.tmp" ] && rm -f "${file}.tmp" || echo "no temp file found"
-#     shuf -n $(wc -l $file | cut -d " " -f1) $file > "${file}.tmp"
-#     mpv --playlist="${file}.tmp"
-# }
-
-swap(){
-    mv $1 tmp.$1
-    mv $2 $1
-    mv tmp.$1 $2
 }
 
 extract () {
@@ -143,28 +89,4 @@ extract () {
     fi
 }
 
-soneeded() {
-   readelf -d $1 | awk '/NEEDED/ {gsub(/[\[\]]/, "", $5); print $5}'
-}
-
-elfcompress() {
-   [[ -n "$@" ]] || {
-      echo "usage : elfcompress [binary]"
-      return
-   }
-
-   cp "$@" /tmp/compress.temp
-   strip -s -R .comment -R .gnu.version /tmp/compress.temp
-
-   gzip -c /tmp/compress.temp > /tmp/compress.gz
-   echo 'a=/tmp/I;tail -n+2 $0|zcat>$a;chmod +x $a;$a;rm $a;exit' >> /tmp/unpack.header
-
-   cat /tmp/unpack.header /tmp/compress.gz > "$@.packed"
-   chmod +x "$@.packed"
-
-   rm /tmp/compress.temp
-   rm /tmp/compress.gz
-   rm /tmp/unpack.header
-}
-
-calc() { noglob echo $(( $* )) }
+calc() { noglob echo $(( $* )) ;}

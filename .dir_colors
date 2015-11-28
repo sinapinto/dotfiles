@@ -159,9 +159,9 @@ NORMAL 00
 # normal file
 FILE 00
 # directory
-DIR 0;34
+DIR 1;34
 # 777 directory
-OTHER_WRITABLE 34;47
+OTHER_WRITABLE 34;40
 # symbolic link
 LINK 35
 
@@ -406,7 +406,7 @@ EXEC 01;31  # Unix
 # Unimportant text files
 # For universal scheme, use brightgreen 01;32
 # For optimal on light bg (but too prominent on dark bg), use white 01;34
-.log 37
+.log 01;30
 *~ 01;30
 *# 01;30
 

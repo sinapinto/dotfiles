@@ -3,9 +3,6 @@
   name = Sina Pinto
 [push]
   default = current
-; [http]
-; 	postBuffer = 52428800
-
 [color]
   ui = true
   branch = auto
@@ -15,3 +12,5 @@
   date = relative
 [format]
   pretty = format:%C(blue)%h %C(yellow)%>(12)%ad %Cgreen%<(7)%aN%C(auto)%d %Creset%s
+[init]
+  templatedir = ~/.config/git/template

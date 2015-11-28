@@ -7,7 +7,7 @@ bgfile=$HOME/pictures/GregMartin/011_2.jpg
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
     for f in /etc/X11/xinit/xinitrc.d/?* ; do
-        [ -x "$f" ] && . "$f"
+        [ -x "$f" ] && source "$f"
     done
     unset f
 fi
@@ -35,12 +35,10 @@ else
     xsetroot -solid \#333
 fi
 
+# compton >/dev/null 2>&1 &
+
 if [ x"$1" = x ]; then
-    # TODO: make systemd services for these apps
-    xbindkeys &
-    compton >/dev/null 2>&1 &
-    exec tfwm 2> ~/wm.log
+    exec tfwm 2>~/wm.log >/dev/null
 fi
 
-sxhkd &
 exec "$1"

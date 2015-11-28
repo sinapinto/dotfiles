@@ -7,24 +7,25 @@ autoload -U colors && colors
 if ! [[ `tty` =~ ^/dev/tty.* ]]; then
   eval `dircolors -b ~/.dir_colors`
 fi
+
 _git_prompt() {
   ref=${$(git symbolic-ref HEAD 2>/dev/null)#refs/heads/} || \
     ref=${$(git rev-parse HEAD 2>/dev/null)[1][1,7]} || \
     return
   print -Pn '%%{\e[00m%%}(%%{\e[01;36m%%}%20>..>$ref%<<%%{\e[00m%%})'
 }
+
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 if [ $TERM != "linux" ]; then
-    if [ $TERM != "eterm-color" ]; then
-      # source "$HOME/.vim/bundle/gruvbox/gruvbox_256palette.sh"
-    fi
+    source "$HOME/.vim/plugged/gruvbox/gruvbox_256palette.sh"
     source "$HOME/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     # TODO: add a bg process indicator to the prompt
     setopt prompt_subst # parameter expansion in prompt
     PROMPT='`[ $? -eq 0 ] || echo "%{$fg_bold[red]%}✘ "`'
     PROMPT+="%{$fg_bold[magenta]%}%50<..<%~%<<\$(_git_prompt)%{$reset_color%}$ "
 fi
+
 zmodload -i zsh/complist
 bindkey -M menuselect '^M' .accept-line
 autoload -Uz compinit && compinit
@@ -92,7 +93,8 @@ bindkey '\ee' edit-command-line
 bindkey -s "\eu" '^Ucd ..^M'
 bindkey -s "\ef" '^J~/^E'
 bindkey '\e.' insert-last-word
-# bindkey -M viins ' ' magic-space
 bindkey '^[[Z' reverse-menu-complete # shift-tab
-[ ! -f "$HOME/shell_aliases" ]   || . $HOME/shell_aliases
-[ ! -f "$HOME/shell_functions" ] || . $HOME/shell_functions
+
+[ -f ~/shell_aliases ]   && source ~/shell_aliases
+[ -f ~/shell_functions ] && source ~/shell_functions
+[ -f ~/.fzf.zsh ]        && source ~/.fzf.zsh
