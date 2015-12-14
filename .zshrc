@@ -1,31 +1,18 @@
 [[ $- != *i* ]] && return 1
+
+# since zsh is also the login shell, avoid concatenating twice
 if [[ -o login ]]; then
   export PATH=$PATH:$HOME/bin
 fi
-stty -ixon
+
 autoload -U colors && colors
 if ! [[ `tty` =~ ^/dev/tty.* ]]; then
   eval `dircolors -b ~/.dir_colors`
 fi
 
-_git_prompt() {
-  ref=${$(git symbolic-ref HEAD 2>/dev/null)#refs/heads/} || \
-    ref=${$(git rev-parse HEAD 2>/dev/null)[1][1,7]} || \
-    return
-  print -Pn '%%{\e[00m%%}(%%{\e[01;36m%%}%20>..>$ref%<<%%{\e[00m%%})'
-}
-
+stty -ixon
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
-if [ $TERM != "linux" ]; then
-    source "$HOME/.vim/plugged/gruvbox/gruvbox_256palette.sh"
-    source "$HOME/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-    # TODO: add a bg process indicator to the prompt
-    setopt prompt_subst # parameter expansion in prompt
-    PROMPT='`[ $? -eq 0 ] || echo "%{$fg_bold[red]%}✘ "`'
-    PROMPT+="%{$fg_bold[magenta]%}%50<..<%~%<<\$(_git_prompt)%{$reset_color%}$ "
-fi
-
 zmodload -i zsh/complist
 bindkey -M menuselect '^M' .accept-line
 autoload -Uz compinit && compinit
@@ -40,53 +27,95 @@ bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
-#---------------------------------------------------------
-change-first-word() {
+
+# custom ZLE widgets -----------------------------------------
+_change-first-word() {
   zle beginning-of-line
   zle kill-word
 }
-zle -N change-first-word
-bindkey -M viins "\ea" change-first-word
-#---------------------------------------------------------
-vim-instead() {
+zle -N _change-first-word
+bindkey -M viins "\ea" _change-first-word
+
+_vim-instead() {
   zle beginning-of-line
   zle kill-word
   LBUFFER="vim $LBUFFER"
   zle accept-line
 }
-zle -N vim-instead
-bindkey -M viins "\ev" vim-instead
-#---------------------------------------------------------
-man-instead() {
+zle -N _vim-instead
+bindkey -M viins "\ev" _vim-instead
+
+_man-instead() {
   LBUFFER="man $LBUFFER"
   zle accept-line
 }
-zle -N man-instead
-bindkey -M viins "\em" man-instead
-#---------------------------------------------------------
-backward-kill-to-slash() {
+zle -N _man-instead
+bindkey -M viins "\em" _man-instead
+
+_backward-kill-to-slash() {
   local WORDCHARS="${WORDCHARS:s@/@}"
   zle backward-kill-word
 }
-zle -N backward-kill-to-slash
-bindkey -M viins "^W" backward-kill-to-slash
-#---------------------------------------------------------
-tilde-questionmark() { # fix ~? to ~/
+zle -N _backward-kill-to-slash
+bindkey -M viins "^W" _backward-kill-to-slash
+
+_tilde-questionmark() { # fix ~? to ~/
   if [[ $LBUFFER[-1] == \~ ]]; then
     zle -U '/'
   else
     zle self-insert
   fi
 }
-bindkey \? tilde-questionmark
-zle -N tilde-questionmark
-#---------------------------------------------------------
-dot-dot() {
-  zle -U '../'
+bindkey \? _tilde-questionmark
+zle -N _tilde-questionmark
+
+# _dot-dot() {
+#   zle -U '../'
+# }
+# bindkey -M viins "\e;" _dot-dot
+# zle -N _dot-dot
+
+# vi mode status indicator -----------------------------------
+# http://ivyl.0xcafe.eu/2013/02/03/refining-zsh/
+# urxvt (and family) accepts even #RRGGBB
+local INSERT_PROMPT="green"
+local COMMAND_PROMPT="orange"
+
+# helper for setting color including all kinds of terminals
+set_prompt_color() {
+  if [[ $TERM = "linux" ]]; then
+    # nothing
+  elif [[ $TMUX != '' ]]; then
+    printf '\033Ptmux;\033\033]12;%b\007\033\\' "$1"
+  else
+    echo -ne "\033]12;$1\007"
+  fi
 }
-bindkey -M viins "\e;" dot-dot
-zle -N dot-dot
-#---------------------------------------------------------
+
+# change cursor color basing on vi mode
+zle-keymap-select () {
+  if [ $KEYMAP = vicmd ]; then
+    set_prompt_color $COMMAND_PROMPT
+  else
+    set_prompt_color $INSERT_PROMPT
+  fi
+}
+
+zle-line-finish() {
+  set_prompt_color $INSERT_PROMPT
+}
+
+zle-line-init () {
+  zle -K viins
+  set_prompt_color $INSERT_PROMPT
+}
+
+zle -N zle-keymap-select
+zle -N zle-line-init
+zle -N zle-line-finish
+
+# ------------------------------------------------------------
+
 autoload edit-command-line
 zle -N edit-command-line
 bindkey '\ee' edit-command-line
@@ -95,6 +124,48 @@ bindkey -s "\ef" '^J~/^E'
 bindkey '\e.' insert-last-word
 bindkey '^[[Z' reverse-menu-complete # shift-tab
 
+_git_prompt() {
+  # reference
+  local GIT_REF=${$(git symbolic-ref HEAD 2>/dev/null)#refs/heads/}
+  if [ -z $GIT_REF ]; then
+    GIT_REF=${$(git rev-parse HEAD 2>/dev/null)[1][1,7]}
+  fi
+  [ -z $GIT_REF ] && return
+  # stash (this slows down the prompt significantly)
+  # local GIT_STASH=${$(git stash list 2>/dev/null)[1][7,9]}
+  echo "%k%b(%B%F{cyan}%20>..>${GIT_REF}%<<%k%b)"
+}
+
+if [ $TERM != "linux" ]; then
+  GRUVBOX_PATH="$HOME/.vim/plugged/gruvbox/gruvbox_256palette.sh"
+  [ -f $GRUVBOX_PATH ] && source $GRUVBOX_PATH
+  unset GRUVBOX_PATH
+
+  # syntax highlighting - should be sourced after all custom widgets have been created
+  # (widgets created later will work, but will not update the syntax highlighting)
+  HIGHLIGHTER_PATH="$HOME/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+  [ -f $HIGHLIGHTER_PATH ] && source $HIGHLIGHTER_PATH || return
+  unset HIGHLIGHTER_PATH
+  ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+  typeset -A ZSH_HIGHLIGHT_STYLES
+  ZSH_HIGHLIGHT_STYLES[alias]='fg=green,bold'
+  ZSH_HIGHLIGHT_STYLES[builtin]='fg=green,bold'
+  ZSH_HIGHLIGHT_STYLES[function]='fg=green,bold'
+  ZSH_HIGHLIGHT_STYLES[command]='fg=green,bold'
+  ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=green,bold'
+  ZSH_HIGHLIGHT_STYLES[path]='fg=yellow,underline'
+  ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=yellow,underline'
+
+  # prompt
+  setopt prompt_subst
+  PROMPT="%(?..%B%F{red}(%?%))"       # exit code
+  PROMPT+="%(1j.%B%F{green}(%j).)"    # background jobs
+  PROMPT+="%B%F{magenta}%50<..<%~%<<" # working directory
+  PROMPT+='$(_git_prompt)'            # git
+  PROMPT+="%b%f$ "
+fi
+
 [ -f ~/shell_aliases ]   && source ~/shell_aliases
 [ -f ~/shell_functions ] && source ~/shell_functions
 [ -f ~/.fzf.zsh ]        && source ~/.fzf.zsh
+

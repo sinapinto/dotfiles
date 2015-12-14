@@ -1,39 +1,35 @@
 #!/bin/sh
 
-# common
+# convenience
 alias ns='npm start'
-alias smi='sudo make clean install'
-alias md='make clean debug'
+alias smi='sudo make install'
+alias md='make debug'
 alias al='vim ~/shell_aliases'
 alias fu='vim ~/shell_functions'
-alias xd='xrdb -load ~/.Xresources'
 alias v='vim'
 alias e='emacs -nw'
-alias n='ncmpcpp'
-
-# random stuff
+alias n='ncmpcpp 2>/dev/null'
 alias wifi='netctl restart wlp8s0-NETGEAR21'
-alias flib='find /usr/include -name '
+alias flib='find /usr/include -name'
 alias webcam='mpv /dev/video0'
-alias keys='killall xbindkeys && xbindkeys'
+alias define='sdcv'
 alias -g S='| curl -F "sprunge=<-" http://sprunge.us'
-alias g='la | grep -i '
-alias s='sudo !!'
-
-# utils
-alias ls='ls -F --color=auto'
 alias ll='ls -ahlF'
 alias la='ls -FA'
 alias a='la'
 alias c='cd'
+alias g='la | grep -i'
+alias t='tmux attach || tmux new'
+
+# sane defaults
+alias ls='ls -F --color=auto'
 alias grep='grep --color=auto'
 alias du='du -sh'
 alias df='df -h'
 alias less='less -R'
 alias tree='tree -I node_modules'
-alias define='sdcv'
-# alias ag='ag --nogroup --color-path "0;35" --color-match "1;31" --nonumbers -U --hidden'
 alias feh='feh -q'
+alias which='which -a'
 
 # git
 alias gs='git status'
@@ -42,9 +38,9 @@ alias gc='git commit -m'
 alias gb='git branch'
 alias gco='git checkout'
 alias gp='git push'
-alias gl='git log --decorate --name-only'
+alias gl='git log --date=relative --format="%C(blue)%h %C(yellow)%>(12)%ad %Cgreen%<(7)%aN%C(auto)%d %Creset%s"'
 alias gd='git diff'
-alias gdl='git diff HEAD~1 HEAD'
+alias gdl='git diff HEAD'
 alias gr='git remote -v'
 
 # pacman
@@ -56,6 +52,6 @@ alias u='sudo pacman -Syu'
 
 # systemd
 alias sc='systemctl'
+alias st='systemctl status'
 alias jc='journalctl'
 alias nc='netctl'
-alias st='systemctl status'

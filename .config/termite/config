@@ -9,8 +9,7 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-# font = Terminess Powerline 12
-font = DejaVu Sans Mono for Powerline 9
+font = Ttyp0 11
 scrollback_lines = 8192
 search_wrap = true
 browser = chromium
@@ -20,32 +19,26 @@ cursor_shape = block
 # word_chars = -A-Za-z0-9,./?%&#:_=+@~
 
 [colors]
-foreground = #657b83
-foreground_bold = #073642
-#foreground_dim = #888888
-background = #fdf6e3
-cursor = #586e75
-
-# if unset, will reverse foreground and background
-#highlight = #839496
-
-# colors from color0 to color254 can be set
-color0 = #073642
-color1 = #dc322f
-color2 = #859900
-color3 = #b58900
-color4 = #268bd2
-color5 = #d33682
-color6 = #2aa198
-color7 = #eee8d5
-color8 = #002b36
-color9 = #cb4b16
-color10 = #586e75
-color11 = #657b83
-color12 = #839496
-color13 = #6c71c4
-color14 = #93a1a1
-color15 = #fdf6e3
+cursor = #00ff00
+background = #282828
+foreground = #ebdbb2
+foreground_bold = #ebdbb2
+color0 =  #282828
+color1 =  #cc241d
+color2 =  #98971a
+color3 =  #d79921
+color4 =  #458588
+color5 =  #b16286
+color6 =  #689d6a
+color7 =  #a89984
+color8 =  #928374
+color9 =  #fb4934
+color10 = #b8bb26
+color11 = #fabd2f
+color12 = #83a598
+color13 = #d3869b
+color14 = #8ec07c
+color15 = #ebdbb2
 
 [hints]
 border = #F92672

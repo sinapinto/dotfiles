@@ -16,7 +16,7 @@ Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 nnoremap <Leader>a :Ag 
-xnoremap <leader>a "sy:Ag <C-R>s
+xnoremap <leader>a "sy:Ag \b<C-R>s\b
 nnoremap <silent> <Leader>b <Esc>:Buffers<CR>
 nnoremap <silent> <Leader>/ <Esc>:History<CR>
 nnoremap <silent> <Leader>gl <Esc>:Commits<CR>
@@ -29,7 +29,9 @@ Plug 'tpope/vim-fugitive'
 nnoremap <leader>gs :Gstatus<CR>
 
 Plug 'bling/vim-airline'
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts=0
+let g:airline_left_sep=''
+let g:airline_right_sep=''
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_tab_nr = 0
@@ -40,9 +42,6 @@ let g:airline#extensions#tabline#show_tab_type = 0
 
 Plug 'morhetz/gruvbox'
 let g:gruvbox_invert_selection = 0
-let g:gruvbox_italic=1
-set t_ZH=[3m
-set t_ZR=[23m
 
 Plug 'lervag/vimtex'
 let g:vimtex_motion_matchparen = 0
@@ -55,10 +54,8 @@ Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 
 Plug 'scrooloose/syntastic'
-let g:syntastic_error_symbol = '✘'
-let g:syntastic_warning_symbol = '●'
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_ignore_files = ['.jsx$', '.js$']
@@ -88,9 +85,9 @@ nnoremap <leader>l gt
 nnoremap <leader>h gT
 nnoremap <leader>d :bdelete<cr>
 nnoremap <leader>t :tabe<cr>
+nnoremap <leader>o :b#<cr>
 nnoremap <leader>= me=ap`e
-nnoremap gp `[V`]
-nnoremap =- `[V`]=
+nnoremap gp `[V`]=
 nnoremap <c-n> <c-f>
 nnoremap <c-p> <c-b>
 nnoremap <c-h> <C-w><c-h>
@@ -156,30 +153,31 @@ set nostartofline
 set confirm
 set visualbell
 set t_vb=
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
+" set shiftwidth=4
+" set tabstop=4
+" set softtabstop=4
 set autoindent
 set expandtab
 set cc=
+set nonumber
+set nocursorline
 set laststatus=0
 set ls=2
 set timeout ttm=0
-set list listchars=tab:\›\ ,trail:★,nbsp:•
+set list listchars=tab:\›\ ,trail:★
+set wildignore=*.o,.git,*.png,*.jpg,*.jpeg,*.gif
 set t_Co=256
 set background=dark
-set wildignore=*.o,.git,*.png,*.jpg,*.jpeg,*.gif
 
 augroup ft
   au!
-  au FileType * setlocal formatoptions-=cro " disable auto commenting
+  au FileType * setlocal formatoptions-=cro
   au FileType make setlocal noet noai
-  " au FileType gitcommit setlocal textwidth=72 formatoptions+=tl
+  au FileType gitcommit setlocal textwidth=72 formatoptions+=tl
   au BufReadPost fugitive://* set bufhidden=delete
-  au BufNewFile,BufRead /home/veggie/code/wm/* set noet noai
+  au BufNewFile,BufRead /home/veggie/code/wm/* set noet noai cino=(0 ")
 augroup END
 
-colorscheme Tomorrow-Night
+colorscheme hybrid
+let g:airline_theme = "badwolf"
 
-" highlight SyntasticError cterm=underline ctermfg=9 ctermbg=52
-" highlight SyntasticWarning cterm=bold ctermfg=11 ctermbg=58

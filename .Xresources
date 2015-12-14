@@ -1,8 +1,27 @@
 ! vim: ft=xdefaults cms=!%s
 #include "/home/veggie/gruvbox.xresources"
 #include "/home/veggie/rofi.xresources"
-#define FONT                Terminess Powerline
-! #define FONT                Fantasque Sans Mono
+
+#if defined (FANTASQUE)
+# define FONT               Fantasque Sans Mono-10
+# define BOLD
+  URxvt*letterSpace:        -2
+#elif defined (SOURCE)
+# define FONT               Source Code Pro for Powerline-8
+# define BOLD
+  URxvt*letterSpace:        -2
+#elif defined (TERMINESES)
+# define FONT               Terminess Powerline-9
+  URxvt*letterSpace:        0
+#elif defined (GOHU)
+# define FONT               gohufont-11
+  URxvt*letterSpace:        0
+  URxvt*lineSpace:          1
+#else
+# define FONT               Ttyp0-11
+  URxvt*lineSpace:          1
+#endif
+
 
 Xft.antialias:              1
 Xft.autohint:               0
@@ -19,21 +38,24 @@ URxvt.keysym.C-S-Down:      font-size:decrease
 
 URxvt.url-select.launcher:  /home/veggie/bin/launch
 URxvt.url-select.underline: true
-URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.keysym.M-C-u:         perl:url-select:select_next
 
 URxvt*termName:             rxvt-256color
 URxvt*geometry:             80x20
 URxvt*internalBorder:       0
 URxvt*iso14755:             false
 URxvt*scrollBar:            false
+! URxvt*pointerBlank:         true
 URxvt*colorUL:              #458588
 URxvt*underlineColor:       #458588
-URxvt*letterSpace:          0
-URxvt*lineSpace:            1
 URxvt*keysym.C-9:           command:\033]720;12\007
 URxvt*keysym.C-0:           command:\033]721;12\007
-URxvt*boldFont:             xft:FONT:size=10:Bold
-URxvt*italicFont:           xft:FONT:size=10:Italic
-URxvt*boldItalicFont:       xft:FONT:size=10:Italic:Bold
-URxvt*font:                 xft:FONT:size=10:Bold,\
-                                      xft:Liberation Mono for Powerline
+URxvt*boldFont:             xft:FONT:Bold
+URxvt*italicFont:           xft:FONT:Italic
+URxvt*boldItalicFont:       xft:FONT:Italic:Bold
+#ifdef BOLD
+URxvt*font:                 xft:FONT:Bold,xft:Liberation Mono for Powerline:Bold
+#else
+URxvt*font:                 xft:FONT,xft:Liberation Mono for Powerline
+#endif
+

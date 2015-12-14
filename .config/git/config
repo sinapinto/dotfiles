@@ -8,9 +8,8 @@
   branch = auto
   diff = auto
   status = auto
-[log]
-  date = relative
-[format]
-  pretty = format:%C(blue)%h %C(yellow)%>(12)%ad %Cgreen%<(7)%aN%C(auto)%d %Creset%s
+[alias]
+  lg = log --decorate
+  future = log --decorate --reverse --ancestry-path HEAD^..master
 [init]
   templatedir = ~/.config/git/template

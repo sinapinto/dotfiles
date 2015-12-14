@@ -2,7 +2,7 @@
 
 xresources=$HOME/.Xresources
 fontdir=$HOME/.fonts
-bgdir=$HOME/pictures/GregMartin
+# bgdir=$HOME/pictures/GregMartin
 bgfile=$HOME/pictures/GregMartin/011_2.jpg
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
@@ -25,7 +25,8 @@ xset -b r rate 200 50 m 1 4
 
 setxkbmap -option caps:swapescape
 
-xsetroot -cursor_name left_ptr
+# xsetroot -cursor /usr/include/X11/bitmaps/left_ptr \
+#     /usr/include/X11/bitmaps/left_ptrmsk -bg black -fg white
 
 if [ -d "$bgdir" ]; then
     feh -q --bg-scale -z "$bgdir"
@@ -41,4 +42,5 @@ if [ x"$1" = x ]; then
     exec tfwm 2>~/wm.log >/dev/null
 fi
 
-exec "$1"
+xbindkeys &
+exec "$1" 2>~/wm.log >/dev/null
