@@ -1,25 +1,72 @@
 [[ $- != *i* ]] && return 1
 
-# since zsh is also the login shell, avoid concatenating twice
-if [[ -o login ]]; then
-  export PATH=$PATH:$HOME/bin
-fi
-
 autoload -U colors && colors
 if ! [[ `tty` =~ ^/dev/tty.* ]]; then
   eval `dircolors -b ~/.dir_colors`
 fi
 
 stty -ixon
+autoload edit-command-line
+zle -N edit-command-line
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
+
+# completion -------------------------------------------------
+
 zmodload -i zsh/complist
-bindkey -M menuselect '^M' .accept-line
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 zstyle ':completion:*' list-colors no=00 fi=00 di=01\;34 pi=33 so=01\;35 bd=00\;35 cd=00\;34 or=00\;41 mi=00\;45 ex=01\;32
-setopt menu_complete # immediately select first menu item
+setopt menu_complete
+
+# custom widgets ---------------------------------------------
+
+_change-first-word() {
+  zle beginning-of-line
+  zle kill-word
+}
+zle -N _change-first-word
+
+_man-line() {
+  LBUFFER="man $LBUFFER"
+  zle accept-line
+}
+zle -N _man-line
+
+_backward-kill-to-slash() {
+  local WORDCHARS="${WORDCHARS:s@/@}"
+  zle backward-kill-word
+}
+zle -N _backward-kill-to-slash
+
+_fix-tilde-questionmark() {
+  if [[ $LBUFFER[-1] == \~ ]]; then
+    zle -U '/'
+  else
+    zle self-insert
+  fi
+}
+zle -N _fix-tilde-questionmark
+
+# FZF widgets ------------------------------------------------
+
+_fzf_history() {
+  zle -I
+  eval $(history | fzf +s | sed 's/ *[0-9]* *//')
+}
+zle -N _fzf_history
+
+_fzf_cd() {
+  zle -I
+  cd $(find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf)
+}
+zle -N _fzf_cd
+
+# widget keybinds --------------------------------------------
+
+# builtins
+bindkey "\ee" edit-command-line
 bindkey "^J" backward-word
 bindkey "^H" backward-kill-word
 bindkey "^K" forward-word
@@ -27,102 +74,38 @@ bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
+bindkey "\e." insert-last-word
+bindkey -M menuselect '^M' .accept-line
+bindkey "^[[Z" reverse-menu-complete
 
-# custom ZLE widgets -----------------------------------------
-_change-first-word() {
-  zle beginning-of-line
-  zle kill-word
-}
-zle -N _change-first-word
-bindkey -M viins "\ea" _change-first-word
-
-_vim-instead() {
-  zle beginning-of-line
-  zle kill-word
-  LBUFFER="vim $LBUFFER"
-  zle accept-line
-}
-zle -N _vim-instead
-bindkey -M viins "\ev" _vim-instead
-
-_man-instead() {
-  LBUFFER="man $LBUFFER"
-  zle accept-line
-}
-zle -N _man-instead
-bindkey -M viins "\em" _man-instead
-
-_backward-kill-to-slash() {
-  local WORDCHARS="${WORDCHARS:s@/@}"
-  zle backward-kill-word
-}
-zle -N _backward-kill-to-slash
-bindkey -M viins "^W" _backward-kill-to-slash
-
-_tilde-questionmark() { # fix ~? to ~/
-  if [[ $LBUFFER[-1] == \~ ]]; then
-    zle -U '/'
-  else
-    zle self-insert
-  fi
-}
-bindkey \? _tilde-questionmark
-zle -N _tilde-questionmark
-
-# _dot-dot() {
-#   zle -U '../'
-# }
-# bindkey -M viins "\e;" _dot-dot
-# zle -N _dot-dot
+# custom
+bindkey -s '\eu' '^Ucd ..^M'
+bindkey "\ea" _change-first-word
+bindkey "\em" _man-line
+bindkey "^W" _backward-kill-to-slash
+bindkey "\?" _fix-tilde-questionmark
+bindkey "^_" _fzf_history
+bindkey "^F" _fzf_cd
 
 # vi mode status indicator -----------------------------------
-# http://ivyl.0xcafe.eu/2013/02/03/refining-zsh/
-# urxvt (and family) accepts even #RRGGBB
-local INSERT_PROMPT="green"
-local COMMAND_PROMPT="orange"
 
-# helper for setting color including all kinds of terminals
-set_prompt_color() {
-  if [[ $TERM = "linux" ]]; then
-    # nothing
-  elif [[ $TMUX != '' ]]; then
-    printf '\033Ptmux;\033\033]12;%b\007\033\\' "$1"
-  else
-    echo -ne "\033]12;$1\007"
-  fi
+zle-keymap-select() {
+  zle reset-prompt
+  zle -R
 }
-
-# change cursor color basing on vi mode
-zle-keymap-select () {
-  if [ $KEYMAP = vicmd ]; then
-    set_prompt_color $COMMAND_PROMPT
-  else
-    set_prompt_color $INSERT_PROMPT
-  fi
-}
-
-zle-line-finish() {
-  set_prompt_color $INSERT_PROMPT
-}
-
-zle-line-init () {
-  zle -K viins
-  set_prompt_color $INSERT_PROMPT
-}
-
 zle -N zle-keymap-select
-zle -N zle-line-init
-zle -N zle-line-finish
 
-# ------------------------------------------------------------
+MODE_INDICATOR="%B%F{yellow}-- INSERT --%k%b"
 
-autoload edit-command-line
-zle -N edit-command-line
-bindkey '\ee' edit-command-line
-bindkey -s "\eu" '^Ucd ..^M'
-bindkey -s "\ef" '^J~/^E'
-bindkey '\e.' insert-last-word
-bindkey '^[[Z' reverse-menu-complete # shift-tab
+_vi_mode_prompt() {
+  echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}"
+}
+
+if [ $TERM != "linux" ]; then
+  RPROMPT='$(_vi_mode_prompt)'
+fi
+
+# prompt -----------------------------------------------------
 
 _git_prompt() {
   # reference
@@ -165,7 +148,8 @@ if [ $TERM != "linux" ]; then
   PROMPT+="%b%f$ "
 fi
 
+# source -----------------------------------------------------
+
 [ -f ~/shell_aliases ]   && source ~/shell_aliases
 [ -f ~/shell_functions ] && source ~/shell_functions
 [ -f ~/.fzf.zsh ]        && source ~/.fzf.zsh
-

@@ -1,11 +1,12 @@
-#!/bin/sh
+# vim: ft=sh
 
 # convenience
 alias ns='npm start'
 alias smi='sudo make install'
 alias md='make debug'
-alias al='vim ~/shell_aliases'
-alias fu='vim ~/shell_functions'
+alias mc='make clean'
+alias al='${EDITOR:-vim} ~/shell_aliases'
+alias fu='${EDITOR:-vim} ~/shell_functions'
 alias v='vim'
 alias e='emacs -nw'
 alias n='ncmpcpp 2>/dev/null'
@@ -18,7 +19,7 @@ alias ll='ls -ahlF'
 alias la='ls -FA'
 alias a='la'
 alias c='cd'
-alias g='la | grep -i'
+alias g='ls -FA | grep -i'
 alias t='tmux attach || tmux new'
 
 # sane defaults
@@ -27,7 +28,7 @@ alias grep='grep --color=auto'
 alias du='du -sh'
 alias df='df -h'
 alias less='less -R'
-alias tree='tree -I node_modules'
+alias tree='tree -F -I node_modules'
 alias feh='feh -q'
 alias which='which -a'
 
@@ -44,7 +45,7 @@ alias gdl='git diff HEAD'
 alias gr='git remote -v'
 
 # pacman
-alias pacq='pacman -Q|grep -i'
+alias pacq='pacman -Q | grep -i'
 alias pacr='sudo pacman -Rsn'
 alias paci='sudo pacman -S'
 alias pacs='pacman -Ss'

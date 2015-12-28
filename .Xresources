@@ -3,25 +3,23 @@
 #include "/home/veggie/rofi.xresources"
 
 #if defined (FANTASQUE)
-# define FONT               Fantasque Sans Mono-10
 # define BOLD
+# define FONT               Fantasque Sans Mono-9
   URxvt*letterSpace:        -2
 #elif defined (SOURCE)
-# define FONT               Source Code Pro for Powerline-8
 # define BOLD
+# define FONT               Source Code Pro for Powerline-8
   URxvt*letterSpace:        -2
 #elif defined (TERMINESES)
 # define FONT               Terminess Powerline-9
   URxvt*letterSpace:        0
-#elif defined (GOHU)
-# define FONT               gohufont-11
-  URxvt*letterSpace:        0
-  URxvt*lineSpace:          1
+#elif defined (ENVY)
+# define FONT               envypn-13
+  URxvt*lineSpace:          0
 #else
 # define FONT               Ttyp0-11
   URxvt*lineSpace:          1
 #endif
-
 
 Xft.antialias:              1
 Xft.autohint:               0
@@ -45,9 +43,9 @@ URxvt*geometry:             80x20
 URxvt*internalBorder:       0
 URxvt*iso14755:             false
 URxvt*scrollBar:            false
-! URxvt*pointerBlank:         true
 URxvt*colorUL:              #458588
 URxvt*underlineColor:       #458588
+URxvt*cursorColor:          #00cc00
 URxvt*keysym.C-9:           command:\033]720;12\007
 URxvt*keysym.C-0:           command:\033]721;12\007
 URxvt*boldFont:             xft:FONT:Bold
@@ -58,4 +56,3 @@ URxvt*font:                 xft:FONT:Bold,xft:Liberation Mono for Powerline:Bold
 #else
 URxvt*font:                 xft:FONT,xft:Liberation Mono for Powerline
 #endif
-

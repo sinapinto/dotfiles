@@ -10,13 +10,13 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
-Plug 'mattn/gist-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'jeetsukumaran/vim-filebeagle'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 nnoremap <Leader>a :Ag 
-xnoremap <leader>a "sy:Ag \b<C-R>s\b
+xnoremap <leader>a "sy:Ag <C-R>s
+nnoremap <silent> <Leader>p <Esc>:FZF<CR>
 nnoremap <silent> <Leader>b <Esc>:Buffers<CR>
 nnoremap <silent> <Leader>/ <Esc>:History<CR>
 nnoremap <silent> <Leader>gl <Esc>:Commits<CR>
@@ -27,18 +27,6 @@ nmap ga <Plug>(EasyAlign)
 
 Plug 'tpope/vim-fugitive'
 nnoremap <leader>gs :Gstatus<CR>
-
-Plug 'bling/vim-airline'
-let g:airline_powerline_fonts=0
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_tab_nr = 0
-let g:airline#extensions#tabline#fnamecollapse = 0
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#show_close_button = 0
-let g:airline#extensions#tabline#show_tab_type = 0
 
 Plug 'morhetz/gruvbox'
 let g:gruvbox_invert_selection = 0
@@ -59,7 +47,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_ignore_files = ['.jsx$', '.js$']
-let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_c_compiler_options = '-std=c99 -Wall -pedantic -DVERSION=1'
 
 call plug#end()
@@ -153,12 +141,14 @@ set nostartofline
 set confirm
 set visualbell
 set t_vb=
-" set shiftwidth=4
-" set tabstop=4
-" set softtabstop=4
-set autoindent
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set expandtab
-set cc=
+set autoindent
+
+set cc=80
 set nonumber
 set nocursorline
 set laststatus=0
@@ -171,13 +161,12 @@ set background=dark
 
 augroup ft
   au!
-  au FileType * setlocal formatoptions-=cro
-  au FileType make setlocal noet noai
-  au FileType gitcommit setlocal textwidth=72 formatoptions+=tl
+  au FileType *               setlocal formatoptions-=cro
+  au FileType make            setlocal noet noai
+  au FileType gitcommit       setlocal textwidth=72 formatoptions+=tl
   au BufReadPost fugitive://* set bufhidden=delete
-  au BufNewFile,BufRead /home/veggie/code/wm/* set noet noai cino=(0 ")
+  au FileType c               setlocal noet noai ts=8 sts=8 sw=8 cino=:0,(0 ")
+  au FileType javascript*     setlocal ai et ts=2 sts=2 sw=2
 augroup END
 
-colorscheme hybrid
-let g:airline_theme = "badwolf"
-
+colorscheme gruvbox

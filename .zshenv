@@ -5,6 +5,7 @@ export XDG_DESKTOP_DIR="$HOME"
 export GTK2_RC_FILES=/usr/share/themes/Vertex-Light/gtk-2.0/gtkrc
 # export _JAVA_AWT_WM_NONREPARENTING=1
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+export FONTCONFIG_PATH=/etc/fonts
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
 export VISUAL=vim
 export EDITOR=$VISUAL

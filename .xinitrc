@@ -13,7 +13,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 if [ -f "$xresources" ]; then
-    xrdb -load "$xresources"
+    xrdb -DFANTASQUE "$xresources"
 fi
 
 if [ -d "$fontdir" ]; then
@@ -37,10 +37,11 @@ else
 fi
 
 # compton >/dev/null 2>&1 &
+unclutter --fork
 
 if [ x"$1" = x ]; then
-    exec tfwm 2>~/wm.log >/dev/null
+    exec tfwm 2>>~/wm.log >/dev/null
 fi
 
 xbindkeys &
-exec "$1" 2>~/wm.log >/dev/null
+exec "$1" 2>>~/wm.log >/dev/null

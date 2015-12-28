@@ -1,0 +1,11 @@
+mpd_host                         = 127.0.0.1
+mpd_port                         = 6600
+allow_for_physical_item_deletion = yes
+ask_before_clearing_playlists    = no
+display_bitrate                  = yes
+header_visibility                = no
+message_delay_time               = 1
+playlist_display_mode            = columns
+screen_switcher_mode             = playlist,playlist_editor
+titles_visibility                = no
+user_interface                   = alternative

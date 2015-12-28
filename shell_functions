@@ -1,17 +1,17 @@
-#!/bin/bash
+# vim: ft=sh
 
 xd () {
-   if [ $# -eq 0 ]; then
-     xrdb ~/.Xresources
-   else
-     xrdb -D"$1:u" ~/.Xresources
-   fi
+  if [ $# -eq 0 ]; then
+    xrdb ~/.Xresources
+  else
+    xrdb -D"$1:u" ~/.Xresources
+  fi
 
 }
 
 kb () {
-    xset -b r rate 200 50 m 1 4
-    setxkbmap -option caps:swapescape
+  xset -b r rate 200 50 m 1 4
+  setxkbmap -option caps:swapescape
 }
 
 # Escape potential tarbombs
@@ -24,84 +24,88 @@ etb() {
 }
 
 lf() {
-   if [ $# -gt 0 ]; then
-      ls -t $1 | head -n6
-   else
-      ls -t  | head -n6
-   fi
+  if [ $# -gt 0 ]; then
+    ls -t $1 | head -n6
+  else
+    ls -t  | head -n6
+  fi
 }
 
-largepkgs() { pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n ;}
+largepkgs() {
+  pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n
+}
 
-mu () { mupdf "$@" &>/dev/null & disown ;}
+mu () {
+  mupdf "$@" &>/dev/null & disown
+}
 
 m() {
-    [ -z $1 ] && return 1
-    if [ $1 = '-s' ]; then
-        /usr/bin/mpv -fs --shuffle "$2" &>/dev/null & disown
-    else
-        /usr/bin/mpv "$1" &>/dev/null & disown
-    fi
+  [ -z $1 ] && return 1
+  if [ $1 = '-s' ]; then
+    /usr/bin/mpv -fs --shuffle "$2" &>/dev/null & disown
+  else
+    /usr/bin/mpv "$1" &>/dev/null & disown
+  fi
 }
 
 rec() {
-    ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y "$@"
+  ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y "$@"
 }
 
 cd() {
-    if [ -n "$1" ]; then
-        [ -d "$1" ] && { builtin cd "$1"; ls; } || builtin cd "$(dirname "$1")"
-    else
-        cd ~
-    fi
+  if [ -n "$1" ]; then
+    [ -d "$1" ] && { builtin cd "$1"; ls; } || builtin cd "$(dirname "$1")"
+  else
+    cd ~
+  fi
 }
 
 mkf() {
-   mkdir -p "$@" && cd "$_";
+  mkdir -p "$@" && cd "$_";
 }
 
 d(){
-    case $1 in
-        i) dtach -A /tmp/irssi.dtach irssi ;;
-        r) dtach -A /tmp/rtorrent.dtach rtorrent ;;
-        z) dtach -A /tmp/zsh.dtach zsh ;;
-        m) dtach -A /tmp/mpsyt.dtach mpsyt ;;
-        *) dtach -A /tmp/$1.dtach $1 ;;
-    esac
+  case $1 in
+    i) dtach -A /tmp/irssi.dtach irssi ;;
+    r) dtach -A /tmp/rtorrent.dtach rtorrent ;;
+    z) dtach -A /tmp/zsh.dtach zsh ;;
+    m) dtach -A /tmp/mpsyt.dtach mpsyt ;;
+    *) dtach -A /tmp/$1.dtach $1 ;;
+  esac
 }
 
 touchpad(){
-    local deviceid=$(xinput | grep TouchPad | cut -d "=" -f2| cut -f1)
-    [ -z $deviceid ] && return 1
-    val=$(xinput list-props $deviceid | grep able | tail -c 2)
-    [ $val -eq 1 ] && xinput --disable $deviceid \
-                   || xinput --enable $deviceid
+  local deviceid=$(xinput | grep TouchPad | cut -d "=" -f2| cut -f1)
+  [ -z $deviceid ] && return 1
+  val=$(xinput list-props $deviceid | grep able | tail -c 2)
+  [ $val -eq 1 ] && xinput --disable $deviceid \
+    || xinput --enable $deviceid
 }
 
 extract () {
-    if [ -f $1 ] ; then
-        case $1 in
-            *.tar.bz2) tar xvjf $1;;
-            *.tar.gz) tar xvzf $1;;
-            *.bz2) bunzip2 $1;;
-            *.gz) gunzip $1;;
-            *.tar) tar xvf $1;;
-            *.tbz2) tar xvjf $1;;
-            *.tgz) tar xvzf $1;;
-            *.zip) unzip $1;;
-            *.Z) uncompress $1;;
-            *) echo "'$1' cannot be extracted via >extract<" ;;
-        esac
-    else
-        echo "'$1' is not a valid file"
-    fi
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2) tar xvjf $1;;
+      *.tar.gz) tar xvzf $1;;
+      *.bz2) bunzip2 $1;;
+      *.gz) gunzip $1;;
+      *.tar) tar xvf $1;;
+      *.tbz2) tar xvjf $1;;
+      *.tgz) tar xvzf $1;;
+      *.zip) unzip $1;;
+      *.Z) uncompress $1;;
+      *) echo "'$1' cannot be extracted via >extract<" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
 }
 
 calc() { noglob echo $(( $* )) ;}
 
 # gcc scratchpad borrowed from https://github.com/Cloudef/dotfiles-ng
 gcx() {
-  local includes='#include <stdio.h>\n#include <string.h>'
+  local includes='#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>'
   if [[ -n "$@" ]]; then
     (echo -e "$includes"; echo "void main(){$@}") | gcc -std=c99 -xc -o /tmp/gcx - && { /tmp/gcx; rm -f /tmp/gcx; }
   else
