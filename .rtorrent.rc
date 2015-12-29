@@ -16,16 +16,16 @@ download_rate = 0
 upload_rate = 0
  
 # Default directory to save the downloaded torrents.
-directory = /home/veggie/torrents/
+directory = /home/sina/torrents/
  
 # Default session directory. Make sure you don't run multiple instance
 # of rtorrent using the same session directory. Perhaps using a
 # relative path?
-session = /home/veggie/torrents/.session
+session = /home/sina/torrents/.session
  
 # Watch a directory for new torrents, and stop those that have been
 # deleted.
-schedule = watch_directory,5,5,load_start=/home/veggie/Downloads/*.torrent
+schedule = watch_directory,5,5,load_start=/home/sina/Downloads/*.torrent
 #schedule = untied_directory,5,5,stop_untied=
  
 # Close torrents when diskspace is low. */

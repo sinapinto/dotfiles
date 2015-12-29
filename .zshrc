@@ -108,14 +108,11 @@ fi
 # prompt -----------------------------------------------------
 
 _git_prompt() {
-  # reference
   local GIT_REF=${$(git symbolic-ref HEAD 2>/dev/null)#refs/heads/}
   if [ -z $GIT_REF ]; then
     GIT_REF=${$(git rev-parse HEAD 2>/dev/null)[1][1,7]}
   fi
   [ -z $GIT_REF ] && return
-  # stash (this slows down the prompt significantly)
-  # local GIT_STASH=${$(git stash list 2>/dev/null)[1][7,9]}
   echo "%k%b(%B%F{cyan}%20>..>${GIT_REF}%<<%k%b)"
 }
 
@@ -127,7 +124,7 @@ if [ $TERM != "linux" ]; then
   # syntax highlighting - should be sourced after all custom widgets have been created
   # (widgets created later will work, but will not update the syntax highlighting)
   HIGHLIGHTER_PATH="$HOME/src/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-  [ -f $HIGHLIGHTER_PATH ] && source $HIGHLIGHTER_PATH || return
+  [ -f $HIGHLIGHTER_PATH ] && source $HIGHLIGHTER_PATH
   unset HIGHLIGHTER_PATH
   ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
   typeset -A ZSH_HIGHLIGHT_STYLES

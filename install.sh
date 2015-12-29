@@ -5,7 +5,7 @@ symlink-home-file () {
         if [[ ! -f "$PWD"/"$f" ]]; then
             echo "$f" not found
         else
-            ln -v -s "$PWD"/"$f" "$HOME"/"$f"
+            ln -f -v -s "$PWD"/"$f" "$HOME"/"$f"
         fi
     done
 }
@@ -16,7 +16,7 @@ symlink-home-dir () {
         if [[ ! -f "$PWD"/"$f" ]]; then
             echo "$f" not found
         else
-            ln -v -s "$PWD"/"$f" "$HOME"/"$f"
+            ln -f -v -s "$PWD"/"$f" "$HOME"/"$f"
         fi
     done
 }
@@ -27,7 +27,7 @@ symlink-xdg-file () {
         if [[ ! -f "$PWD"/.config/"$f" ]]; then
             echo "$f" not found
         else
-            ln -v -s "$PWD"/"$f" "$XDG_CONFIG_HOME"/"$f"
+            ln -f -v -s "$PWD"/.config/"$f" "$XDG_CONFIG_HOME"/"$f"
         fi
     done
 }
@@ -38,7 +38,7 @@ symlink-xdg-dir () {
         if [[ ! -f "$PWD"/.config/"$f" ]];then
             echo "$f" not found
         else
-            ln -v -s "$PWD"/"$f" "$XDG_CONFIG_HOME"/"$f"
+            ln -f -v -s "$PWD"/.config/"$f" "$XDG_CONFIG_HOME"/"$f"
         fi
     done
 }
@@ -53,6 +53,7 @@ symlink-home-file .agignore \
     .xinitrc \
     .Xresources \
     .zshenv \
+    .zlogin \
     .zshrc
 
 symlink-home-dir .ncmpcpp/config \
@@ -70,8 +71,5 @@ symlink-xdg-dir dunst/dunstrc \
     git/config \
     htop/htoprc \
     mpv/input.conf \
-    systemd/user/ssh-agent.service \
-    systemd/user/mpd.service \
     systemd/user/dunst.service \
-    systemd/user/redshift.service \
     termite/config

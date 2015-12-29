@@ -31,11 +31,11 @@ nnoremap <leader>gs :Gstatus<CR>
 Plug 'morhetz/gruvbox'
 let g:gruvbox_invert_selection = 0
 
-Plug 'lervag/vimtex'
-let g:vimtex_motion_matchparen = 0
-let g:vimtex_motion_enabled = 0
-let g:vimtex_fold_enabled = 0
-let g:vimtex_view_method = 'mupdf'
+" Plug 'lervag/vimtex'
+" let g:vimtex_motion_matchparen = 0
+" let g:vimtex_motion_enabled = 0
+" let g:vimtex_fold_enabled = 0
+" let g:vimtex_view_method = 'mupdf'
 
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -122,7 +122,7 @@ set noswapfile
 set nowritebackup
 set nobackup
 set undofile
-set undodir=/home/veggie/.vim/undo
+set undodir=/home/sina/.vim/undo
 set virtualedit=block
 set encoding=utf-8
 set wildmenu
@@ -158,6 +158,7 @@ set list listchars=tab:\›\ ,trail:★
 set wildignore=*.o,.git,*.png,*.jpg,*.jpeg,*.gif
 set t_Co=256
 set background=dark
+set lazyredraw ttyfast
 
 augroup ft
   au!

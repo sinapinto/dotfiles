@@ -2,15 +2,15 @@
 
 xd () {
   if [ $# -eq 0 ]; then
-    xrdb ~/.Xresources
+    xrdb -I"$HOME" ~/.Xresources
   else
-    xrdb -D"$1:u" ~/.Xresources
+    xrdb -I"$HOME" -D"$1:u" ~/.Xresources
   fi
 
 }
 
 kb () {
-  xset -b r rate 200 50 m 1 4
+  xset -b r rate 220 50 m 1 4
   setxkbmap -option caps:swapescape
 }
 

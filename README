@@ -5,5 +5,4 @@ currently these are:
     redshift.service
     .rtorrent.rc
     .vimrc
-    .Xresources
     mpd.conf
