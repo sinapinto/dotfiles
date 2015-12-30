@@ -1,5 +1,5 @@
 [global]
-    font = Menlo 9
+    font = Fantasque 9
     
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -149,7 +149,7 @@
 
 [frame]
     width = 2
-    color = "#afaf87"
+    color = "#333333"
 
 [shortcuts]
 
@@ -175,13 +175,13 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#fbf1c7"
-    foreground = "#3c3836"
+    background = "#32302f"
+    foreground = "#ebdbb2"
     timeout = 3
 
 [urgency_normal]
-    background = "#fbf1c7"
-    foreground = "#3c3836"
+    background = "#32302f"
+    foreground = "#ebdbb2"
     timeout = 3
 
 [urgency_critical]

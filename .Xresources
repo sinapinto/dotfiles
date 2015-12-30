@@ -33,7 +33,7 @@ URxvt.perl-ext-common:      url-select,font-size
 URxvt.keysym.C-S-Up:        font-size:increase
 URxvt.keysym.C-S-Down:      font-size:decrease
 
-URxvt.url-select.launcher:  /home/veggie/bin/launch
+URxvt.url-select.launcher:  /home/sina/bin/launch
 URxvt.url-select.underline: true
 URxvt.keysym.M-C-u:         perl:url-select:select_next
 

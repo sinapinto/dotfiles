@@ -1,8 +1,9 @@
 dotfiles for arch linux install.
 
 beware of some hardcoded home paths.
-currently these are:
+currently these are in:
     redshift.service
     .rtorrent.rc
     .vimrc
     mpd.conf
+    .Xresources

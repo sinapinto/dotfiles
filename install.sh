@@ -72,4 +72,7 @@ symlink-xdg-dir dunst/dunstrc \
     htop/htoprc \
     mpv/input.conf \
     systemd/user/dunst.service \
+    systemd/user/redshift.service \
+    systemd/user/ssh-agent.service \
+    systemd/user/mpd.service \
     termite/config

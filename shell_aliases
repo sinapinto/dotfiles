@@ -51,6 +51,7 @@ alias u='sudo pacman -Syu'
 
 # systemd
 alias sc='systemctl'
+alias scu='systemctl --user'
 alias st='systemctl status'
 alias jc='journalctl'
 alias nc='sudo netctl'

@@ -2,8 +2,10 @@
 Description=Dunst notification daemon
 
 [Service]
-ExecStart=/usr/bin/dunst
 Environment=DISPLAY=:0
+ExecStart=/usr/bin/dunst
+Restart=always
+RestartSec=20
 
 [Install]
 WantedBy=default.target
