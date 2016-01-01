@@ -3,7 +3,7 @@ Description=Redshift display colour temperature adjustment
 
 [Service]
 Environment=DISPLAY=:0
-ExecStart=/usr/bin/redshift -c /home/sina/.config/redshift.conf
+ExecStart=/usr/bin/redshift -c %h/.config/redshift.conf
 Restart=always
 RestartSec=20
 

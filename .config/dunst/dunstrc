@@ -1,5 +1,5 @@
 [global]
-    font = Fantasque 9
+    font = Fantasque Sans Mono 9
     
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -148,8 +148,8 @@
     #icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
 [frame]
-    width = 2
-    color = "#333333"
+    width = 1
+    color = "#ebdbb2"
 
 [shortcuts]
 
@@ -176,12 +176,12 @@
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#32302f"
-    foreground = "#ebdbb2"
+    foreground = "#b8bb26"
     timeout = 3
 
 [urgency_normal]
     background = "#32302f"
-    foreground = "#ebdbb2"
+    foreground = "#fabd2f"
     timeout = 3
 
 [urgency_critical]

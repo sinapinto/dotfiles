@@ -21,8 +21,6 @@ fi
 
 xset -b r rate 220 50 m 1 4
 setxkbmap -option caps:swapescape
-unclutter --fork
-# feh -q --bg-scale "$bgfile"
 xsetroot -solid \#025D8C
 
 if [ x"$1" = x ]; then

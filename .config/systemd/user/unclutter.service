@@ -1,0 +1,12 @@
+[Unit]
+Description=Unclutter-xfixes cursor hiding daemon
+
+[Service]
+Type=forking
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/unclutter --fork
+Restart=always
+RestartSec=20
+
+[Install]
+WantedBy=default.target

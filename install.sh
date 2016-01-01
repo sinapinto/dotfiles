@@ -75,4 +75,5 @@ symlink-xdg-dir dunst/dunstrc \
     systemd/user/redshift.service \
     systemd/user/ssh-agent.service \
     systemd/user/mpd.service \
+    systemd/user/unclutter.service \
     termite/config

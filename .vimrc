@@ -122,7 +122,7 @@ set noswapfile
 set nowritebackup
 set nobackup
 set undofile
-set undodir=/home/sina/.vim/undo
+set undodir=~/.vim/undo
 set virtualedit=block
 set encoding=utf-8
 set wildmenu
@@ -154,7 +154,7 @@ set nocursorline
 set laststatus=0
 set ls=2
 set timeout ttm=0
-set list listchars=tab:\›\ ,trail:★
+set list listchars=tab:\›\ ,trail:·
 set wildignore=*.o,.git,*.png,*.jpg,*.jpeg,*.gif
 set t_Co=256
 set background=dark
@@ -165,7 +165,7 @@ augroup ft
   au FileType *               setlocal formatoptions-=cro
   au FileType make            setlocal noet noai
   au FileType gitcommit       setlocal textwidth=72 formatoptions+=tl
-  au BufReadPost fugitive://* set bufhidden=delete
+  " au BufReadPost fugitive://* set bufhidden=delete
   au FileType c               setlocal noet noai ts=8 sts=8 sw=8 cino=:0,(0 ")
   au FileType javascript*     setlocal ai et ts=2 sts=2 sw=2
 augroup END
