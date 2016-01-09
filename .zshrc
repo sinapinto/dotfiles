@@ -49,20 +49,6 @@ _fix-tilde-questionmark() {
 }
 zle -N _fix-tilde-questionmark
 
-# FZF widgets ------------------------------------------------
-
-_fzf_history() {
-  zle -I
-  eval $(history | fzf +s | sed 's/ *[0-9]* *//')
-}
-zle -N _fzf_history
-
-_fzf_cd() {
-  zle -I
-  cd $(find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf)
-}
-zle -N _fzf_cd
-
 # widget keybinds --------------------------------------------
 
 # builtins
@@ -84,8 +70,6 @@ bindkey "\ea" _change-first-word
 bindkey "\em" _man-line
 bindkey "^W" _backward-kill-to-slash
 bindkey "\?" _fix-tilde-questionmark
-bindkey "^_" _fzf_history
-bindkey "^F" _fzf_cd
 
 # vi mode status indicator -----------------------------------
 

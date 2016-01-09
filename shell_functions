@@ -9,23 +9,9 @@ xd () {
 
 }
 
-kb () {
-  xset -b r rate 220 50 m 1 4
-  setxkbmap -option caps:swapescape
-}
-
-# Escape potential tarbombs
-etb() {
-  l=$(tar tf $1);
-  if [ $(echo "$l" | wc -l) -eq $(echo "$l" | grep $(echo "$l" | head -n1) | wc -l) ];
-  then tar xf $1;
-  else mkdir ${1%.t(ar.gz||ar.bz2||gz||bz||ar)} && tar xvf $1 -C ${1%.t(ar.gz||ar.bz2||gz||bz||ar)};
-  fi ;
-}
-
 lf() {
   if [ $# -gt 0 ]; then
-    ls -t $1 | head -n6
+    ls -t "$1" | head -n6
   else
     ls -t  | head -n6
   fi
@@ -38,6 +24,8 @@ largepkgs() {
 mu () {
   mupdf "$@" &>/dev/null & disown
 }
+
+calc() { noglob echo $(( $* )) ;}
 
 m() {
   [ -z $1 ] && return 1
@@ -54,9 +42,20 @@ rec() {
 
 cd() {
   if [ -n "$1" ]; then
-    [ -d "$1" ] && { builtin cd "$1"; ls; } || builtin cd "$(dirname "$1")"
+    if [ "$1" = "-" ]; then
+      builtin cd -
+    else
+      if [ -d "$1" ]; then
+        builtin cd "$1"
+        ls
+      else
+        builtin cd "$(dirname "$1")"
+        ls
+      fi
+    fi
   else
-    cd ~
+    builtin cd ~
+    ls
   fi
 }
 
@@ -69,19 +68,29 @@ d(){
     i) dtach -A /tmp/irssi.dtach irssi ;;
     r) dtach -A /tmp/rtorrent.dtach rtorrent ;;
     z) dtach -A /tmp/zsh.dtach zsh ;;
-    m) dtach -A /tmp/mpsyt.dtach mpsyt ;;
     *) dtach -A /tmp/$1.dtach $1 ;;
   esac
 }
 
 touchpad(){
   local deviceid=$(xinput | grep TouchPad | cut -d "=" -f2| cut -f1)
-  [ -z $deviceid ] && return 1
-  val=$(xinput list-props $deviceid | grep able | tail -c 2)
-  [ $val -eq 1 ] && xinput --disable $deviceid \
-    || xinput --enable $deviceid
+  [ -z "$deviceid" ] && return 1
+  val=$(xinput list-props "$deviceid" | grep able | tail -c 2)
+  [ "$val" -eq 1 ] && xinput --disable "$deviceid" \
+    || xinput --enable "$deviceid"
 }
 
+# Escape potential tarbombs
+# borrowed from http://www.commandlinefu.com/commands/view/6824/escape-potential-tarbombs
+etb() {
+  l=$(tar tf $1);
+  if [ $(echo "$l" | wc -l) -eq $(echo "$l" | grep $(echo "$l" | head -n1) | wc -l) ];
+  then tar xf $1;
+  else mkdir ${1%.t(ar.gz||ar.bz2||gz||bz||ar)} && tar xvf $1 -C ${1%.t(ar.gz||ar.bz2||gz||bz||ar)};
+  fi ;
+}
+
+# taken from somewhere
 extract () {
   if [ -f $1 ] ; then
     case $1 in
@@ -101,19 +110,8 @@ extract () {
   fi
 }
 
-calc() { noglob echo $(( $* )) ;}
-
-# gcc scratchpad borrowed from https://github.com/Cloudef/dotfiles-ng
-gcx() {
-  local includes='#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>'
-  if [[ -n "$@" ]]; then
-    (echo -e "$includes"; echo "void main(){$@}") | gcc -std=c99 -xc -o /tmp/gcx - && { /tmp/gcx; rm -f /tmp/gcx; }
-  else
-    $EDITOR "/tmp/gcx2.c"
-    [[ -f "/tmp/gcx2.c" ]] || return
-    (echo -e "$includes"; echo -n "void main(){") > "/tmp/gcx1.c"
-    (cat "/tmp/gcx1.c" "/tmp/gcx2.c"; echo "}") > "/tmp/gcx.c"
-    gcc -std=c99 -lm -xc -o /tmp/gcx - < "/tmp/gcx.c" && { /tmp/gcx; rm -f /tmp/gcx; }
-    rm -f "/tmp/gcx.c" "/tmp/gcx1.c" "/tmp/gcx2.c" &> /dev/null
-  fi
+cpad() {
+  echo -ne "#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>\nvoid main(){\n}" > /tmp/cpad.c
+  ${EDITOR:-vim} /tmp/cpad.c
+  rm -f /tmp/cpad.c
 }

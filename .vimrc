@@ -25,6 +25,15 @@ Plug 'junegunn/vim-easy-align'
 vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
+Plug 'rhysd/vim-clang-format'
+nnoremap <Leader>c :<C-u>ClangFormat<CR>
+vnoremap <Leader>c :<C-u>ClangFormat<CR>
+let g:clang_format#code_style = "llvm"
+let g:clang_format#style_options = {
+      \ "IndentWidth" : "4",
+      \ "AllowShortFunctionsOnASingleLine" : "None",
+      \ "KeepEmptyLinesAtTheStartOfBlocks" : "false"}
+
 Plug 'tpope/vim-fugitive'
 nnoremap <leader>gs :Gstatus<CR>
 
@@ -46,9 +55,8 @@ let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_ignore_files = ['.jsx$', '.js$']
-" let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_c_compiler_options = '-std=c99 -Wall -pedantic -DVERSION=1'
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_c_compiler_options = '-std=c99 -D__WM_VERSION__=1 -D__WM_NAME__=1 -D_GNU_SOURCE'
 
 call plug#end()
 
@@ -83,10 +91,11 @@ nnoremap <c-l> <c-w><c-l>
 nnoremap <c-k> <c-w><C-k>
 nnoremap <c-j> <c-w><c-j>
 nnoremap <silent> <leader><return> :nohl<cr>
-nnoremap <leader>e :e ~/.vimrc<cr>
 nnoremap <leader>! :SudoWrite<cr>
-nnoremap <F5> "=strftime("%c")<cr>P
+nnoremap <leader>e :e ~/.vimrc<cr>
 nnoremap <leader>r :source ~/.vimrc<cr>
+nnoremap <F5> "=strftime("%c")<cr>P
+nnoremap <F9> :w <CR> :!gcc % -o %< && ./%< <CR>
 
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>
@@ -158,16 +167,12 @@ set list listchars=tab:\›\ ,trail:·
 set wildignore=*.o,.git,*.png,*.jpg,*.jpeg,*.gif
 set t_Co=256
 set background=dark
-set lazyredraw ttyfast
 
 augroup ft
   au!
-  au FileType *               setlocal formatoptions-=cro
-  au FileType make            setlocal noet noai
-  au FileType gitcommit       setlocal textwidth=72 formatoptions+=tl
-  " au BufReadPost fugitive://* set bufhidden=delete
-  au FileType c               setlocal noet noai ts=8 sts=8 sw=8 cino=:0,(0 ")
-  au FileType javascript*     setlocal ai et ts=2 sts=2 sw=2
+  au FileType gitcommit   setlocal textwidth=72 formatoptions+=tl
+  au FileType c           setlocal cino=:0,(0 ")
+  au FileType javascript* setlocal ts=2 sts=2 sw=2
 augroup END
 
 colorscheme gruvbox

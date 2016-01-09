@@ -1,6 +1,7 @@
 # vim: ft=sh
 
 # convenience
+alias mkpkg='makepkg -sri'
 alias ns='npm start'
 alias smi='sudo make install'
 alias md='make debug'

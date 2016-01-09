@@ -1,19 +1,11 @@
 ! vim: ft=xdefaults cms=!%s
+
 #include "gruvbox.xresources"
 
-#if defined (TTYP0)
-# define FONT               Ttyp0-11
-  URxvt*lineSpace:          1
-#elif defined (SOURCE)
+#if defined (SOURCE)
 # define BOLD
 # define FONT               Source Code Pro for Powerline-8
   URxvt*letterSpace:        -2
-#elif defined (TERMINUS)
-# define FONT               Terminess Powerline-9
-  URxvt*letterSpace:        0
-#elif defined (ENVY)
-# define FONT               envypn-13
-  URxvt*lineSpace:          0
 #else
 # define BOLD
 # define FONT               Fantasque Sans Mono-9

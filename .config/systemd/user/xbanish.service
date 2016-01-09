@@ -1,9 +1,9 @@
 [Unit]
-Description=Dunst notification daemon
+Description=xbanish hide the X11 mouse cursor
 
 [Service]
 Environment=DISPLAY=:0
-ExecStart=/usr/bin/dunst
+ExecStart=/usr/local/bin/xbanish -i mod1
 Restart=always
 RestartSec=15
 
