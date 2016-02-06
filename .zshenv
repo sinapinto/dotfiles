@@ -3,12 +3,14 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DESKTOP_DIR="$HOME"
 # export GTK2_RC_FILES=/usr/share/themes/Vertex-Light/gtk-2.0/gtkrc
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+# export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+export CLASSPATH="$CLASSPATH:/usr/share/java/antlr-4.5-complete.jar"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
 export VISUAL=vim
 export EDITOR=$VISUAL
 export BROWSER=chromium
 export PAGER=less
+export READNULLCMD=$PAGER
 export TERMINAL=rxvt-256color
 export CC=clang
 export HISTSIZE=10000
@@ -21,7 +23,7 @@ export LESS_TERMCAP_me=$(printf "\e[0m")
 export LESS_TERMCAP_se=$(printf "\e[0m")
 export LESS_TERMCAP_ue=$(printf "\e[0m")
 # export FZF_DEFAULT_OPTS='--color fg:12,hl:2,fg+:1,bg+:5,hl+:3'
-export DEFAULT_FZF_COMMAND='ag -g ""'
+export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export INFINALITY_FT_FILTER_PARAMS="00 33 34 33 00"
 # export INFINALITY_FT_FILTER_PARAMS="04 20 38 20 04"

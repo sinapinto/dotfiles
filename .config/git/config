@@ -9,7 +9,7 @@
   diff = auto
   status = auto
 [alias]
-  lg = log --decorate
+  lg = log --decorate --name-only
   future = log --decorate --reverse --ancestry-path HEAD^..master
 [init]
   templatedir = ~/.config/git/template

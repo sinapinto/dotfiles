@@ -5,7 +5,7 @@ symlink-home-file () {
         if [[ ! -f "$PWD"/"$f" ]]; then
             echo "$f" not found
         else
-            ln -f -v -s "$PWD"/"$f" "$HOME"/"$f"
+            ln -f -v -s "$PWD"/"$f" "$HOME"/"$f" || exit 1
         fi
     done
 }
@@ -16,7 +16,7 @@ symlink-home-dir () {
         if [[ ! -f "$PWD"/"$f" ]]; then
             echo "$f" not found
         else
-            ln -f -v -s "$PWD"/"$f" "$HOME"/"$f"
+            ln -f -v -s "$PWD"/"$f" "$HOME"/"$f" || exit 1
         fi
     done
 }
@@ -27,7 +27,7 @@ symlink-xdg-file () {
         if [[ ! -f "$PWD"/.config/"$f" ]]; then
             echo "$f" not found
         else
-            ln -f -v -s "$PWD"/.config/"$f" "$XDG_CONFIG_HOME"/"$f"
+            ln -f -v -s "$PWD"/.config/"$f" "$XDG_CONFIG_HOME"/"$f" || exit 1
         fi
     done
 }
@@ -38,7 +38,7 @@ symlink-xdg-dir () {
         if [[ ! -f "$PWD"/.config/"$f" ]];then
             echo "$f" not found
         else
-            ln -f -v -s "$PWD"/.config/"$f" "$XDG_CONFIG_HOME"/"$f"
+            ln -f -v -s "$PWD"/.config/"$f" "$XDG_CONFIG_HOME"/"$f" || exit 1
         fi
     done
 }

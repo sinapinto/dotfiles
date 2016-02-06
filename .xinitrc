@@ -1,8 +1,5 @@
 #!/bin/sh
 
-resources="$HOME"/.Xresources
-bgfill="#025D8C"
-
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
     for f in /etc/X11/xinit/xinitrc.d/?* ; do
         [ -x "$f" ] && source "$f"
@@ -11,18 +8,16 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 command -v xrdb >/dev/null 2>&1 && {
-    [ -f "$resources" ] &&  xrdb -I"$HOME" "$resources"
-} || echo "no xrdb"
+    [ -f "$HOME"/.Xresources ] && xrdb "$HOME"/.Xresources
+}
 
 command -v xsetroot >/dev/null 2>&1 && {
-    xsetroot -solid "$bgfill"
-} || echo "no xsetroot"
+    # pick a random dark color from xrdb
+    # supports hex, rgb, or X11 color name, but not rgba
+    color=$(xrdb -query | grep 'color[0-9]:' | awk '{print $2}' | sort -R | head -n1)
 
-if [ x"$1" = x ]; then
-    exec tfwm 2>>~/wm.log >/dev/null
-fi
+    [ -n "$color" ] && xsetroot -solid "$color" \
+                    || xsetroot -solid \#333
+}
 
-command -v xbindkeys >/dev/null 2>&1 && {
-    xbindkeys &
-} || echo "no xbindkeys"
-exec "$1" 2>>~/wm.log >/dev/null
+exec ${1:-tfwm} 2>>~/wm.log >/dev/null

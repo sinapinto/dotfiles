@@ -4,21 +4,41 @@ let mapleader = "\<space>"
 let maplocalleader = ','
 
 call plug#begin('~/.vim/plugged')
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
-Plug 'AndrewRadev/splitjoin.vim'
+Plug 'tpope/vim-fugitive'
+nnoremap <leader>gs :Gstatus<CR>
+
+Plug 'jbgutierrez/vim-babel'
+Plug 'mattn/webapi-vim'
+Plug 'heavenshell/vim-jsdoc'
+nmap <silent> <C-t> <Plug>(jsdoc)
+let g:jsdoc_enable_es6 = 1
+let g:jsdoc_allow_input_prompt = 1
+let g:jsdoc_input_description = 1
+let g:jsdoc_additional_descriptions = 1
+
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+let g:jsx_ext_required = 0
+
 Plug 'jeetsukumaran/vim-filebeagle'
+let g:filebeagle_show_hidden = 1
+if argc() == 0
+  au VimEnter * FileBeagle
+endif
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 nnoremap <Leader>a :Ag 
 xnoremap <leader>a "sy:Ag <C-R>s
-nnoremap <silent> <Leader>p <Esc>:FZF<CR>
+nnoremap <silent> <Leader>p <Esc>:Files<CR>
 nnoremap <silent> <Leader>b <Esc>:Buffers<CR>
-nnoremap <silent> <Leader>/ <Esc>:History<CR>
 nnoremap <silent> <Leader>gl <Esc>:Commits<CR>
 
 Plug 'junegunn/vim-easy-align'
@@ -34,46 +54,47 @@ let g:clang_format#style_options = {
       \ "AllowShortFunctionsOnASingleLine" : "None",
       \ "KeepEmptyLinesAtTheStartOfBlocks" : "false"}
 
-Plug 'tpope/vim-fugitive'
-nnoremap <leader>gs :Gstatus<CR>
-
 Plug 'morhetz/gruvbox'
 let g:gruvbox_invert_selection = 0
 
-" Plug 'lervag/vimtex'
-" let g:vimtex_motion_matchparen = 0
-" let g:vimtex_motion_enabled = 0
-" let g:vimtex_fold_enabled = 0
-" let g:vimtex_view_method = 'mupdf'
-
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-let g:jsx_ext_required = 0
-
 Plug 'scrooloose/syntastic'
 let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 1
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_c_compiler_options = '-std=c99 -D__WM_VERSION__=1 -D__WM_NAME__=1 -D_GNU_SOURCE'
+let g:syntastic_mode_map = {"passive_filetypes": ["javascript"]}
+" dirtiness ensues
+let s:js_proj = "/home/sina/code/ricewars/"
+let g:syntastic_javascript_eslint_exec = s:js_proj."node_modules/.bin/eslint"
+let g:syntastic_javascript_eslint_fname = s:js_proj."src"
+
+Plug 'Shougo/neocomplete.vim'
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#max_list = 10
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#auto_completion_start_length = 3
+let g:neocomplete#keyword_patterns = {}
+inoremap <expr><Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
 
 call plug#end()
 
 noremap H ^
 noremap L $
+noremap <tab> %
+noremap ( H
+noremap ) L
 
 nnoremap ; :
 nnoremap : ;
 nnoremap ' ;
-nnoremap ( H
-nnoremap ) L
 nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap j gj
 nnoremap k gk
 nnoremap Q <nop>
-nnoremap <tab> %
 nnoremap <leader>s :%s///g<left><left>
 nnoremap <leader>j :bn<cr>
 nnoremap <leader>k :bp<cr>
@@ -83,6 +104,7 @@ nnoremap <leader>d :bdelete<cr>
 nnoremap <leader>t :tabe<cr>
 nnoremap <leader>o :b#<cr>
 nnoremap <leader>= me=ap`e
+nnoremap <leader>v :vertical wincmd f<CR>
 nnoremap gp `[V`]=
 nnoremap <c-n> <c-f>
 nnoremap <c-p> <c-b>
@@ -94,8 +116,7 @@ nnoremap <silent> <leader><return> :nohl<cr>
 nnoremap <leader>! :SudoWrite<cr>
 nnoremap <leader>e :e ~/.vimrc<cr>
 nnoremap <leader>r :source ~/.vimrc<cr>
-nnoremap <F5> "=strftime("%c")<cr>P
-nnoremap <F9> :w <CR> :!gcc % -o %< && ./%< <CR>
+nnoremap <F9> :w<CR>:!gcc % -o %< && %:p:r <CR>
 
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>
@@ -104,6 +125,8 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <end>
 cnoremap <c-h> <left>
 cnoremap <c-l> <right>
+cnoremap <c-j> <S-left>
+cnoremap <c-k> <S-right>
 
 inoremap <c-j> <S-left>
 inoremap <c-k> <S-right>
@@ -150,15 +173,13 @@ set nostartofline
 set confirm
 set visualbell
 set t_vb=
-
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set expandtab
 set autoindent
-
 set cc=80
-set nonumber
+set number
 set nocursorline
 set laststatus=0
 set ls=2
@@ -170,9 +191,10 @@ set background=dark
 
 augroup ft
   au!
-  au FileType gitcommit   setlocal textwidth=72 formatoptions+=tl
-  au FileType c           setlocal cino=:0,(0 ")
-  au FileType javascript* setlocal ts=2 sts=2 sw=2
+  autocmd FileType *         setlocal formatoptions-=cro
+  au FileType gitcommit      setlocal textwidth=72 formatoptions+=tl
+  au FileType c              setlocal cino=:0,(0 ")
+  au BufRead,BufNewFile *.g4 setlocal syntax=antlr3
 augroup END
 
 colorscheme gruvbox

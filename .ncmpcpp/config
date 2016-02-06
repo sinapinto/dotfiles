@@ -6,6 +6,6 @@ display_bitrate                  = yes
 header_visibility                = no
 message_delay_time               = 1
 playlist_display_mode            = columns
-screen_switcher_mode             = playlist,playlist_editor
+screen_switcher_mode             = playlist,browser
 titles_visibility                = no
 user_interface                   = alternative

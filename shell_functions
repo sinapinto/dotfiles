@@ -17,6 +17,7 @@ lf() {
   fi
 }
 
+# taken from the arch forums
 largepkgs() {
   pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n
 }
@@ -65,13 +66,14 @@ mkf() {
 
 d(){
   case $1 in
-    i) dtach -A /tmp/irssi.dtach irssi ;;
+    i) dtach -A /tmp/weechat.dtach weechat ;;
     r) dtach -A /tmp/rtorrent.dtach rtorrent ;;
     z) dtach -A /tmp/zsh.dtach zsh ;;
     *) dtach -A /tmp/$1.dtach $1 ;;
   esac
 }
 
+# toggle  the touchpad on/off
 touchpad(){
   local deviceid=$(xinput | grep TouchPad | cut -d "=" -f2| cut -f1)
   [ -z "$deviceid" ] && return 1
@@ -81,7 +83,7 @@ touchpad(){
 }
 
 # Escape potential tarbombs
-# borrowed from http://www.commandlinefu.com/commands/view/6824/escape-potential-tarbombs
+# http://www.commandlinefu.com/commands/view/6824/escape-potential-tarbombs
 etb() {
   l=$(tar tf $1);
   if [ $(echo "$l" | wc -l) -eq $(echo "$l" | grep $(echo "$l" | head -n1) | wc -l) ];
@@ -111,7 +113,54 @@ extract () {
 }
 
 cpad() {
-  echo -ne "#include <stdio.h>\n#include <string.h>\n#include <stdlib.h>\nvoid main(){\n}" > /tmp/cpad.c
-  ${EDITOR:-vim} /tmp/cpad.c
-  rm -f /tmp/cpad.c
+  local tmp=/tmp/cpad.c
+  cat > "$tmp" <<EOF
+// F9 to compile and run
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+void main() {
+  printf("hi\n");
+}
+EOF
+  [ $? -eq 0 ] && ${EDITOR:-vim} "$tmp"
+  # rm -f "$tmp" "${tmp%.c}"
+}
+
+# fzf --------------------------------------------------------
+# mostly cribbed from https://github.com/junegunn/fzf/wiki/examples
+
+# repeat history
+fh() {
+  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}
+
+# get git commit sha
+# example usage: git rebase -i `fcs`
+fcs() {
+  local commits commit
+  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
+    commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
+    echo -n $(echo "$commit" | sed "s/ .*//")
+}
+
+# open files in ~/.viminfo
+vv() {
+  local files
+  files=$(grep '^>' ~/.viminfo | cut -c3- |
+  while read line; do
+    [ -f "${line/\~/$HOME}" ] && echo "$line"
+  done | fzf-tmux -d -m -q "$*" -1) && vim ${files//\~/$HOME}
+}
+
+# play a file/folder in the mpd music directory
+ff() {
+  local file
+  file=$(mpc ls | fzf-tmux --query="$1" --reverse --select-1 --exit-0) || return 1
+  if [[ -n "$file" ]]; then
+    mpc -q clear
+    mpc add <<< "$file"
+    mpc -q play
+  fi
 }

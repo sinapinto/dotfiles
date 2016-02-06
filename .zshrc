@@ -11,6 +11,14 @@ zle -N edit-command-line
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
+# options ----------------------------------------------------
+
+setopt transient_rprompt # clear rprompt when accepting a command
+setopt menu_complete     # on completion, insert first match immediately
+setopt prompt_subst      # parameter/command/arithmetic expansion in prompt
+setopt hist_ignore_all_dups
+setopt interactive_comments
+
 # completion -------------------------------------------------
 
 zmodload -i zsh/complist
@@ -18,7 +26,8 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 zstyle ':completion:*' list-colors no=00 fi=00 di=01\;34 pi=33 so=01\;35 bd=00\;35 cd=00\;34 or=00\;41 mi=00\;45 ex=01\;32
-setopt menu_complete
+zstyle ':completion:*:options' list-colors '=^(-- *)=1;34'
+zstyle ':completion:*:builtins' list-colors '=*=1;32'
 
 # custom widgets ---------------------------------------------
 
@@ -52,7 +61,7 @@ zle -N _fix-tilde-questionmark
 # widget keybinds --------------------------------------------
 
 # builtins
-bindkey "\ee" edit-command-line
+bindkey "^?" backward-delete-char
 bindkey "^J" backward-word
 bindkey "^H" backward-kill-word
 bindkey "^K" forward-word
@@ -60,7 +69,9 @@ bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
+bindkey "^U" backward-kill-line
 bindkey "\e." insert-last-word
+bindkey "\ee" edit-command-line
 bindkey -M menuselect '^M' .accept-line
 bindkey "^[[Z" reverse-menu-complete
 
@@ -121,9 +132,8 @@ if [ $TERM != "linux" ]; then
   ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=yellow,underline'
 
   # prompt
-  setopt prompt_subst
-  PROMPT="%(?..%B%F{red}(%?%))"       # exit code
-  PROMPT+="%(1j.%B%F{green}(%j).)"    # background jobs
+  PROMPT="%(1j.%B%F{green}(%j).)"     # background jobs
+  PROMPT+="%(?..%B%F{red}(%?%))"      # exit code
   PROMPT+="%B%F{magenta}%50<..<%~%<<" # working directory
   PROMPT+='$(_git_prompt)'            # git
   PROMPT+="%b%f$ "
@@ -131,6 +141,7 @@ fi
 
 # source -----------------------------------------------------
 
+[ -f ~/.fzf.zsh ]        && source ~/.fzf.zsh
 [ -f ~/shell_aliases ]   && source ~/shell_aliases
 [ -f ~/shell_functions ] && source ~/shell_functions
-[ -f ~/.fzf.zsh ]        && source ~/.fzf.zsh
+[ -f ~/src/z/z.sh ]      && source ~/src/z/z.sh
