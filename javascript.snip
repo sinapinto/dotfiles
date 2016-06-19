@@ -1,0 +1,113 @@
+snippet ed
+    export default 
+
+snippet cl
+    console.log(${0:TARGET});
+
+snippet ce
+    console.error(${0:TARGET});
+
+snippet cw
+    console.warn(${0:TARGET});
+
+snippet ci
+    console.info(${0:TARGET});
+
+snippet ngcontroller
+options head
+  (function() {
+    'use strict';
+
+    angular
+      .module('${1:#:app}')
+      .controller('${2:#:controller}Controller', $2Controller);
+
+    function $2Controller(${3:#:dependencies}) {
+      var vm = this;
+
+      activate();
+
+      function activate() {
+      }
+    }
+  })();
+
+snippet ngfactory
+options head
+  (function() {
+    'use strict';
+
+    angular
+      .module('${1:app}')
+      .factory('${2:#:factory}', $2);
+
+    $2.$inject = [${3:#:dependencies}];
+
+    function $2($4) {
+      var service = {
+              ${4:#:func},
+          };
+
+      return service;
+
+      function $4() {
+      }
+    }
+  })();
+
+snippet ngfilter
+options head
+  (function() {
+    'use strict';
+
+    angular
+      .module('${1:app}')
+      .filter('${2:#:filter}', $2);
+
+    function $2() {
+      return $2Filter;
+
+      function $2Filter(${3:#:params}) {
+        return ${3:#:params};
+      };
+    }
+  })();
+
+snippet ngmodule
+options head
+  (function() {
+    'use strict';
+
+    angular
+      .module('${1:app}', [
+        '${2:#:dependencies}'
+      ]);
+  })();
+
+snippet ngservice
+options head
+  (function() {
+    'use strict';
+
+    angular
+      .module('${1:app}')
+      .service('${2:#:Service}', $2);
+
+    function $2(${3:#:dependencies}) {
+      this.${4:#:func} = $4;
+
+
+      function $4() {
+      }
+    }
+  })();
+
+snippet nguinject
+options head
+  beforeEach(inject(function(${1:#:module}){
+    ${0:TARGET}
+  }));
+
+snippet ngumodule
+options head
+  beforeEach(module('${1:#:module}'));
