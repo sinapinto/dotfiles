@@ -1,4 +1,4 @@
-system.method.set_key = event.download.finished, move_complete, "execute=rtorrent_done, $d.get_base_path=,$d.get_name="
+# system.method.set_key = event.download.finished, move_complete, "execute=rtorrent_done, $d.get_base_path=,$d.get_name="
 
 # Maximum and minimum number of peers to connect to per torrent.
 min_peers = 40

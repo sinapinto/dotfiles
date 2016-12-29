@@ -7,17 +7,23 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
     unset f
 fi
 
-command -v xrdb >/dev/null 2>&1 && {
-    [ -f "$HOME"/.Xresources ] && xrdb "$HOME"/.Xresources
+function disable_touchpad () {
+  local deviceid=$(xinput | grep TouchPad | cut -d "=" -f2| cut -f1)
+  [ -z "$deviceid" ] && return 1
+  val=$(xinput list-props "$deviceid" | grep able | tail -c 2)
+  xinput --disable "$deviceid"
 }
 
-command -v xsetroot >/dev/null 2>&1 && {
-    # pick a random dark color from xrdb
-    # supports hex, rgb, or X11 color name, but not rgba
-    color=$(xrdb -query | grep 'color[0-9]:' | awk '{print $2}' | sort -R | head -n1)
+# if `xrandr | grep 'HDMI-1'` &>/dev/null; then
+    xrandr --output HDMI-1 --mode 2048x1152
+    xrandr --output LVDS-1 --off
+    disable_touchpad
+# fi
 
-    [ -n "$color" ] && xsetroot -solid "$color" \
-                    || xsetroot -solid \#333
-}
+feh --bg-scale "$(random-wallpaper)"
 
-exec ${1:-tfwm} 2>>~/wm.log >/dev/null
+xset r rate 200 20
+xset -b
+xrdb "$HOME"/.Xresources
+
+exec i3 >/dev/null 2>~/wm.log

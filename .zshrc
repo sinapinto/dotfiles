@@ -75,6 +75,9 @@ bindkey "\ee" edit-command-line
 bindkey -M menuselect '^M' .accept-line
 bindkey "^[[Z" reverse-menu-complete
 
+source ~/src/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^ ' autosuggest-accept
+
 # custom
 bindkey -s '\eu' '^Ucd ..^M'
 bindkey "\ea" _change-first-word
@@ -132,16 +135,13 @@ if [ $TERM != "linux" ]; then
   ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=yellow,underline'
 
   # prompt
-  PROMPT="%(1j.%B%F{green}(%j).)"     # background jobs
-  PROMPT+="%(?..%B%F{red}(%?%))"      # exit code
-  PROMPT+="%B%F{magenta}%50<..<%~%<<" # working directory
-  PROMPT+='$(_git_prompt)'            # git
-  PROMPT+="%b%f$ "
+  PROMPT="%B%50<..<%~%<<"
+  PROMPT+=" > %b"
 fi
 
 # source -----------------------------------------------------
 
-[ -f ~/.fzf.zsh ]        && source ~/.fzf.zsh
-[ -f ~/shell_aliases ]   && source ~/shell_aliases
-[ -f ~/shell_functions ] && source ~/shell_functions
-[ -f ~/src/z/z.sh ]      && source ~/src/z/z.sh
+# source ~/.fzf.zsh
+source ~/shell_aliases
+source ~/shell_functions
+source ~/src/z/z.sh

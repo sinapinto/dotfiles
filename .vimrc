@@ -213,7 +213,7 @@ set nocursorline
 set laststatus=0
 set ls=2
 set timeout ttm=0
-set list listchars=tab:\›\ ,trail:·
+" set list listchars=tab:\›\ ,trail:·
 set wildignore=*.o,.git,*.png,*.jpg,*.jpeg,*.gif
 set t_Co=256
 set background=dark
