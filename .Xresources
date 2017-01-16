@@ -1,44 +1,26 @@
-! vim: ft=xdefaults cms=!%s
+URxvt.perl-ext-common: resize-font,matcher
 
-! # define FONT               Liberation Mono-9
-!   URxvt*letterSpace:        -2
-URxvt*letterSpace:        -1
+URxvt.url-launcher: bin/launch
+URxvt.matcher.button: 1
+URxvt.keysym.M-C-u: perl:matcher:last
+URxvt.keysym.M-u: perl:matcher:list
+URxvt.matcher.rend.0: Uline Bold fg5
 
+URxvt.keysym.C-S-Up:   resize-font:bigger
+URxvt.keysym.C-S-Down: resize-font:smaller
 
-Xft.antialias:              1
-Xft.autohint:               0
-Xft.dpi:                    96
-Xft.hinting:                1
-Xft.hintstyle:              hintfull
-Xft.lcdfilter:              lcddefault
-Xft.rgba:                   rgb
+URxvt*termName:       rxvt-256color
+URxvt*internalBorder: 0
+URxvt*iso14755:       false
+URxvt*scrollBar:      false
+URxvt*colorUL:        #458588
+URxvt*underlineColor: #458588
 
-URxvt.perl-ext-common:      url-select,font-size
-
-URxvt.keysym.C-S-Up:        font-size:increase
-URxvt.keysym.C-S-Down:      font-size:decrease
-
-URxvt.url-select.launcher:  bin/launch
-URxvt.url-select.underline: true
-URxvt.keysym.M-C-u:         perl:url-select:select_next
-
-URxvt*termName:             rxvt-256color
-URxvt*geometry:             80x20
-URxvt*internalBorder:       0
-URxvt*iso14755:             false
-URxvt*scrollBar:            false
-URxvt*colorUL:              #458588
-URxvt*underlineColor:       #458588
-URxvt*cursorColor:          #00ff00
-URxvt*keysym.C-9:           command:\033]720;12\007
-URxvt*keysym.C-0:           command:\033]721;12\007
-
-URxvt*boldFont:       xft:Liberation Mono:pixelsize=14:style=Bold,xft:Symbola
-URxvt*font:           xft:Liberation Mono:pixelsize=14:style=Normal,xft:Symbola
+URxvt*boldFont:    xft:Liberation Mono:pixelsize=14:style=Bold,xft:Symbola,xft:Source Code Pro
+URxvt*font:        xft:Liberation Mono:pixelsize=14:style=Normal,xft:Symbola,xft:Source Code Pro
+URxvt*letterSpace: -1
 
 *background: #282828
-! Dark #1d2021
-! Light #32302f
 *foreground: #ebdbb2
 ! Black + DarkGrey
 *color0:  #282828
@@ -64,3 +46,12 @@ URxvt*font:           xft:Liberation Mono:pixelsize=14:style=Normal,xft:Symbola
 ! LightGrey + White
 *color7:  #a89984
 *color15: #ebdbb2
+
+Xft.antialias: 1
+Xft.autohint:  0
+Xft.dpi:       96
+Xft.hinting:   1
+Xft.hintstyle: hintfull
+Xft.lcdfilter: lcddefault
+Xft.rgba:      rgb
+! vim: ft=xdefaults cms=!%s

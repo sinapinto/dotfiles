@@ -7,7 +7,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
     unset f
 fi
 
-function disable_touchpad () {
+disable_touchpad () {
   local deviceid=$(xinput | grep TouchPad | cut -d "=" -f2| cut -f1)
   [ -z "$deviceid" ] && return 1
   val=$(xinput list-props "$deviceid" | grep able | tail -c 2)
@@ -22,8 +22,8 @@ function disable_touchpad () {
 
 feh --bg-scale "$(random-wallpaper)"
 
-xset r rate 200 20
 xset -b
 xrdb "$HOME"/.Xresources
+systemctl --user restart redshift &
 
-exec i3 >/dev/null 2>~/wm.log
+exec i3 &>/dev/null

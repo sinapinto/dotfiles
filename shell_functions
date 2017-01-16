@@ -1,41 +1,10 @@
 # vim: ft=sh
 
-xd () {
-  if [ $# -eq 0 ]; then
-    xrdb -I"$HOME" ~/.Xresources
-  else
-    xrdb -I"$HOME" -D"$1:u" ~/.Xresources
-  fi
-
-}
-
 lf() {
-  if [ $# -gt 0 ]; then
-    ls -t "$1" | head -n6
-  else
-    ls -t  | head -n6
-  fi
-}
-
-# taken from the arch forums
-largepkgs() {
-  pacman -Qi | awk '/^Name/ {pkg=$3} /Size/ {print $4$5,pkg}' | grep MiB | sort -n
-}
-
-mu () {
-  mupdf "$@" &>/dev/null & disown
+  ls -t | head -n ${1:-6}
 }
 
 calc() { noglob echo $(( $* )) ;}
-
-m() {
-  [ -z $1 ] && return 1
-  if [ $1 = '-s' ]; then
-    /usr/bin/mpv -fs --shuffle "$2" &>/dev/null & disown
-  else
-    /usr/bin/mpv "$1" &>/dev/null & disown
-  fi
-}
 
 rec() {
   ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y "$@"
@@ -48,20 +17,13 @@ cd() {
     else
       if [ -d "$1" ]; then
         builtin cd "$1"
-        ls
       else
         builtin cd "$(dirname "$1")"
-        ls
       fi
     fi
   else
     builtin cd ~
-    ls
   fi
-}
-
-mkf() {
-  mkdir -p "$@" && cd "$_";
 }
 
 d(){
@@ -93,7 +55,7 @@ etb() {
 }
 
 # taken from somewhere
-extract () {
+extract() {
   if [ -f $1 ] ; then
     case $1 in
       *.tar.bz2) tar xvjf $1;;
@@ -125,42 +87,5 @@ void main() {
 }
 EOF
   [ $? -eq 0 ] && ${EDITOR:-vim} "$tmp"
-  # rm -f "$tmp" "${tmp%.c}"
-}
-
-# fzf --------------------------------------------------------
-# mostly cribbed from https://github.com/junegunn/fzf/wiki/examples
-
-# repeat history
-fh() {
-  print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
-}
-
-# get git commit sha
-# example usage: git rebase -i `fcs`
-fcs() {
-  local commits commit
-  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
-    commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
-    echo -n $(echo "$commit" | sed "s/ .*//")
-}
-
-# open files in ~/.viminfo
-vv() {
-  local files
-  files=$(grep '^>' ~/.viminfo | cut -c3- |
-  while read line; do
-    [ -f "${line/\~/$HOME}" ] && echo "$line"
-  done | fzf-tmux -d -m -q "$*" -1) && vim ${files//\~/$HOME}
-}
-
-# play a file/folder in the mpd music directory
-ff() {
-  local file
-  file=$(mpc ls | fzf-tmux --query="$1" --reverse --select-1 --exit-0) || return 1
-  if [[ -n "$file" ]]; then
-    mpc -q clear
-    mpc add <<< "$file"
-    mpc -q play
-  fi
+  rm -f "$tmp" "${tmp%.c}"
 }

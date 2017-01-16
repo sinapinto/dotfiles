@@ -38,7 +38,8 @@ _change-first-word() {
 zle -N _change-first-word
 
 _man-line() {
-  LBUFFER="man $LBUFFER"
+  first_arg=$(echo $LBUFFER | cut -d ' ' -f1)
+  LBUFFER="man $first_arg"
   zle accept-line
 }
 zle -N _man-line
@@ -140,8 +141,12 @@ if [ $TERM != "linux" ]; then
 fi
 
 # source -----------------------------------------------------
+pgrep ssh-agent >/dev/null || eval "$(ssh-agent -s)"
 
 # source ~/.fzf.zsh
 source ~/shell_aliases
 source ~/shell_functions
 source ~/src/z/z.sh
+
+# export NVM_DIR="/home/phool/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

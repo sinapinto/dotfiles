@@ -3,7 +3,6 @@ syntax on
 let mapleader = "\<space>"
 let maplocalleader = ','
 
-" {{{ plugins
 call plug#begin('~/.vim/plugged')
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-unimpaired'
@@ -12,39 +11,22 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-fugitive' " {{{
+Plug 'tpope/vim-fugitive'
   nnoremap <leader>gs :Gstatus<CR><C-w>10+
 
-" }}}
-
-Plug 'sukima/xmledit'
-let g:xmledit_enable_html = 1
-
-Plug 'fatih/vim-go'
-let g:go_fmt_command = "goimports"
-
-" {{{ javascript
 Plug 'moll/vim-node'
 Plug 'elzr/vim-json'
 Plug 'pangloss/vim-javascript'
-" Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'mxw/vim-jsx'
   let g:jsx_ext_required = 0
-Plug 'heavenshell/vim-jsdoc'
-  let g:jsdoc_enable_es6 = 1
-  let g:jsdoc_allow_input_prompt = 1
-  let g:jsdoc_input_description = 1
-  nnoremap <leader>c :JsDoc<CR>
-" }}}
 
-Plug 'jeetsukumaran/vim-filebeagle' " {{{
+Plug 'jeetsukumaran/vim-filebeagle'
 let g:filebeagle_show_hidden = 1
 if argc() == 0
   au VimEnter * FileBeagle
 endif
-" }}}
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' } " {{{
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
   Plug 'junegunn/fzf.vim'
   nnoremap <Leader>a :Ag 
   xnoremap <leader>a "sy:Ag <C-R>s
@@ -57,26 +39,22 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' } " {{{
         \ 'ctrl-s': 'split',
         \ 'ctrl-l': 'vsplit' }
   let g:fzf_layout = { 'down': '~50%' }
-" }}}
 
-Plug 'junegunn/vim-easy-align' " {{{
+Plug 'junegunn/vim-easy-align'
   vmap <Enter> <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
-" }}}
 
-Plug 'morhetz/gruvbox' " {{{
+Plug 'morhetz/gruvbox'
   let g:gruvbox_invert_selection = 0
-" }}}
 
-Plug 'scrooloose/syntastic' " {{{
+Plug 'scrooloose/syntastic'
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_auto_loc_list = 1
   let g:syntastic_enable_highlighting = 1
   let g:syntastic_check_on_wq = 0
   let g:syntastic_javascript_checkers = ['eslint']
-" }}}
 
-Plug 'Shougo/neocomplete.vim' " {{{
+Plug 'Shougo/neocomplete.vim'
   let g:acp_enableAtStartup = 0
   let g:neocomplete#enable_at_startup = 1
   let g:neocomplete#max_list = 10
@@ -86,7 +64,6 @@ Plug 'Shougo/neocomplete.vim' " {{{
   let g:neocomplete#keyword_patterns = {}
   inoremap <expr><Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-" }}}
 
 Plug 'Shougo/neosnippet.vim'
   imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -94,18 +71,12 @@ Plug 'Shougo/neosnippet.vim'
   xmap <C-k>     <Plug>(neosnippet_expand_target)
   smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
         \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
   " disable default snippets
   let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
-
-  " Tell Neosnippet about the other snippets
   let g:neosnippet#snippets_directory='~/.vim/snippets/'
-  " }}}
 
 call plug#end()
-" }}}
 
-" {{{ remaps
 noremap H ^
 noremap L $
 noremap <tab> %
@@ -156,10 +127,6 @@ cnoremap <c-l> <right>
 cnoremap <c-j> <S-left>
 cnoremap <c-k> <S-right>
 
-" inoremap <c-j> <S-left>
-" inoremap <c-k> <S-right>
-" inoremap <c-h> <left>
-" inoremap <c-l> <right>
 inoremap <c-e> <esc>A
 inoremap <c-u> <esc>mzgUiw`za
 
@@ -167,10 +134,7 @@ vnoremap ; :
 vnoremap <leader>r y:@"<cr>
 vnoremap <leader>R :!sort<cr>
 vnoremap <leader>s :s/
-vnoremap // y/<c-r>"<cr>" }}}
-" }}}
 
-" {{{ settings
 set nocompatible
 set mouse=a
 if &term =~ '^screen'
@@ -218,9 +182,7 @@ set wildignore=*.o,.git,*.png,*.jpg,*.jpeg,*.gif
 set t_Co=256
 set background=dark
 set nofoldenable
-" }}}
 
-" {{{ autocmds
 augroup ft
   au!
   au FileType *              setlocal formatoptions-=cro
@@ -232,14 +194,5 @@ augroup ft
   au FileType c              setlocal cino=:0,(0 ")
   au FileType css            setlocal syntax=less
 augroup END
-" }}}
 
-" {{{ colors
 colorscheme gruvbox
-
-hi SyntasticError   cterm=underline ctermfg=9  ctermbg=52
-hi SyntasticWarning cterm=bold      ctermfg=11 ctermbg=58
-" hi jsDocType                        ctermfg=8
-" hi jsDocTags                        ctermfg=8
-" hi jsOperator                       ctermfg=14
-" }}}
