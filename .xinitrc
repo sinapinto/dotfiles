@@ -8,10 +8,8 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 disable_touchpad () {
-  local deviceid=$(xinput | grep TouchPad | cut -d "=" -f2| cut -f1)
-  [ -z "$deviceid" ] && return 1
-  val=$(xinput list-props "$deviceid" | grep able | tail -c 2)
-  xinput --disable "$deviceid"
+  deviceid=$(xinput list | grep TouchPad | sed -n 's/^.*=\([0-9]\{1,2\}\).*$/\1/p')
+  [ -n "$deviceid" ] && xinput --disable "$deviceid"
 }
 
 # if `xrandr | grep 'HDMI-1'` &>/dev/null; then
@@ -23,6 +21,7 @@ disable_touchpad () {
 feh --bg-scale "$(random-wallpaper)"
 
 xset -b
+xset r rate 200 20
 xrdb "$HOME"/.Xresources
 systemctl --user restart redshift &
 

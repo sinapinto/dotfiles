@@ -1,3 +1,7 @@
+has() {
+  command -v "$@" &> /dev/null
+}
+
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -5,10 +9,10 @@ export XDG_DESKTOP_DIR="$HOME"
 
 export VISUAL=vim
 export EDITOR=$VISUAL
-export BROWSER=chromium
+has chromium && export BROWSER=chromium || export BROWSER=chrome
 export PAGER=less
 export READNULLCMD=$PAGER
-export TERMINAL=rxvt-256color
+has urxvt && export TERMINAL=rxvt-256color
 export CC=gcc
 
 export HISTSIZE=10000
@@ -26,3 +30,5 @@ export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.sock"
+
+has pass && export PASSWORD_STORE_CLIP_TIME=30

@@ -11,13 +11,14 @@ URxvt.keysym.C-S-Down: resize-font:smaller
 
 URxvt*termName:       rxvt-256color
 URxvt*internalBorder: 0
+! disable ctrl+shift
 URxvt*iso14755:       false
 URxvt*scrollBar:      false
 URxvt*colorUL:        #458588
 URxvt*underlineColor: #458588
 
-URxvt*boldFont:    xft:Liberation Mono:pixelsize=14:style=Bold,xft:Symbola,xft:Source Code Pro
-URxvt*font:        xft:Liberation Mono:pixelsize=14:style=Normal,xft:Symbola,xft:Source Code Pro
+URxvt*boldFont:    xft:Liberation Mono:pixelsize=14:style=Bold,xft:Symbola
+URxvt*font:        xft:Liberation Mono:pixelsize=14:style=Normal,xft:Symbola
 URxvt*letterSpace: -1
 
 *background: #282828
