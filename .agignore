@@ -7,19 +7,8 @@ dist/
 build/
 yarn.lock
 
-extjsapp/ext/
-extjs5app/ext/
-bootstrap.js
-bootstrap.json
-bootstrap.jsonp
-ext621/
-output.js
-compile/
-compileIncremental/
-incCompileSetup/
-hyperion/
-target/
-
 *.gif
 *.jpg
 *.png
+
+package-lock.json

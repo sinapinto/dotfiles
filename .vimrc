@@ -1,7 +1,6 @@
 filetype plugin indent on
 syntax on
 let mapleader = "\<space>"
-let maplocalleader = ','
 
 call plug#begin('~/.vim/plugged')
 Plug 'bronson/vim-visual-star-search'
@@ -17,12 +16,6 @@ Plug 'haya14busa/incsearch.vim'
   map g* <Plug>(incsearch-nohl-g*)
   map g# <Plug>(incsearch-nohl-g#)
 
-Plug 'w0rp/ale'
-  let g:ale_open_list = 0
-  let g:ale_linter_aliases = { 'sugarss': ['css'] }
-  let g:ale_lint_on_text_changed = "never"
-  let g:ale_lint_on_enter = 0
-
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -30,28 +23,38 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-fugitive'
-  nnoremap <leader>gs :Gstatus<CR><C-w>10+
+  nnoremap <leader>gs :Gstatus<CR>
+  nnoremap <leader>ga :Git add .<CR><CR>
 
+Plug 'editorconfig/editorconfig-vim'
+  let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+Plug 'hail2u/vim-css3-syntax'
+Plug 'ap/vim-css-color'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'moll/vim-node'
 Plug 'elzr/vim-json'
+Plug 'jparise/vim-graphql'
 Plug 'pangloss/vim-javascript'
-  let g:javascript_plugin_flow = 1
-
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'mxw/vim-jsx'
   let g:jsx_ext_required = 0
+Plug 'morhetz/gruvbox'
+  let g:gruvbox_invert_selection = 0
+Plug 'itchyny/lightline.vim'
 
-Plug 'digitaltoad/vim-pug'
-Plug 'jeetsukumaran/vim-filebeagle'
-  let g:filebeagle_show_hidden = 1
-  if argc() == 0
-    au VimEnter * FileBeagle
-  endif
+" Plug 'jaredly/reason-language-server'
+" Plug 'reasonml-editor/vim-reason-plus'
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-  Plug 'junegunn/fzf.vim'
-  nnoremap <Leader>a :Ag<space>
+Plug 'junegunn/fzf.vim'
+  nnoremap <leader>a :Ag<space>
   xnoremap <leader>a "sy:Ag <C-R>s
-  nnoremap <silent> <leader>A <Esc>:exe('Ag '.expand('<cword>'))<CR>
   nnoremap <silent> <Leader>p <Esc>:Files<CR>
   nnoremap <silent> <Leader>b <Esc>:Buffers<CR>
   nnoremap <silent> <Leader>gl <Esc>:Commits<CR>
@@ -62,34 +65,82 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
         \ 'ctrl-l': 'vsplit' }
   let g:fzf_layout = { 'down': '~50%' }
 
-Plug 'junegunn/vim-easy-align'
-  vmap <Enter> <Plug>(EasyAlign)
-  nmap ga <Plug>(EasyAlign)
-
-Plug 'morhetz/gruvbox'
-  let g:gruvbox_invert_selection = 0
-
-Plug 'Shougo/neocomplete.vim'
-  let g:acp_enableAtStartup = 0
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#max_list = 10
-  let g:neocomplete#enable_smart_case = 1
-  let g:neocomplete#sources#syntax#min_keyword_length = 2
-  let g:neocomplete#auto_completion_start_length = 2
-  let g:neocomplete#keyword_patterns = {}
-  inoremap <expr><Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'Shougo/neosnippet.vim'
-  imap <C-k> <Plug>(neosnippet_expand_or_jump)
-  smap <C-k> <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k> <Plug>(neosnippet_expand_target)
-  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-  let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
-  let g:neosnippet#snippets_directory='~/.vim/snippets/'
+Plug 'jeetsukumaran/vim-filebeagle'
+  let g:filebeagle_show_hidden = 1
+  if argc() == 0
+    augroup fb
+      autocmd!
+      autocmd VimEnter * FileBeagle
+    augroup end
+  endif
 
 call plug#end()
+
+" neosnippet
+" -------------------------------------------------------------
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+let g:neosnippet#disable_runtime_snippets = { '_' : 1 }
+let g:neosnippet#snippets_directory='~/.vim/snippets/'
+
+" CoC
+" -------------------------------------------------------------
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>s <Plug>(coc-rename)
+nmap <leader>i <Plug>(coc-fix-current)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+map <2-LeftMouse> <Plug>(coc-action-highlight)
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+augroup coc
+  autocmd!
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'filename': 'RelativePathFilename'
+      \ },
+      \ }
+function RelativePathFilename()
+  return fnamemodify(expand("%"), ":~:.")
+endfunction
+
 
 noremap H ^
 noremap L $
@@ -103,7 +154,6 @@ nnoremap ' ;
 nnoremap j gj
 nnoremap k gk
 nnoremap Q <nop>
-nnoremap <leader>s :%s///g<left><left>
 nnoremap <leader>j :bn<cr>
 nnoremap <leader>k :bp<cr>
 nnoremap <leader>l gt
@@ -120,6 +170,9 @@ nnoremap <c-l> <c-w><c-l>
 nnoremap <c-k> <c-w><C-k>
 nnoremap <c-j> <c-w><c-j>
 nnoremap <silent> <leader><return> :nohl<cr>
+nnoremap `. `.zz
+nnoremap <F12> <Esc>:syntax sync fromstart<CR>
+nnoremap <silent> <2-LeftMouse> :let @/='\V\<'.escape(expand('<cword>'), '\').'\>'<cr>:set hls<cr>
 
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>
@@ -137,7 +190,7 @@ vnoremap <leader>s :s///g<left><left>
 set nocompatible
 set encoding=utf-8
 set mouse=a
-if &term =~ '^screen'
+if !has('nvim') && &term =~ '^screen'
   set ttymouse=xterm2
 endif
 set pastetoggle=<F8>
@@ -159,18 +212,46 @@ set number
 set laststatus=2
 set timeout ttm=0
 set t_Co=256 background=dark
-set wildignore=*.o,.git,*.png,*.jpe?g,*.gif
+set wildignore=.git,*.png,*.jpe?g,*.gif
+set nofixeol
+set nofoldenable
+set noshowmode
+set cmdheight=2
+set updatetime=300 " for CursorHold
+set shortmess+=c
+set signcolumn=auto
 
 iabbrev functino function
 iabbrev reutrn return
+iabbrev improt import
+
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 augroup ft
   autocmd!
-  autocmd FileType *         setlocal formatoptions-=cro
-  autocmd Filetype *         if getfsize(@%) > 1000000 | setlocal syntax=off | endif
-  autocmd FileType gitcommit setlocal formatoptions+=tl tw=72 cc=72 syntax=on
-  autocmd FileType markdown  setlocal formatoptions+=tl tw=80
-  autocmd FileType css       setlocal syntax=less
+  autocmd FileType *         setl formatoptions-=cro
+  autocmd FileType *         if getfsize(@%) > 1000000 | setl syntax=off | endif
+  " autocmd FileType gitcommit setl formatoptions+=tl textwidth=72 colorcolumn=72
+  autocmd FileType markdown  setl formatoptions+=tl textwidth=80
+  " autocmd CursorHold *       silent call CocAction('highlight')
+  " autocmd BufWrite *.ts,*.tsx :OR
+  autocmd VimResized * redraw!
 augroup end
 
 colorscheme gruvbox
+
+hi default CocHighlightText  ctermbg=237 guibg=#3c3836 ctermfg=NONE guifg=NONE
+hi default link CocHighlightRead  CocHighlightText
+hi default link CocHighlightWrite CocHighlightText
+
+" Plug 'w0rp/ale'
+"   let g:ale_lint_on_text_changed = "never"
+"   let g:ale_lint_on_enter = 0
+"   let g:ale_fixers = {
+"   \   'javascript': ['prettier'],
+"   \   'typescript': ['prettier'],
+"   \}
+"   let g:ale_linters = {
+"   \   'typescript': ['tsserver'],
+"   \}
+"   let g:ale_fix_on_save = 1
